@@ -281,7 +281,7 @@ blog-lists-blog{
     }
     .list-block{
         h3{ 
-            line-height: 10px;
+            line-height: 16px;
             a{
                 color: #fff; font-size: 17px;
             }
@@ -413,9 +413,14 @@ h2.blogpost-wrapper-title, .widget-head{
                 margin-top: 30px;
             }
             h3.title{
+                position: relative; 
+                .icon{
+                    position: absolute; top: 6px; left: 9px;
+                    .border-radius(50%); border: 3px solid #cc3300;
+                }
                 a{
                     color: #fff;
-                    padding: 20px;
+                    padding: 20px; padding-left: 70px;
                     background: #b37922;
                     .border-radius(5px);
                     display: inline-block;
@@ -964,12 +969,16 @@ h2.blogpost-wrapper-title, .widget-head{
     h1.entry-title{color: #fff;}
     .media-cat{
         h3.entry-title{
+            .icon{
+                width: 35px; height: 35px; float: left; margin-right: 7px; .border-radius(3px);
+            }
             color: #ffb100; padding: 0 8px;
             border-bottom: 2px solid #552b12;
             margin-bottom: 0; padding-bottom: 10px;
             a.view-all{
                 float: right; font-size: 14px; vertical-align: bottom; color: #fff;
             }
+            clear: both;
         }
         .media{
             padding-left: 7px; padding-right: 7px;

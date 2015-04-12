@@ -23,7 +23,7 @@
             foreach ($media_cats as $mcat) {
                 ?>
                 <div class="col-sm-6 media-cat">
-                    <h3 class="entry-title"><span class="fa fa-image"> </span> <?php echo $mcat->name ?><a class="view-all" href="<?php echo get_term_link($mcat); ?>"><?php echo __('Xem tất cả', 'iz_theme') ?> <span class="fa fa-angle-double-right"></span></a></h3>
+                    <h3 class="entry-title"><img class="icon" src="<?php echo z_taxonomy_image_url($mcat->term_id); ?>" /> <?php echo $mcat->name ?><a class="view-all" href="<?php echo get_term_link($mcat); ?>"><?php echo __('Xem tất cả', 'iz_theme') ?> <span class="fa fa-angle-double-right"></span></a></h3>
                     <?php
                     query_posts(array(
                         'post_type' => 'attachment', 'post_status' => 'inherit', 'posts_per_page' => 4, 'tax_query' => array(
