@@ -9,18 +9,16 @@ function trendify_themepacific_wp_head() {
     <style type="text/css" media="screen"> 
     <?php if (!empty($data['body_background_color']) || !empty($data['custom_bg'])) { ?>
 
-            body { 
-        <?php if (!empty($data['body_background_color'])) { ?>background-color:<?php echo $data['body_background_color'];
-        }
-        ?>;
-        <?php if (!empty($data['custom_bg']) && $data['custom_full_bg_img'] == 'no') { ?>background-repeat: repeat;background-image: url('<?php
-            if (!empty($data['custom_bg_upload'])) {
-                echo $data['custom_bg_upload'];
-            } else
-                echo $data['custom_bg'];
+            /*body { 
+        <?php //if (!empty($data['body_background_color'])) { ?>background-color:<?php //echo $data['body_background_color']; //} ?>; 
+        <?php //if (!empty($data['custom_bg']) && $data['custom_full_bg_img'] == 'no') { ?>background-repeat: repeat;background-image: url('<?php
+//            if (!empty($data['custom_bg_upload'])) {
+//                echo $data['custom_bg_upload'];
+//            } else
+//                echo $data['custom_bg'];
             ?>');
-        <?php } ?>
-            }
+        <?php //} ?>
+            } */
         <?php if (!empty($data['custom_logo_margin_top'])) { ?>
                 #logo{margin-top:<?php echo $data['custom_logo_margin_top']; ?>}
         <?php } ?>
