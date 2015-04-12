@@ -28,8 +28,11 @@
 
 
         // champion talent select
+        $('#list-champions .iz-champion:first').addClass('ch-select');
         $('#list-champions .iz-champion a').click(function (e) {
             e.preventDefault();
+            $('#list-champions .iz-champion').removeClass('ch-select');
+            $(this).parent('.iz-champion').addClass('ch-select');
             var load_url = params.talent_url;
             var ch_id = $(this).attr('data-id');
             $('#talent-loading').fadeIn(200);
@@ -100,9 +103,9 @@
         
         $('.list-medias').bxSlider({
             slideWidth: 150,
-            minSlides:5,
+            minSlides:1,
             maxSlides:5,
-            slideMargin: 10,
+            slideMargin: 7,
             moveSlides: 1
         });
 //        $('.tax-fl_media_cat .list-medias .media a').click(function(e){

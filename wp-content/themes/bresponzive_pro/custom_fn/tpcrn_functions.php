@@ -242,7 +242,7 @@ function bresponZive_themepacific_tpcrn_pagination() {
         'prev_next' => false,
         'prev_text' => __('<i class="icon-double-angle-left"></i>'),
         'next_text' => __('<i class="icon-double-angle-right"></i>'),
-        'current' => max(1, get_query_var('paged')),
+        'paged' => max(1, get_query_var('paged')),
         'total' => $wp_query->max_num_pages)
     );
 }

@@ -21,7 +21,10 @@
  					 case 'hb_nor_blog':
 					?>
  					 <h2 class="blogpost-wrapper-title"><?php echo __('Nổi bật', 'iz_theme'); ?></h2>	
-							<?php include_once('includes/blog_loop.php');?>
+							<?php
+                                                        query_posts(array('post_type' => 'fl_guide', 'posts_per_page'=>5));
+                                                        include_once('includes/blog_loop.php');
+                                                        ?>
 							
 							<?php
 					 break;

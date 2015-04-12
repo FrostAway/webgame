@@ -170,7 +170,12 @@ function iz_post_query_function($query) {
     if(!is_admin() && $query->is_main_query()) {
         if(is_tax('fl_media_cat')) {
             $query->set('post_status', 'inherit');
-            $query->set('post_mime_type', 'image');
+        }
+        if(is_tax('fl_guide_cat')){
+            $query->set('posts_per_page', 10);
+        }
+        if(is_category()){
+            $query->set('posts_per_page', 10);
         }
     }
 }

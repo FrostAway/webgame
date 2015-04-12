@@ -20,7 +20,9 @@
             ));
             ?>
             <div class="list-champions">
-                <?php if (have_posts()): while (have_posts()): the_post(); ?>
+                <div class="ch-row">
+                <?php $i=0; if (have_posts()): while (have_posts()): the_post(); ?>
+                
                         <div class="iz-champion">
                             <div class="wrap">
                                 <a href="<?php the_permalink(); ?>" data-id="<?php echo get_the_ID() ?>" title="<?php the_title() ?>">
@@ -37,8 +39,9 @@
                                 </div>
                             </div>
                         </div>
-                        <?php
+                        <?php $i++; if($i==3){echo '</div><div class="ch-row">';}
                     endwhile;
+                    echo '</div>';
                     wp_reset_query();
                 else:
                     ?>

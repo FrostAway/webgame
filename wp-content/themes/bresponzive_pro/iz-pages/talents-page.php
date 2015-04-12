@@ -31,7 +31,7 @@
             </div>
 
             <hr />
-            <?php $currch = get_posts(array('post_type' => 'fl_champion', 'showposts' => 2))[1]; ?>           
+            <?php $currch = get_posts(array('post_type' => 'fl_champion', 'showposts' => 1))[0]; ?>           
             
             <div id="talent-loading">
                 <img width="50" height="50" src="<?php echo get_template_directory_uri() ?>/images/loader33.gif" />

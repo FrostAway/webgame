@@ -21,7 +21,10 @@
                     <?php _e('Blog', 'iz_theme'); ?>
                 <?php endif; ?>
             </h2> 
-            <?php include_once('includes/blog_loop.php'); ?>
+            <?php 
+            
+            include_once('includes/blog_loop.php'); 
+            ?>
         </div>
     </div>
     <!-- END MAIN -->

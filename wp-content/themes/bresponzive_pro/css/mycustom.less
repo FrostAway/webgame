@@ -256,6 +256,11 @@ html body{
     }
     background: rgba(26, 15, 8, 0.9);
 }
+.category{
+    .blogposts-wrapper{
+        margin-left: -15px; margin-right: -15px; padding-left: 15px; padding-right: 15px; padding-bottom: 15px;
+    }
+}
 blogpost-wrapper-title a{
     padding-left: 7px;
     color: #fff;
@@ -291,6 +296,7 @@ blog-lists-blog{
             p{color: #a99877; margin-bottom: 0;}
         }
         .post-meta-blog{
+            border-top: none; border-bottom: none;
             .meta_author{
                 font-size: 12px;
                 a{
@@ -734,7 +740,24 @@ h2.blogpost-wrapper-title, .widget-head{
 
     }
 }
-
+.list-posts{
+    .post{
+        background: #161616; 
+        border: 2px solid #1b1b1b;
+        .border-radius(3px); margin: 3px 0;
+        margin-bottom: 0;
+        .image{
+            padding-right: 0;
+        }
+        .post-info{
+            h4.title{color: #ffb100;}
+            .meta{
+                color:  #fff;
+            }
+        }
+        &:hover{background: #1f1f1f;}
+    }
+}
 .list-posts{
     .post{
         padding: 7px 0;
@@ -899,9 +922,21 @@ h2.blogpost-wrapper-title, .widget-head{
     h1.entry-title{color: #ffb100;}
     .list-champions{
         .iz-champion{
+                &:nth-child(3):after { content:"\A";}
+            }
+            .ch-row{
+                margin-top: -13px;
+                &:nth-child(2n){
+                    padding-left: 37px;
+                }
+                &:first-child{
+                    margin-top: 0;
+                }
+            }
+        .iz-champion{
             display: inline-block;
             height: 70px;
-            margin: 0 2px;
+            margin: 0;
             position: relative;
             text-align: left;
             width: 70px;
@@ -1011,7 +1046,7 @@ h2.blogpost-wrapper-title, .widget-head{
 
 #main-active-media{
     .media{
-        img{width: 100%; max-height: 400px;}
+        img, video{width: 100%; max-height: 400px;}
     }
 }
 .list-medias{
@@ -1020,6 +1055,9 @@ h2.blogpost-wrapper-title, .widget-head{
         display: inline-block;
         .image{
             img{
+                width: 100%;
+            }
+            video{
                 width: 100%;
             }
         }
@@ -1032,6 +1070,7 @@ h2.blogpost-wrapper-title, .widget-head{
 
 #blocks-left{
     /*width: 100%;*/
+    padding-bottom: 15px;
 
 }
 #blocks-wrapper{
@@ -1063,6 +1102,13 @@ h3.tpcrn_r_p, .author-content h3, #comments > h2{
 .single, .single-attachment{
     .mejs-container{
         width: 100%!important;
+    }
+}
+.page-template-heroes{
+    #heroes{
+        .list-champions{
+            
+        }
     }
 }
 
