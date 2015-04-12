@@ -1,0 +1,108 @@
+#champion-ind{
+    .champion-ind-table{
+        width: 100%;
+        th{text-align: left;}
+    }
+}
+
+#champion-gallery{
+    .champion-images{
+        li{
+            position: relative; float: left; margin: 9px 9px 0 0;
+            width: 75px; height: 75px;
+            img{
+                width: 100%; height: 100%;
+            }
+            .iz-actions-del{
+                position: absolute; top: 0; right: 0;
+                border-radius: 50%;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -o-border-radius: 50%;
+                background: rgba(0, 0, 0, 0.5);
+                color: #fff;
+                &:hover{
+                    background: rgba(0, 0, 0, 1);
+                    color: #00ffff;
+                }
+            }
+        }
+        &:after{
+            content: ' ';
+            display: table;
+            clear: both;
+        }
+        clear: both;
+    }
+}
+#champion-skill, #champion-skins{
+    table{
+        tr{
+            .icon{
+                width: 120px;
+            }
+            .name{
+                width: 150px;
+            }
+            .mana, .down{
+                width: 80px;
+                input{
+                    width: 100%;
+                }
+            }
+            textarea{width: 100%;}
+        }
+    }
+    #add-skill, #add-skin{
+        display: block; float: right; margin-top: 15px;
+    }
+    overflow: hidden;
+}
+#champion-skins{
+    .skin-images{
+        li{
+            position: relative;
+            margin-right: 5px;
+            &:last-child{margin-right: 0;}
+            img{
+                width: 100px; height: 100px;
+            }
+            .iz-actions-skin-del{
+                position: absolute; top: 0; right: 0;
+                border-radius: 50%;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -o-border-radius: 50%;
+                background: rgba(0, 0, 0, 0.5);
+                color: #fff;
+                &:hover{
+                    background: rgba(0, 0, 0, 1);
+                    color: #00ffff;
+                }
+            }
+        }
+    }
+}
+
+.table-hidden{
+    display: none;
+}
+
+.list-champions{
+    .iz-champion{
+        border: 2px solid #fff;
+        display: inline-block; margin: 5px;
+        a{
+            img{
+                width: 60px; height: 60px;
+            }
+        }
+        &:focus{
+            border-color: #06afe4;
+        }
+    }
+    .ch-select{
+        border-color: #06afe4;
+    }
+}
+
