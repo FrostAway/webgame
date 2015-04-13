@@ -124,8 +124,10 @@ function fl_add_champion_fields() {
 
     add_meta_box('fl-champion-ind', __('Chỉ số tướng', 'iz_theme'), 'fl_champion_ind', 'fl_champion', 'normal', 'high', array());
     add_meta_box('fl-champion-skill', __('Kỹ năng', 'iz_theme'), 'fl_champion_skill', 'fl_champion', 'normal', 'high', array());
-    add_meta_box('fl-champion-gallery', __('Hình ảnh tướng', 'iz_theme'), 'fl_champion_gallery', 'fl_champion', 'side', 'low', array());
     add_meta_box('fl-champion-skin', __('Ngoại Trang', 'iz_theme'), 'fl_champion_skin', 'fl_champion', 'normal', 'high', array());
+    add_meta_box('fl-champion-gallery', __('Hình ảnh tướng', 'iz_theme'), 'fl_champion_gallery', 'fl_champion', 'side', 'low', array());
+    add_meta_box('fl-champion-face', __('Ảnh mặt tướng', 'iz_theme'), 'fl_champion_face', 'fl_champion', 'side', 'low', array());
+    add_meta_box('fl-champion-bg', __('Ảnh Nền', 'iz_theme'), 'fl_champion_bg', 'fl_champion', 'side', 'low', array());
 }
 
 function fl_champion_ind($post) {
@@ -200,12 +202,12 @@ function fl_champion_skill($post) {
     <div id="champion-skill">
         <table class="iz-setting-box" style="width: 100%">
             <tr>
-                <th><?php ?></th>
                 <th><?php echo __('Hình ảnh', 'iz_theme') ?></th>
                 <th><?php echo __('Tên', 'iz_theme') ?></th>
                 <th><?php echo __('Dùng Mana', 'iz_theme') ?></th>
                 <th><?php echo __('T/G Hồi', 'iz_theme') ?></th>
                 <th><?php echo __('Mô tả', 'iz_theme') ?></th>
+                <th><?php echo __('Animate', 'iz_theme') ?></th>
             </tr>
             <?php
             if ($ch_skills != null) {
@@ -213,9 +215,8 @@ function fl_champion_skill($post) {
                 ?>
                 <?php foreach ($ch_skills as $skill) { ?>
                     <tr class="iskill">
-                        <th><span class="dashicons dashicons-arrow-right-alt2"></span></th>
                         <td class="icon">
-                            <a class="icon-image" href="#"><img height="80" width="80" src="<?php echo $skill[0] ?>" /></a>
+                            <a class="icon-image" href="#"><img height="45" width="45" src="<?php echo $skill[0] ?>" /></a>
                             <input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[<?= $i ?>][]" value="<?php echo $skill[0] ?>" />
                             <a class="skill-url-del dashicons dashicons-no-alt"></a>
                         </td>
@@ -223,7 +224,13 @@ function fl_champion_skill($post) {
                         <td class="mana"><input type="number" size="5" name="iz-ch-skills[<?= $i ?>][]" value="<?php echo $skill[2] ?>" /></td>
                         <td class="down"><input type="number" size="5" name="iz-ch-skills[<?= $i ?>][]" value="<?php echo $skill[3] ?>" /></td>
                         <td class="desc"><textarea name="iz-ch-skills[<?= $i ?>][]"><?php echo $skill[4] ?></textarea></td>
+                        <td class="animate">
+                            <a class="icon-image" href="#"><img height="70" width="70" src="<?php echo $skill[5] ?>" alt="Select" /></a>
+                            <input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[<?= $i ?>][]" value="<?php if($skill[5]) echo $skill[5] ?>" />
+                            <a class="skill-url-del dashicons dashicons-no-alt"></a> 
+                        </td>
                         <td class="skill-del"><a href="#" class="button"><span class="dashicons dashicons-no-alt" style="padding-top: 3px;"></span></a></td>
+                        
                     </tr>
                     <?php
                     $i++;
@@ -234,33 +241,6 @@ function fl_champion_skill($post) {
         <button id="add-skill" class="button" type="button"><?php echo __('Thêm kỹ năng', 'iz_theme') ?></button>
         <input type="hidden" name="iz-champion-skill-vl" value="1" />
     </div>
-    <?php
-}
-
-function fl_champion_gallery($post) {
-    $galleries = get_post_meta($post->ID, 'iz-ch-galleries', true);
-    $galleries = ($galleries == null) ? null : $galleries;
-    ?>
-    <div id="champion-gallery">
-        <ul class="champion-images ui-sortable">
-            <?php
-            if ($galleries != null) {
-                foreach ($galleries as $item) {
-                    ?>
-                    <li class="image" data-attachment_id="" style="cursor: default;">
-                        <img class="attachment-thumbnail iz-ch-image" width="150" height="150" alt="Gallery" src="<?php echo $item ?>" />
-                        <input type="hidden" class="iz-ch-imgurl" name="iz-ch-galleries[]" value="<?php echo $item ?>" />
-                        <a class="iz-actions-del dashicons dashicons-no-alt"></a>
-                    </li>
-                    <?php
-                }
-            }
-            ?>
-        </ul>        
-    </div>
-    <p class="add_champion_images hide-if-no-js">
-        <a data-text="Xóa" data-delete="Xóa ảnh" data-update="Thêm vào thư viện" data-chose="Thêm ảnh vào thư viện" href="#">Thêm ảnh Tướng</a>
-    </p>
     <?php
 }
 
@@ -303,6 +283,62 @@ function fl_champion_skin($post) {
 
     <?php
 }
+
+function fl_champion_gallery($post) {
+    $galleries = get_post_meta($post->ID, 'iz-ch-galleries', true);
+    $galleries = ($galleries == null) ? null : $galleries;
+    ?>
+    <div id="champion-gallery">
+        <ul class="champion-images ui-sortable">
+            <?php
+            if ($galleries != null) {
+                foreach ($galleries as $item) {
+                    ?>
+                    <li class="image" data-attachment_id="" style="cursor: default;">
+                        <img class="attachment-thumbnail iz-ch-image" width="150" height="150" alt="Gallery" src="<?php echo $item ?>" />
+                        <input type="hidden" class="iz-ch-imgurl" name="iz-ch-galleries[]" value="<?php echo $item ?>" />
+                        <a class="iz-actions-del dashicons dashicons-no-alt"></a>
+                    </li>
+                    <?php
+                }
+            }
+            ?>
+        </ul>        
+    </div>
+    <p class="add_champion_images hide-if-no-js">
+        <a data-text="Xóa" data-delete="Xóa ảnh" data-update="Thêm vào thư viện" data-chose="Thêm ảnh vào thư viện" href="#">Thêm ảnh Tướng</a>
+    </p>
+    <?php
+}
+
+function fl_champion_face($post){
+    $face = get_post_meta($post->ID, 'iz-ch-face', true);
+    ?>
+    <div id="champion-face">
+        <div id="champion-face-image">
+            <img id="show-chapion-face" src="<?php if($face != '') echo $face; ?>" alt="Champion face" />
+            <a href="#" id="del-champion-face"><?php echo __('Xóa', 'iz_theme'); ?></a>
+            <input type="hidden" name="iz-ch-face" id="champion-face-value" value="<?php echo $face ?>" />
+        </div>
+        <a href="<?php echo $face ?>" id="btn-champion-face"><?php echo __('Chọn ảnh', 'iz_theme') ?></a>
+    </div>
+    <?php
+}
+
+function fl_champion_bg($post){
+    $bg = get_post_meta($post->ID, 'iz-ch-bg', true);
+    ?>
+    <div id="champion-bg">
+        <div id="show-bg">
+            <img style="width: 100%;" id="show-bg-image" src="<?php echo $bg ?>" alt="<?php echo __('Chọn ảnh nền', 'iz_theme') ?>" />
+            <a href="#" id="del-bg-image"><?php echo __('Xóa', 'iz_theme') ?></a>
+            <input type="hidden" name="iz-ch-bg" id="champion-bg-value" value="<?php echo $bg ?>" />
+        </div>
+        <a href="<?php echo $bg ?>" id="btn-champion-bg"><?php echo __('Chọn ảnh nền', 'iz_theme') ?></a>
+    </div>
+    <?php
+}
+
 
 function fl_load_champion_admin_script() {
     if (isset($_GET['post'])) {
@@ -386,12 +422,19 @@ function fl_champion_save($post_id) {
     if (isset($_POST['iz-ch-skills'])) {
         update_post_meta($post_id, 'iz-ch-skills', $_POST['iz-ch-skills']);
     }
-    if (isset($_POST['iz-ch-galleries'])) {
-        update_post_meta($post_id, 'iz-ch-galleries', $_POST['iz-ch-galleries']);
-    }
     if (isset($_POST['iz-ch-skins'])) {
         update_post_meta($post_id, 'iz-ch-skins', $_POST['iz-ch-skins']);
     }
+     if (isset($_POST['iz-ch-galleries'])) {
+        update_post_meta($post_id, 'iz-ch-galleries', $_POST['iz-ch-galleries']);
+    }
+    if (isset($_POST['iz-ch-face'])){
+        update_post_meta($post_id, 'iz-ch-face', $_POST['iz-ch-face']);
+    }
+   if(isset($_POST['iz-ch-bg'])){
+       update_post_meta($post_id, 'iz-ch-bg', $_POST['iz-ch-bg']);
+   }
+    
 }
 
 add_action('save_post', 'fl_champion_save');

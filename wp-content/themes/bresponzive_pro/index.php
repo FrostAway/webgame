@@ -22,7 +22,7 @@
 					?>
  					 <h2 class="blogpost-wrapper-title"><?php echo __('Nổi bật', 'iz_theme'); ?></h2>	
 							<?php
-                                                        query_posts(array('post_type' => 'fl_guide', 'posts_per_page'=>5));
+                                                        query_posts(array('post_type' => 'fl_guide', 'posts_per_page'=>5, 'paged'=>max(1, get_query_var('paged'))));
                                                         include_once('includes/blog_loop.php');
                                                         ?>
 							

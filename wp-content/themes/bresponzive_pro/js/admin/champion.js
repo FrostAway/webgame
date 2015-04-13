@@ -2,8 +2,8 @@
     $(document).ready(function () {
 
         //indexs
-        
-        
+
+
 //        function add_index() {
 //            $('#champion-ind .add_index').click(function (e) {
 //                e.preventDefault();
@@ -40,7 +40,7 @@
 //            $(this).closest('tr').removeClass('index').fadeOut(200).html('');
 //        });
 
-        
+
 
 
         //end index
@@ -89,9 +89,9 @@
         //add icon skill
         function skill_icon() {
             var custom_uploader_icon;
-            $('#champion-skill .icon .icon-image').click(function (e) {
+            $('#champion-skill .icon .icon-image, #champion-skill .animate .icon-image').click(function (e) {
                 var curr_icon = $(this).find('img');
-                var skill_url = $(this).parent('.icon').find('.iz-ch-skill-url');
+                var skill_url = $(this).parent().find('.iz-ch-skill-url');
                 e.preventDefault();
                 if (custom_uploader_icon) {
                     custom_uploader_icon.open();
@@ -111,8 +111,8 @@
                     custom_uploader_icon = false;
                     $('.skill-url-del').click(function (e) {
                         e.preventDefault();
-                        $(this).parent('.icon').find('.icon-image img').attr('src', '');
-                        $(this).parent('.icon').find('.iz-ch-skill-url').val('');
+                        $(this).parent().find('.icon-image img').attr('src', '');
+                        $(this).parent().find('.iz-ch-skill-url').val('');
                     });
                 });
                 custom_uploader_icon.open();
@@ -120,8 +120,8 @@
 
             $('.skill-url-del').click(function (e) {
                 e.preventDefault();
-                $(this).parent('.icon').find('.icon-image img').attr('src', '');
-                $(this).parent('.icon').find('.iz-ch-skill-url').val('');
+                $(this).parent('').find('.icon-image img').attr('src', '');
+                $(this).parent('').find('.iz-ch-skill-url').val('');
             });
         }
         skill_icon();
@@ -133,16 +133,20 @@
             var num = $('#champion-skill table tbody .iskill').size();
             $("#champion-skill table tbody").append(
                     '<tr class="iskill">' +
-                    '<th><span class="dashicons dashicons-arrow-right-alt2"></span></th>' +
                     '<td class="icon">' +
-                    '<a class="icon-image" href="#"><img height="80" width="80" src="" /></a>' +
+                    '<a class="icon-image" href="#"><img height="45" width="45" src="" /></a>' +
                     '<input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[' + num + '][]" value="" />' +
                     '<a class="skill-url-del dashicons dashicons-no-alt"></a>' +
                     '</td>' +
-                    '<td class="name"><input type="text" size="15" name="iz-ch-skills['+num+'][]" value="" /></td>' +
-                    '<td class="mana"><input type="number" name="iz-ch-skills['+num+'][]" value="" /></td>'+
-                    '<td class="down"><input type="number" name="iz-ch-skills['+num+'][]" value="<?php echo $skill[3] ?>" /></td>'+
+                    '<td class="name"><input type="text" size="15" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
+                    '<td class="mana"><input type="number" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
+                    '<td class="down"><input type="number" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
                     '<td class="desc"><textarea name="iz-ch-skills[' + num + '][]"></textarea></td>' +
+                    '<td class="animate">'+
+                            '<a class="icon-image" href="#"><img height="70" width="70" src="" alt="Select" /></a>'+
+                            '<input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills['+num+'][]" value="" />'+
+                            '<a class="skill-url-del dashicons dashicons-no-alt"></a>'+ 
+                        '</td>'+
                     '<td class="skill-del"><a href="#" class="button"><span class="dashicons dashicons-no-alt" style="padding-top: 3px;"></span></a></td>' +
                     '</tr>'
                     );
@@ -216,7 +220,7 @@
                     '<a class="skin-url-del dashicons dashicons-no-alt"></a>' +
                     '</td>' +
                     '<td class="desc"><textarea name="iz-ch-skins[' + num + '][]"></textarea></td>' +
-                    '<td class="link"><textarea name="iz-ch-skins[' + num + '][]"></textarea></td>'+
+                    '<td class="link"><textarea name="iz-ch-skins[' + num + '][]"></textarea></td>' +
                     '<td class="skin-del"><a href="#" class="button"><span class="dashicons dashicons-no-alt" style="padding-top: 3px;"></span></a></td>' +
                     '</tr>'
                     );
@@ -236,6 +240,50 @@
         //end add row skin
 
         //end skill
+
+        //champion face
+        $('#champion-face #btn-champion-face').click(function (e) {
+            e.preventDefault();
+            var custom_uploader = wp.media({
+                title: 'Chọn ảnh',
+                button: {
+                    text: 'Chọn ảnh'
+                },
+                multiple: false  // Set this to true to allow multiple files to be selected
+            })
+                    .on('select', function () {
+                        var attachment = custom_uploader.state().get('selection').first().toJSON();
+                        $('#champion-face #show-chapion-face').attr('src', attachment.url);
+                        $('#champion-face #champion-face-value').val(attachment.url);
+                    })
+                    .open();
+        });
+        $('#champion-face #del-champion-face').click(function (e) {
+            e.preventDefault();
+            $(this).closest('#champion-face').remove();
+        });
+        
+        //champion_bg
+        $('#champion-bg #btn-champion-bg').click(function (e) {
+            e.preventDefault();
+            var custom_uploader = wp.media({
+                title: 'Chọn ảnh',
+                button: {
+                    text: 'Chọn ảnh'
+                },
+                multiple: false  // Set this to true to allow multiple files to be selected
+            })
+                    .on('select', function () {
+                        var attachment = custom_uploader.state().get('selection').first().toJSON();
+                        $('#champion-bg #show-bg-image').attr('src', attachment.url);
+                        $('#champion-bg #champion-bg-value').val(attachment.url);
+                    })
+                    .open();
+        });
+        $('#champion-bg #del-bg-image').click(function (e) {
+            e.preventDefault();
+            $(this).closest('#champion-bg').remove();
+        });
 
     });
 
