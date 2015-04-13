@@ -106,7 +106,7 @@ html body{
             #iz-register{
                 background: none repeat scroll 0 0 #06afe4;
                 border: 2px solid #06afe4;
-                color: white;
+                color: white; height: 32px;
                 cursor: pointer;
                 font-weight: bold;
                 padding: 5px 15px;
@@ -115,15 +115,18 @@ html body{
                     background: #0099ff; 
                 }
                 text-transform: none;
-                line-height: 16px; height: 18px;
+                line-height: 16px;
                 margin: 0 25px;
             }
             form.login-form{
                 .username, .password, .btn-submit{
                     margin-bottom: 0;
                 }
+                .username, .password{
+                    height: 30px;
+                }
                 input[type="submit"]{
-                    padding: 5px;
+                    padding: 5px; 
                     vertical-align: top;
                     &:hover{
                         background: #0099ff;
