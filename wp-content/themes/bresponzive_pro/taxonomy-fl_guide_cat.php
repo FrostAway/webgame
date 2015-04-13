@@ -1,9 +1,9 @@
 <?php get_header(); ?>		
 <?php global $data; ?>
-<div id="blocks-wrapper" class="clearfix">
-
-    <div class="col-sm-12 col-md-8 left-col">
-        <div id="blocks-left" class="eleven columns clearfix">	
+<div id="blocks-wrapper" class=" row clearfix">
+    	
+       <div class="col-sm-12 col-md-8">
+        <div id="blocks-left" class="eleven columns clearfix">
             <!--Archive content-->
             <!-- .blogposts-wrapper-->
 
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2 votes">
-                                    <span class="number btn btn-success"><?php
+                                    <span class="number btn btn-primary"><?php
                                         $vote = get_post_meta(get_the_ID(), 'iz-vote-post', true);
                                         if ($vote == '')
                                             echo 0;
@@ -66,8 +66,8 @@
             <?php endif; ?>
             
             <div class="pagination clearfix">
-<?php bresponZive_themepacific_tpcrn_pagination(); ?>
-</div>
+            <?php bresponZive_themepacific_tpcrn_pagination(); ?>
+            </div>
         </div>
     </div>
     <!-- END MAIN -->

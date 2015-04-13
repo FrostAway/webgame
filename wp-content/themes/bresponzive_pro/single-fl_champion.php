@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-imgae">
                             <div class="main-image">
-                                <?php the_post_thumbnail('talent-page'); ?>
+                                <?php the_post_thumbnail(); ?>
                             </div>
                             <?php iz_galleries(get_the_ID()); ?>
                         </div>
@@ -81,9 +81,17 @@
                                         ?>
                                         <div class="slide skin">
                                             <div class="icon">
+                                                
                                                 <a href="<?php echo $skin[0] ?>">
-                                                    <img src="<?php echo $skin[0] ?>" title="<?php echo $skin[1] ?>" />
+                                                    <?php 
+                                                    $image = $skin[0]; 
+                                                    $image = str_replace('.jpg', '-550x550.jpg', $skin[0]);
+                                                    $image = str_replace('.png', '-550x550.png', $skin[0]);
+                                                    ?>
+                                                    <img src="<?php echo $image ?>" title="<?php echo $skin[1] ?>" />
                                                 </a>
+                                                
+                                                <div class="play fa fa-play" data-url='<?php echo $skin[2] ?>' data-toggle="modal" data-target=".video-modal-frame"></div>
                                             </div>
                                             <!--                            <div class="name">
                                             <?php //echo $skin[1]  ?>
@@ -110,10 +118,14 @@
                                     ?>
                                     <div class="col-sm-3 skill">
                                         <div class="icon">
-                                            <img src="<?php echo $skill[0] ?>" />
+                                            <video style="width: 100%">
+                                                <source src="<?php echo $skill[5] ?>" />
+                                            </video>
+                                            <div class="play fa fa-play" data-url="<?php echo $skill[5] ?>" data-toggle="modal" data-target=".video-modal"></div>
+                                            <!--<img src="<?php //echo $skill[0] ?>" />-->
                                         </div>
                                         <div class="name">
-                                            <h3><?php echo $skill[1] ?></h3>
+                                            <h4><img width="40" height="40" src="<?php echo $skill[0] ?>" style="display: inline-block;" /> <?php echo $skill[1] ?></h4>
                                         </div>
                                         <div class="meta">
                                             <span class="mana"><?php echo __('Năng lượng: ', 'iz_theme') . $skill[2]; ?></span> || 
@@ -151,6 +163,35 @@
     </div>
 
 
+</div>
+
+
+<div class="modal video-modal-frame" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><?php echo __('Video', 'iz_theme') ?></h4>
+        </div>
+        <div id="iz-frame">
+            
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal video-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><?php echo __('Video', 'iz_theme') ?></h4>
+        </div>
+        <video id="iz-video" controls="controls" style="width: 100%">
+            <source src=""  />
+        </video>
+    </div>
+  </div>
 </div>
 
 <?php get_footer(); ?>

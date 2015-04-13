@@ -24,7 +24,7 @@
                 <?php foreach ($champions as $ch) { ?>
                     <div class="iz-champion">
                         <a href="#" data-id="<?php echo $ch->ID ?>" title="<?php echo $ch->post_title ?>">
-                            <?php echo get_the_post_thumbnail($ch->ID, 'ch-guide') ?>
+                            <img src="<?php echo get_post_meta($ch->ID, 'iz-ch-face', true); ?>" />
                         </a>
                     </div>
                 <?php } ?>
@@ -37,12 +37,11 @@
                 <img width="50" height="50" src="<?php echo get_template_directory_uri() ?>/images/loader33.gif" />
             </div>
             <div id="load-talent-detail">
-                
                 <div class="row detail-talent">
                     <div class="col-sm-12 col-md-5 index-info">
                         <div class="champion">
                             <a href="<?php //echo $currch->guid ?>">
-                                <?php echo get_the_post_thumbnail($currch->ID, 'ch-guide', array('class'=>'thumbnail')) ?>
+                                <?php echo get_the_post_thumbnail($currch->ID, 'ch-guide') ?>
                                 <strong><?php echo $currch->post_title ?></strong>
                             </a>
                             <div class="clearfix"></div>

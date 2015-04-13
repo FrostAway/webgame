@@ -262,7 +262,7 @@
         .container .fifteen.columns,
         .container .sixteen.columns,
         .container .one-third.column,
-        .container .two-thirds.column { width: 420px; }
+        .container .two-thirds.column { width: 390px; }
 		#blocks-wrapper { padding:20px;}
 		#catmenu {display:none;}
 		#catnav select{display:block;}

@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 <!--#blocks-wrapper-->
 <div id="blocks-wrapper" class="clearfix row">
+    
 <!--#blocks-left-or-right-->
 <div class="col-sm-12 col-md-8 left-col">
 	<div id="blocks-left" class="eleven columns clearfix">	

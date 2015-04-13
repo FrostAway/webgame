@@ -88,7 +88,7 @@ function fl_add_post_type() {
         ),
         'description' => __('Hướng dẫn mọi thứ trong game', 'iz_theme'),
         'supports' => array(
-            'title', 'thumbnail', 'editor', 'comments', 'excerpt'
+            'title', 'thumbnail', 'editor', 'comments', 'excerpt', 'author'
         ),
         'hierarchical' => true,
         'has_archive' => true,
@@ -110,8 +110,9 @@ function fl_add_post_type() {
         ),
         'public' => true,
         'hierarchical' => true,
+        'has_archive' => true,
         'show_admin_column' => true,
-        'rewirte' => array('slug' => 'guide_cat'),
+        'rewirte' => array('slug' => 'fl_guide_cat'),
         'query_var' => true
     ));
 }
@@ -225,7 +226,9 @@ function fl_champion_skill($post) {
                         <td class="down"><input type="number" size="5" name="iz-ch-skills[<?= $i ?>][]" value="<?php echo $skill[3] ?>" /></td>
                         <td class="desc"><textarea name="iz-ch-skills[<?= $i ?>][]"><?php echo $skill[4] ?></textarea></td>
                         <td class="animate">
-                            <a class="icon-image" href="#"><img height="70" width="70" src="<?php echo $skill[5] ?>" alt="Select" /></a>
+                            <a class="icon-image" href="#">
+                                <img height="70" width="70" src="<?php echo $skill[5] ?>" alt="Select" />
+                            </a>
                             <input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[<?= $i ?>][]" value="<?php if($skill[5]) echo $skill[5] ?>" />
                             <a class="skill-url-del dashicons dashicons-no-alt"></a> 
                         </td>
@@ -489,14 +492,15 @@ function fl_guide_champion($post) {
         'hide_empty' => false,
     ));
     ?>
+        <?php $guide_ch = get_post_meta($post->ID, 'iz-guide-champion', true); ?>
     <select name="guide-champion" id="guide-champion">
         <option value="0">Chọn tướng</option>
-    <?php foreach ($champions as $ch) { ?>
-            <option value="<?php echo $ch->ID ?>"><?php echo $ch->post_title ?></option>
+    <?php foreach ($champions as $ch) {?>
+        <option value="<?php echo $ch->ID ?>" <?php selected($ch->ID, $guide_ch, true); ?>><?php echo $ch->post_title ?></option>
     <?php } ?>
     </select>
     <div class="list-champions">
-        <?php $guide_ch = get_post_meta($post->ID, 'iz-guide-champion', true); ?>
+        
         <?php foreach ($champions as $ch) { ?>
             <?php
             $ch_select = '';

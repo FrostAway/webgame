@@ -168,7 +168,6 @@ z-index: 3;
 .camera_caption > div {
 background: #222;
 background: rgba(0, 0, 0, 0.91);
-height: 80px;
 width: 100%;
 float: right;
 }

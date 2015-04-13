@@ -26,7 +26,7 @@
                         <div class="iz-champion">
                             <div class="wrap">
                                 <a href="<?php the_permalink(); ?>" data-id="<?php echo get_the_ID() ?>" title="<?php the_title() ?>">
-                                    <?php the_post_thumbnail('pager') ?>
+                                    <img src="<?php echo get_post_meta(get_the_ID(), 'iz-ch-face', true); ?>" />
                                 </a>
                             </div>
                             <div class="text-tooltip">
@@ -50,9 +50,6 @@
 
             </div>
             
-            <hr />
-            
-            
             <h1 class="entry-title"><?php echo __('Hưỡng dẫn phổ biến', 'iz_theme') ?></h1>
             <?php query_posts(array('post_type'=>'fl_guide', 'posts_per_page'=>5)); ?>
             <div class="list-guide list-posts">
@@ -69,7 +66,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2 votes">
-                                                    <span class="number btn btn-success"><?php $vote = get_post_meta(get_the_ID(), 'iz-vote-post', true);
+                                                    <span class="number btn btn-primary"><?php $vote = get_post_meta(get_the_ID(), 'iz-vote-post', true);
                                                 if($vote == '') echo 0; else echo $vote; ?> Votes</span>
                                                 </div>
                                             </a>

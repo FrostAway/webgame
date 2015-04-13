@@ -59,7 +59,7 @@
                                 <?php foreach ($champions as $ch){ ?>
                                 <div class="iz-champion">
                                     <a href="#" data-id="<?php echo $ch->ID ?>" title="<?php echo $ch->post_title ?>">
-                                        <?php echo get_the_post_thumbnail($ch->ID, 'ch-guide') ?>
+                                        <img src="<?php echo get_post_meta($ch->ID, 'iz-ch-face', true); ?>" alt="Heroes" />
                                     </a>
                                 </div>
                                 <?php } ?>
@@ -77,6 +77,13 @@
                                     <?php } ?>
                                 </select>
                             </div>
+                        </div>
+                        
+                        <div class="guide-thumbnail" style="margin-top: 20px;">
+                            <label><?php echo __('Chọn Ảnh tiêu biểu', 'iz_theme') ?></label>
+                            <img class="show-thumbnail" src="<?php echo get_template_directory_uri() ?>/images/iz_images/default.jpeg" />
+                            <input type="hidden" name="guide-thumbnail" class="guide-thumbnail-value" value="" />
+                            <a class="btn btn-default" id="guide-upload"><?php echo __('Upload', 'iz_theme') ?></a>
                         </div>
                         
                         <div class="guide-content">

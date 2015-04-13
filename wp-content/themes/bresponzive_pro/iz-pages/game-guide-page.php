@@ -12,7 +12,8 @@
 
         <?php ?>
 
-        <div class="post-content">
+        <div class="post-content" style="position: relative;">
+         
             <div class="guide-header">
             <h1 class="entry-title"><?php the_title(); ?></h1>
             
@@ -51,7 +52,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2 votes">
-                                                    <span class="number btn btn-success"><?php $vote = get_post_meta(get_the_ID(), 'iz-vote-post', true);
+                                                    <span class="number btn btn-primary"><?php $vote = get_post_meta(get_the_ID(), 'iz-vote-post', true);
                                                 if($vote == '') echo 0; else echo $vote; ?> Votes</span>
                                                 </div>
                                             </a>
