@@ -229,3 +229,12 @@ function iz_post_query_function($query) {
         }
     }
 }
+
+
+//custom login logo
+function iz_login_logo(){
+    echo '<style type="text/css">'.
+    '.login h1 a{background-image: url('.  get_template_directory_uri().'/images/iz_images/logo.png); background-size: 100%; width: 190px; height: 130px;}'
+    . '</style>';
+}
+add_action('login_head', 'iz_login_logo');

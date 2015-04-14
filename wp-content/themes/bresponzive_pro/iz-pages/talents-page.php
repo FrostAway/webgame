@@ -30,7 +30,6 @@
                 <?php } ?>
             </div>
 
-            <hr />
             <?php $currch = get_posts(array('post_type' => 'fl_champion', 'showposts' => 1))[0]; ?>           
             
             <div id="talent-loading">
@@ -95,7 +94,6 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <hr />
                 </div>
             </div>
         </div>

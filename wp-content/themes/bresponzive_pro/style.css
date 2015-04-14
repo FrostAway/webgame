@@ -135,7 +135,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, .08);
 #wrapper-container{margin:0 25px;overflow:hidden;}
 #blocks-wrapper  {position: relative;
 background: #fff;}
-#wrapper,#footer-blocks {border-top: 4px solid #06AFE4;}
+/*#wrapper,#footer-blocks {border-top: 4px solid #06AFE4;}*/
 #sidebar {float:right;}
 
 /* #Header */

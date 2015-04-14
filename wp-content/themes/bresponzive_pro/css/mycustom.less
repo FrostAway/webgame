@@ -227,7 +227,7 @@ html body{
             }
         } 
         #right-menu{
-            padding-top: 14px; padding-bottom: 12px; height: 87px; background: #01212c;
+            padding-top: 14px; padding-bottom: 12px; height: 87px; background: #01212c url(../images/iz_images/navigation-ngan.png) no-repeat; background-size: 100%; .border-radius(7px);
             .search-form{
                 width: 100%; position: relative;
             }
@@ -259,6 +259,7 @@ html body{
 }
 h1.entry-title{
     color: #8fd2eb;
+    font-size: 22px;
 }
 .page{
     #blocks-wrapper{
@@ -475,6 +476,7 @@ h2.blogpost-wrapper-title{
 #game-guide{
     h1.entry-title{
         color: #8fd2eb;
+        font-size: 40px;
     }
     .post-content{
         background: url(../images/iz_images/hots_background_02.jpg) no-repeat;
@@ -482,6 +484,7 @@ h2.blogpost-wrapper-title{
     }
     .guide-header{
         min-height: 252px;
+        padding-left: 30px;
         a.btn{
             margin-top: 20px; font-size: 20px; background: #01b2f1;
         }
@@ -651,6 +654,7 @@ h2.blogpost-wrapper-title{
     #guide-champion{display: none;}
     h1.entry-title{
         padding: 8px  0;
+        font-size: 22px;
     }
     .list-champions{
         margin-top: 15px;
@@ -670,7 +674,9 @@ h2.blogpost-wrapper-title{
             border-color: #06afe4;
         }
     }
-
+}
+#game-guide{
+    h1.entry-title{font-size: 40px;}
 }
 #heroes .list-champions .iz-champion{border: none!important;}
 
@@ -765,7 +771,7 @@ h2.blogpost-wrapper-title{
 }
 
 #load-talent-detail{
-    min-height: 450px; padding-top: 87px;
+    min-height: 450px; padding-top: 120px;
 }
 .detail-talent{
     .index-info{
@@ -792,7 +798,7 @@ h2.blogpost-wrapper-title{
                     float: left;
                 }
                 .info{
-                    h3{margin: 0;}
+                    h3{margin: 0; font-size: 19px;}
                     margin-left: 55px;
                     .mana{
                         display: inline-block; width: 45%; text-align: left;
@@ -801,7 +807,7 @@ h2.blogpost-wrapper-title{
                         display: inline-block; width: 50%; text-align: right; padding-right: 10px;
                     }
                 }
-                clear: both;
+                .iz_clear;
             }
         }
     }
@@ -834,25 +840,36 @@ h2.blogpost-wrapper-title{
             }
         }
     }
+    .talent-image{
+                img{
+                    .border-radius(3px);
+                .mtrans(all 0.4s ease 0s);
+                .shadow(0 0 2px #b5b5b5);
+                }
+            }
 }
 #talent-loading{
     display: none;
 }
 
 #range{
-    width: 250px;
+    width: 250px; background: #666666;
     height: 10px; margin: 0 5px 0 10px; display: inline-block;
     border: 1px solid #000;
     .border-radius(3px);
+    .ui-slider-range{
+        background: #006666;
+    }
+    
     .ui-slider-handle, .ui-state-default, .ui-corner-all{
     }
-    .ui-state-hover{
-
-    }
-    .ui-state-active{
-
-    }
 }
+.ui-slider .ui-slider-handle{
+        height: 1em!important; width: 1em!important; 
+    }
+    .ui-slider-horizontal .ui-slider-handle{
+        top: -0.2em!important;
+    }
 
 .index-level{
     .list-index{
@@ -923,7 +940,7 @@ h2.blogpost-wrapper-title{
 .post-content{
     min-height: 300px;
     .post-title h1.entry-title{
-        color: #efe3d2; font-size: 24px;
+        color: #efe3d2; font-size: 22px;
     }
     .post-meta-blog{
         font-size: 13px;
@@ -965,10 +982,15 @@ h2.blogpost-wrapper-title{
                 }
             }
             .info{
+                .name{font-weight: bold; color: #009999;}
                 padding-left: 72px;
                 .max{
-                    display: block; width: 250px; height: 13px; background: #999900;
+                .sizing-border; border: 1px solid #000;
+                    .border-radius(5px);
+                    display: block; width: 250px; height: 15px; background: #999900;
                     .curr{
+                        .sizing-border;
+                        .border-radius(5px);
                         vertical-align: top;
                         display: inline-block; height: 13px; background: #00cccc;
                     }
@@ -1006,6 +1028,7 @@ h2.blogpost-wrapper-title{
 .col-imgae{
     .main-image{
         margin-bottom: 5px;
+        border: 2px solid #000000; .border-radius(3px);
     }
     .ch-galleries{
         a{
@@ -1043,6 +1066,7 @@ h2.blogpost-wrapper-title{
         background: url(../images/iz_images/navigation-dai.png) no-repeat;
         background-size: 100% 100%;
         padding-left: 20px;
+        font-size: 22px;
     }
     .list-champions{
         .iz-champion{
@@ -1125,7 +1149,7 @@ h2.blogpost-wrapper-title{
 }
 
 #media{
-    h1.entry-title{color: #fff;}
+    h1.entry-title{color: #fff; font-size: 22px;}
     .media-cat{
         h3.entry-title{
             .icon{
@@ -1235,6 +1259,17 @@ h3.tpcrn_r_p, .author-content h3, #comments > h2{
             margin-top: 0; padding-top: 10px;
         }
     }
+}
+#footer-blocks{
+    background: #01212c url(../images/iz_images/navigation-dai.png) no-repeat;
+    background-size: 100%;
+    margin-top: 10px;
+    .top-left-radius(7px); .top-right-radius(7px);
+}
+.bx-wrapper .bx-viewport{
+    background: #003333!important;
+    border-color: #003333!important;
+    .shadow(0 0 5px #000)!important;
 }
 
 #top-left{

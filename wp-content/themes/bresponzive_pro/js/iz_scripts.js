@@ -11,6 +11,7 @@
 
         function index_slider() {
             $('.detail-talent .index-info #range').slider({
+                range: "min",
                 max: 30,
                 min: 1,
                 step: 1,
