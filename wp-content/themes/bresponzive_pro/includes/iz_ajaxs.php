@@ -7,7 +7,7 @@ function iz_load_champion_tooltip() {
     ?>
 
     <div class="title">
-        <span><?php echo get_the_post_thumbnail($post_id, 'ch-guide'); ?></span>
+        <span><?php echo get_the_post_thumbnail($post_id, 'sb-post-thumbnail'); ?></span>
         <span><h3><?php echo get_the_title($post_id); ?></h3></span>
     </div>
     <div class="excerpt">

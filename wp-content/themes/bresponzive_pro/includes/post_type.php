@@ -58,6 +58,21 @@ function fl_add_post_type() {
         'rewirte' => array('slug' => 'champion_cat'),
         'query_var' => true
     ));
+    register_taxonomy('fl_talent_cat', 'fl_champion', array(
+        'labels' => array(
+            'name' => 'Talents',
+            'singular_name' => 'Quản lý Talents',
+            'add_new' => 'Thêm Talent',
+            'new_item_name' => 'Talent mới',
+            'add_new_item' => 'Thêm Talent'
+        ),
+        'public' => true,
+        'hierarchical' => true,
+        'show_admin_column' => false,
+        'meta_box_cb' => false,
+        'rewirte' => array('slug' => 'champion_cat'),
+        'query_var' => true
+    ));
 
     register_taxonomy('fl_champion_index', 'fl_champion', array(
         'labels' => array(
@@ -70,6 +85,7 @@ function fl_add_post_type() {
         'public' => true,
         'hierarchical' => false,
         'show_admin_column' => false,
+        'meta_box_cb' => false,
         'query_var' => false
     ));
 
@@ -112,7 +128,6 @@ function fl_add_post_type() {
         'hierarchical' => true,
         'has_archive' => true,
         'show_admin_column' => true,
-        'rewirte' => array('slug' => 'fl_guide_cat'),
         'query_var' => true
     ));
 }
@@ -125,6 +140,7 @@ function fl_add_champion_fields() {
 
     add_meta_box('fl-champion-ind', __('Chỉ số tướng', 'iz_theme'), 'fl_champion_ind', 'fl_champion', 'normal', 'high', array());
     add_meta_box('fl-champion-skill', __('Kỹ năng', 'iz_theme'), 'fl_champion_skill', 'fl_champion', 'normal', 'high', array());
+    add_meta_box('fl-champion-talent', __('Talents', 'iz_theme'), 'fl_champion_talent', 'fl_champion', 'normal', 'high', array());
     add_meta_box('fl-champion-skin', __('Ngoại Trang', 'iz_theme'), 'fl_champion_skin', 'fl_champion', 'normal', 'high', array());
     add_meta_box('fl-champion-gallery', __('Hình ảnh tướng', 'iz_theme'), 'fl_champion_gallery', 'fl_champion', 'side', 'low', array());
     add_meta_box('fl-champion-face', __('Ảnh mặt tướng', 'iz_theme'), 'fl_champion_face', 'fl_champion', 'side', 'low', array());
@@ -150,48 +166,14 @@ function fl_champion_ind($post) {
                 ?>
                 <tr class="index">
                     <td><?= $tax->name ?></td>
-                    <td><input type="number" name="iz-ch-indexs[<?= $tax->term_id ?>][]" value="<?php if ($ch_inds != null) echo $ch_inds[$tax->term_id][0] ?>" /></td>
-                    <td><input type="number" name="iz-ch-indexs[<?= $tax->term_id ?>][]" value="<?php if ($ch_inds != null) echo $ch_inds[$tax->term_id][1] ?>" /></td>
+                    <td><input type="text" name="iz-ch-indexs[<?= $tax->term_id ?>][]" value="<?php if ($ch_inds != null) echo $ch_inds[$tax->term_id][0] ?>" /></td>
+                    <td><input type="text" name="iz-ch-indexs[<?= $tax->term_id ?>][]" value="<?php if ($ch_inds != null) echo $ch_inds[$tax->term_id][1] ?>" /></td>
                 </tr>
                 <?php
             }
             ?>
 
         </table>
-    </div>
-    <?php
-}
-
-function fl_champion_ind_old($post) {
-    $ch_inds = get_post_meta($post->ID, 'iz-ch-indexs', true);
-    $ch_inds = ($ch_inds == null) ? null : $ch_inds;
-    ?>
-    <div id="champion-ind">
-        <select id="select-level" post-id="<?= $post->ID ?>">
-            <?php for ($k = 1; $k <= 5; $k++) { ?>
-                <option value="<?= $k ?>">Level <?= $k ?></option>
-            <?php } ?>
-        </select>
-        <button class="button" id="ind-select-save"><?php echo __('Lưu lại', 'iz_theme') ?></button>
-
-        <?php for ($i = 0; $i < 5; $i++) { ?>
-            <table class="champion-ind-table level-<?= $i + 1 ?>">
-                <?php
-                $index_cats = get_terms('fl_champion_index', array('hide_empty' => false));
-                foreach ($index_cats as $tax) {
-                    ?>
-                    <tr class="index">
-                        <td><?= $tax->name ?></td>
-                        <td><input type="text" name="iz-ch-indexs[<?= $i ?>][<?= $tax->term_id ?>]" value="<?php echo $ch_inds[$i][$tax->term_id] ?>" /></td>
-                    </tr>
-                    <?php
-                }
-                ?>
-
-            </table>
-        <?php } ?>
-        <a href="#" class="button">Thêm chỉ số</a>
-        <input type="hidden" name="iz-champion-ind" value="1" />
     </div>
     <?php
 }
@@ -207,36 +189,115 @@ function fl_champion_skill($post) {
                 <th><?php echo __('Tên', 'iz_theme') ?></th>
                 <th><?php echo __('Dùng Mana', 'iz_theme') ?></th>
                 <th><?php echo __('T/G Hồi', 'iz_theme') ?></th>
+                <th><?php echo __('Level(+)', 'iz_theme') ?></th>
                 <th><?php echo __('Mô tả', 'iz_theme') ?></th>
-                <th><?php echo __('Animate', 'iz_theme') ?></th>
+                <th><?php echo __('Animate (Video)', 'iz_theme') ?></th>
             </tr>
             <?php
             if ($ch_skills != null) {
-                $i = 0;
                 ?>
-                <?php foreach ($ch_skills as $skill) { ?>
+                <?php foreach ($ch_skills as $key => $skill) { ?>
+                    <tr class="iskill">
+                        <td class="icon" rowspan="2">
+                            <a class="icon-image" href="#"><img height="45" width="45" src="<?php echo $skill[0] ?>" /></a>
+                            <input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[0] ?>" />
+                            <a class="skill-url-del dashicons dashicons-no-alt"></a>
+                        </td>
+                        <td class="name"><input type="text" required="" size="10" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[1] ?>" /></td>
+                        <td class="mana"><input type="text" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[2] ?>" /></td>
+                        <td class="down"><input type="text" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[3] ?>" /></td>
+                        <td class="lv-plus"><input type="text" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[4] ?>" placeholder="1,2,3,..." /></td>
+                        <td class="desc" rowspan="2"><textarea name="iz-ch-skills[<?= $key ?>][]"><?php echo $skill[5] ?></textarea></td>
+                        <td class="animate" rowspan="2">
+                            <a class="icon-video" href="#">
+                                <video style="width: 100px;">
+                                    <source src="<?php echo $skill[6] ?>" />
+                                </video>
+                            </a>
+                            <input type="hidden" class="iz-ch-skill-url-video" name="iz-ch-skills[<?= $key ?>][]" value="<?php if ($skill[6]) echo $skill[6] ?>" />
+                            <a class="skill-url-del-video dashicons dashicons-no-alt"></a> 
+                        </td>
+                        <td class="skill-del"><a href="#" class=""><?php echo __('Xóa', 'iz_theme') ?></a></td>                       
+                    </tr>
+                    <tr></tr>
+                    <?php
+                }
+            }
+            ?>
+        </table>
+        <button id="add-skill" class="button" type="button"><?php echo __('Thêm kỹ năng', 'iz_theme') ?></button>
+        <input type="hidden" name="iz-champion-skill-vl" value="1" />
+    </div>
+    <?php
+}
+
+function fl_champion_talent($post){
+    $all_terms = get_terms('fl_talent_cat', array('hide_empty'=>false));
+    $terms = get_the_terms($post->ID, 'fl_talent_cat');
+    ?>
+<div id="champion-talent">
+    <?php 
+    foreach ($all_terms as $term){
+        $check = '';
+        if($terms)
+        foreach ($terms as $tm){
+            if($term->term_id == $tm->term_id){
+                $check = 'checked';
+                break;
+            }
+        }
+    ?>
+    <label style="display: inline-block; width: 49%;"><input <?php echo $check; ?> type="checkbox" name="tax_input[fl_talent_cat][]" value="<?php echo $term->term_id ?>" /> <?php echo $term->name ?> <a href="<?php echo get_edit_term_link($term->term_id, 'fl_talent_cat'); ?>"> <?php echo __('Sửa', 'iz_theme') ?></a></label>
+    <?php
+    }
+    ?>
+</div>
+<?php
+}
+
+function fl_champion_skill_old($post) {
+    $ch_skills = get_post_meta($post->ID, 'iz-ch-skills', true);
+    $ch_skills = ($ch_skills == null) ? null : $ch_skills;
+    
+    ?>
+    <div id="champion-skill">
+        <table class="iz-setting-box" style="width: 100%">
+            <tr>
+                <th><?php echo __('Hình ảnh', 'iz_theme') ?></th>
+                <th><?php echo __('Tên', 'iz_theme') ?></th>
+                <th><?php echo __('Dùng Mana', 'iz_theme') ?></th>
+                <th><?php echo __('T/G Hồi', 'iz_theme') ?></th>
+                <th><?php echo __('Mô tả', 'iz_theme') ?></th>
+                <th><?php echo __('Animate (Video)', 'iz_theme') ?></th>
+            </tr>
+            <?php
+            if ($ch_skills != null) {
+                ?>
+        <?php foreach ($ch_skills as $key => $skill) { ?>
                     <tr class="iskill">
                         <td class="icon">
                             <a class="icon-image" href="#"><img height="45" width="45" src="<?php echo $skill[0] ?>" /></a>
-                            <input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[<?= $i ?>][]" value="<?php echo $skill[0] ?>" />
+                            <input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[0] ?>" />
                             <a class="skill-url-del dashicons dashicons-no-alt"></a>
                         </td>
-                        <td class="name"><input type="text" size="15" name="iz-ch-skills[<?= $i ?>][]" value="<?php echo $skill[1] ?>" /></td>
-                        <td class="mana"><input type="number" size="5" name="iz-ch-skills[<?= $i ?>][]" value="<?php echo $skill[2] ?>" /></td>
-                        <td class="down"><input type="number" size="5" name="iz-ch-skills[<?= $i ?>][]" value="<?php echo $skill[3] ?>" /></td>
-                        <td class="desc"><textarea name="iz-ch-skills[<?= $i ?>][]"><?php echo $skill[4] ?></textarea></td>
+                        <td class="name"><input type="text" size="15" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[1] ?>" /></td>
+                        <td class="mana"><input type="number" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[2] ?>" /></td>
+                        <td class="down"><input type="number" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[3] ?>" /></td>
+                        <td class="desc"><textarea name="iz-ch-skills[<?= $key ?>][]"><?php echo $skill[4] ?></textarea></td>
                         <td class="animate">
                             <a class="icon-image" href="#">
-                                <img height="70" width="70" src="<?php echo $skill[5] ?>" alt="Select" />
+                                <!--<img height="70" width="70" src="<?php //echo $skill[5]  ?>" alt="Select" />-->
+                                <video style="width: 100px;">
+                                    <source src="<?php echo $skill[5] ?>" />
+                                </video>
                             </a>
-                            <input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[<?= $i ?>][]" value="<?php if($skill[5]) echo $skill[5] ?>" />
+                            <input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[<?= $key ?>][]" value="<?php if ($skill[5]) echo $skill[5] ?>" />
                             <a class="skill-url-del dashicons dashicons-no-alt"></a> 
                         </td>
                         <td class="skill-del"><a href="#" class="button"><span class="dashicons dashicons-no-alt" style="padding-top: 3px;"></span></a></td>
-                        
+
                     </tr>
                     <?php
-                    $i++;
                 }
             }
             ?>
@@ -263,7 +324,7 @@ function fl_champion_skin($post) {
             if ($ch_skins != null) {
                 $i = 0;
                 ?>
-                <?php foreach ($ch_skins as $skill) { ?>
+        <?php foreach ($ch_skins as $skill) { ?>
                     <tr class="iskin">
                         <th><span class="dashicons dashicons-arrow-right-alt2"></span></th>
                         <td class="icon">
@@ -314,12 +375,12 @@ function fl_champion_gallery($post) {
     <?php
 }
 
-function fl_champion_face($post){
+function fl_champion_face($post) {
     $face = get_post_meta($post->ID, 'iz-ch-face', true);
     ?>
     <div id="champion-face">
         <div id="champion-face-image">
-            <img id="show-chapion-face" src="<?php if($face != '') echo $face; ?>" alt="Champion face" />
+            <img id="show-chapion-face" src="<?php if ($face != '') echo $face; ?>" alt="Champion face" />
             <a href="#" id="del-champion-face"><?php echo __('Xóa', 'iz_theme'); ?></a>
             <input type="hidden" name="iz-ch-face" id="champion-face-value" value="<?php echo $face ?>" />
         </div>
@@ -328,7 +389,7 @@ function fl_champion_face($post){
     <?php
 }
 
-function fl_champion_bg($post){
+function fl_champion_bg($post) {
     $bg = get_post_meta($post->ID, 'iz-ch-bg', true);
     ?>
     <div id="champion-bg">
@@ -341,7 +402,6 @@ function fl_champion_bg($post){
     </div>
     <?php
 }
-
 
 function fl_load_champion_admin_script() {
     if (isset($_GET['post'])) {
@@ -428,16 +488,15 @@ function fl_champion_save($post_id) {
     if (isset($_POST['iz-ch-skins'])) {
         update_post_meta($post_id, 'iz-ch-skins', $_POST['iz-ch-skins']);
     }
-     if (isset($_POST['iz-ch-galleries'])) {
+    if (isset($_POST['iz-ch-galleries'])) {
         update_post_meta($post_id, 'iz-ch-galleries', $_POST['iz-ch-galleries']);
     }
-    if (isset($_POST['iz-ch-face'])){
+    if (isset($_POST['iz-ch-face'])) {
         update_post_meta($post_id, 'iz-ch-face', $_POST['iz-ch-face']);
     }
-   if(isset($_POST['iz-ch-bg'])){
-       update_post_meta($post_id, 'iz-ch-bg', $_POST['iz-ch-bg']);
-   }
-    
+    if (isset($_POST['iz-ch-bg'])) {
+        update_post_meta($post_id, 'iz-ch-bg', $_POST['iz-ch-bg']);
+    }
 }
 
 add_action('save_post', 'fl_champion_save');
@@ -492,15 +551,15 @@ function fl_guide_champion($post) {
         'hide_empty' => false,
     ));
     ?>
-        <?php $guide_ch = get_post_meta($post->ID, 'iz-guide-champion', true); ?>
+    <?php $guide_ch = get_post_meta($post->ID, 'iz-guide-champion', true); ?>
     <select name="guide-champion" id="guide-champion">
         <option value="0">Chọn tướng</option>
-    <?php foreach ($champions as $ch) {?>
-        <option value="<?php echo $ch->ID ?>" <?php selected($ch->ID, $guide_ch, true); ?>><?php echo $ch->post_title ?></option>
-    <?php } ?>
+        <?php foreach ($champions as $ch) { ?>
+            <option value="<?php echo $ch->ID ?>" <?php selected($ch->ID, $guide_ch, true); ?>><?php echo $ch->post_title ?></option>
+        <?php } ?>
     </select>
     <div class="list-champions">
-        
+
         <?php foreach ($champions as $ch) { ?>
             <?php
             $ch_select = '';
@@ -510,10 +569,10 @@ function fl_guide_champion($post) {
             ?>
             <div class="iz-champion <?php echo $ch_select ?>">
                 <a href="#" data-id="<?php echo $ch->ID ?>" title="<?php echo $ch->post_title ?>">
-            <?php echo get_the_post_thumbnail($ch->ID, 'ch-guide'); ?>
+                    <?php echo get_the_post_thumbnail($ch->ID, 'sb-post-thumbnail'); ?>
                 </a>
             </div>
-                <?php } ?>
+        <?php } ?>
     </div>
     <?php
 }

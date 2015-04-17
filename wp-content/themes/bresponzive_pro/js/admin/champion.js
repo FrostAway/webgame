@@ -89,7 +89,7 @@
         //add icon skill
         function skill_icon() {
             var custom_uploader_icon;
-            $('#champion-skill .icon .icon-image, #champion-skill .animate .icon-image').click(function (e) {
+            $('#champion-skill .icon .icon-image').click(function (e) {
                 var curr_icon = $(this).find('img');
                 var skill_url = $(this).parent().find('.iz-ch-skill-url');
                 e.preventDefault();
@@ -120,8 +120,44 @@
 
             $('.skill-url-del').click(function (e) {
                 e.preventDefault();
-                $(this).parent('').find('.icon-image img').attr('src', '');
-                $(this).parent('').find('.iz-ch-skill-url').val('');
+                $(this).parent().find('.icon-image img').attr('src', '');
+                $(this).parent().find('.iz-ch-skill-url').val('');
+            });
+            
+            
+            $('#champion-skill .animate .icon-video').click(function (e) {
+                var curr_icon = $(this).find('video')[0];
+                var skill_url = $(this).parent().find('.iz-ch-skill-url-video');
+                e.preventDefault();
+                if (custom_uploader_icon) {
+                    custom_uploader_icon.open();
+                    return;
+                }
+                custom_uploader_icon = wp.media.frames.file_frame = wp.media({
+                    title: 'Chọn Video',
+                    button: {
+                        text: 'Chọn Video'
+                    },
+                    multiple: false
+                });
+                custom_uploader_icon.on('select', function () {
+                    attachment = custom_uploader_icon.state().get('selection').first().toJSON();
+                    curr_icon.src = attachment.url;
+                    skill_url.val(attachment.url);
+                    custom_uploader_icon = false;
+                    $('.skill-url-del-video').click(function (e) {
+                        e.preventDefault();
+                        $(this).parent().find('.icon-video video')[0].src = '';
+                        $(this).parent().find('.iz-ch-skill-url-video').val('');
+                    });
+                });
+                custom_uploader_icon.open();
+            });
+
+            $('.skill-url-del-video').click(function (e) {
+                e.preventDefault();
+                $(this).parent().find('.icon-video video')[0].src = '';
+                $(this).parent().find('.iz-ch-skill-url-video').val('');
             });
         }
         skill_icon();
@@ -133,22 +169,29 @@
             var num = $('#champion-skill table tbody .iskill').size();
             $("#champion-skill table tbody").append(
                     '<tr class="iskill">' +
-                    '<td class="icon">' +
+                    '<td class="icon" rowspan="2">' +
                     '<a class="icon-image" href="#"><img height="45" width="45" src="" /></a>' +
                     '<input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills[' + num + '][]" value="" />' +
                     '<a class="skill-url-del dashicons dashicons-no-alt"></a>' +
                     '</td>' +
-                    '<td class="name"><input type="text" size="15" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
-                    '<td class="mana"><input type="number" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
-                    '<td class="down"><input type="number" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
-                    '<td class="desc"><textarea name="iz-ch-skills[' + num + '][]"></textarea></td>' +
-                    '<td class="animate">'+
-                            '<a class="icon-image" href="#"><img height="70" width="70" src="" alt="Select" /></a>'+
-                            '<input type="hidden" class="iz-ch-skill-url" name="iz-ch-skills['+num+'][]" value="" />'+
-                            '<a class="skill-url-del dashicons dashicons-no-alt"></a>'+ 
+                    '<td class="name"><input required type="text" size="10" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
+                    '<td class="mana"><input type="text" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
+                    '<td class="down"><input type="text" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
+                    '<td class="lv-plus"><input type="text" name="iz-ch-skills[' + num + '][]" value="" placeholder="1,2,3,..." /></td>'+
+                    '<td class="desc" rowspan="2"><textarea name="iz-ch-skills[' + num + '][]"></textarea></td>' +
+                    '<td class="animate" rowspan="2">'+
+                            '<a class="icon-video" href="#">'+
+                                
+                                '<video style="width: 100px;">'+
+                                    '<source src="" />'+
+                                '</video>'+
+                            '</a>'+
+                            '<input type="hidden" class="iz-ch-skill-url-video" name="iz-ch-skills['+num+'][]" value="" />'+
+                            '<a class="skill-url-del-video dashicons dashicons-no-alt"></a> '+
                         '</td>'+
-                    '<td class="skill-del"><a href="#" class="button"><span class="dashicons dashicons-no-alt" style="padding-top: 3px;"></span></a></td>' +
-                    '</tr>'
+                    '<td class="skill-del"><a href="#" class="">Xóa</a></td>' +
+                    '</tr>'+
+                    '<tr></tr>'
                     );
             $('#champion-skill .skill-del a').click(function (e) {
                 e.preventDefault();

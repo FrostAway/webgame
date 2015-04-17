@@ -192,13 +192,6 @@ add_action('wp_enqueue_scripts', 'bresponZive_themepacific_tpcrn_scripts_method'
 add_action( 'bresponZive_themepacific_tpcrn_cre_def_call', 'bresponZive_themepacific_tpcrn_cre_def');
 
 
-//my custom 
-add_action('wp_enqueue_scripts', 'fl_custom_theme');
-function fl_custom_theme(){
-    wp_register_style('fl_custom_theme', get_template_directory_uri().'/css/mycustom.css');
-    wp_enqueue_style('fl_custom_theme');
-    
-}
 
 //add post type
 
@@ -206,5 +199,6 @@ include_once 'includes/iz-functions.php';
 include_once 'includes/iz_ajaxs.php';
 include_once 'includes/post_type.php';
 include_once 'includes/iz-menu.php';
+include_once 'includes/custom_field.php';
 
 ?>

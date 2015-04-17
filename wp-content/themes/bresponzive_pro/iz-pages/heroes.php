@@ -29,13 +29,13 @@
                                     <img src="<?php echo get_post_meta(get_the_ID(), 'iz-ch-face', true); ?>" />
                                 </a>
                             </div>
-                            <div class="text-tooltip">
-                                <div class="title">
-                                    <span><?php the_post_thumbnail('pager'); ?></span>
-                                    <span><h3><?php the_title(); ?></h3></span>
+                            <div class="row text-tooltip">
+                                <div class="col-sm-4 image">
+                                    <div><?php the_post_thumbnail('pager'); ?></div>
                                 </div>
-                                <div class="excerpt">
-                                    <?php the_short_desc(30); ?>
+                                <div class="col-sm-8 excerpt">
+                                    <h4><?php the_title(); ?></h4>
+                                    <p><?php the_short_desc(30); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                         <div <?php post_class('row iz-guide post') ?> >
                                             <a href="<?php the_permalink() ?>">
                                                 <div class="col-sm-2 col-md-1 image">
-                                                    <?php the_post_thumbnail('ch-guide', array()) ?>
+                                                    <?php the_post_thumbnail('sb-post-thumbnail', array()) ?>
                                                 </div>
                                                 <div class="col-sm-8 col-md-9 post-info">
                                                     <h4 class="title"><?php the_title(); ?></h4>

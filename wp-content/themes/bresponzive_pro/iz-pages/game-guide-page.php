@@ -43,7 +43,7 @@
                                         <div <?php post_class('row iz-guide post') ?> >
                                             <a href="<?php the_permalink() ?>">
                                                 <div class="col-sm-2 col-md-1 image">
-                                                    <?php the_post_thumbnail('ch-guide', array()) ?>
+                                                    <?php the_post_thumbnail('sb-post-thumbnail', array()) ?>
                                                 </div>
                                                 <div class="col-sm-8 col-md-9 post-info">
                                                     <h4 class="title"><?php the_title(); ?></h4>

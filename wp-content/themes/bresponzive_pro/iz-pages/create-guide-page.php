@@ -69,9 +69,9 @@
                                 <?php 
                                 $guide_cats = get_terms('fl_guide_cat', array('hide_empty'=>false)); 
                                 ?>
-                                <label>Chọn thể loại</label>
+                                <label><?php echo __('Chọn thể loại', 'iz_theme') ?></label>
                                 <select id="guide-cat" name="guide-cat">
-                                    <option value="0">Chọn thể loại</option>
+                                    <option value="0"><?php echo __('Chọn thể loại', 'iz_theme') ?></option>
                                     <?php foreach ($guide_cats as $cat){ ?>
                                     <option value="<?php echo $cat->term_id ?>"><?php echo $cat->name ?></option>
                                     <?php } ?>

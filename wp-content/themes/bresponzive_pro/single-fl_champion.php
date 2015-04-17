@@ -37,8 +37,8 @@
                                 foreach ($term_indexs as $index) {
                                     ?>
                                     <div class="index">
-                                        <div class="icon" style="height: 72px; width: 62px;">
-
+                                        <div class="icon">
+                                            <?php z_taxonomy_image($index->term_id) ?>
                                         </div>
                                         <div class="info">
                                             <div class="name">
@@ -119,9 +119,9 @@
                                     <div class="col-sm-3 skill">
                                         <div class="icon">
                                             <video style="width: 100%">
-                                                <source src="<?php echo $skill[5] ?>" />
+                                                <source src="<?php echo $skill[6] ?>" />
                                             </video>
-                                            <div class="play fa fa-play" data-url="<?php echo $skill[5] ?>" data-toggle="modal" data-target=".video-modal"></div>
+                                            <div class="play fa fa-play" data-url="<?php echo $skill[6] ?>" data-toggle="modal" data-target=".video-modal"></div>
                                             <!--<img src="<?php //echo $skill[0] ?>" />-->
                                         </div>
                                         <div class="name">

@@ -21,12 +21,12 @@
                         <div class="iz-champion">
                             <div class="wrap">
                                 <a href="<?php the_permalink(); ?>" data-id="<?php echo get_the_ID() ?>" title="<?php the_title() ?>">
-                                    <?php the_post_thumbnail('ch-guide') ?>
+                                    <?php the_post_thumbnail('sb-post-thumbnail') ?>
                                 </a>
                             </div>
                             <div class="text-tooltip">
                                 <div class="title">
-                                    <span><?php the_post_thumbnail('ch-guide'); ?></span>
+                                    <span><?php the_post_thumbnail('sb-post-thumbnail'); ?></span>
                                     <span><h3><?php the_title(); ?></h3></span>
                                 </div>
                                 <div class="excerpt">

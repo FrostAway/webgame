@@ -2,7 +2,6 @@
 add_action('after_setup_theme', 'fl_image_size');
 
 function fl_image_size() {
-    add_image_size('ch-guide', 60, 60, true);
     add_image_size('talent-page', 550, 550, true);
     add_image_size('pager', 150, 150, true);
     add_image_size('media', 400, 400, true);
@@ -69,6 +68,10 @@ function iz_register_scripts() {
 
     wp_register_script('iz_bootstrap_gallery', get_template_directory_uri() . '/js/plugin/bootstrap_gallery/css/bootstrap-image-gallery.min.css');
     wp_enqueue_script('iz_bootstrap_gallery');
+    
+     wp_register_style('fl_custom_theme', get_template_directory_uri().'/css/mycustom.css');
+    wp_enqueue_style('fl_custom_theme');
+    
 }
 
 add_action('wp_footer', 'iz_script_footer');
@@ -106,7 +109,7 @@ if (isset($_POST['submit-new-guide'])) {
         $redirect_fail = $current_url . '/?posted=failed';
         $redirect_sc = $current_url . '/?posted=success';
     }
-    if ($guid_ch == 0 || $guid_cat == 0) {
+    if ($guid_ch == 0 || $guid_cat == null) {
         wp_redirect($redirect_fail);
         die();
     } else {
@@ -115,10 +118,7 @@ if (isset($_POST['submit-new-guide'])) {
             'post_content' => $guid_content,
             'post_type' => 'fl_guide',
             'post_status' => 'publish',
-            'post_author' => get_current_user_id(),
-            'tax_input' => array(
-                'fl_guide_cat' => $guid_cat
-            )
+            'post_author' => get_current_user_id()
         ));
 
         $upload_dir = wp_upload_dir();
@@ -139,12 +139,12 @@ if (isset($_POST['submit-new-guide'])) {
 
         // Set attachment data
         $attachment = array(
+
             'post_mime_type' => $wp_filetype['type'],
             'post_title' => sanitize_file_name($filename),
             'post_content' => '',
             'post_status' => 'inherit'
         );
-
 
         add_post_meta($post_id, 'iz-guide-champion', $guid_ch);
         $attach_id = wp_insert_attachment($attachment, $file, $post_id);
@@ -153,7 +153,7 @@ if (isset($_POST['submit-new-guide'])) {
         wp_update_attachment_metadata($attach_id, $attach_data);
         set_post_thumbnail($post_id, $attach_id);
         
-//        wp_set_object_terms($post_id, array((int)$guid_cat), 'fl_guid_cat', true);
+        wp_set_object_terms($post_id, $guid_cat, 'fl_guide_cat', true);
 
         wp_redirect($redirect_sc);
         die();
@@ -238,3 +238,21 @@ function iz_login_logo(){
     . '</style>';
 }
 add_action('login_head', 'iz_login_logo');
+
+
+//ajax admin
+add_action('wp_ajax_load_champ_skill', 'iz_load_champ_skill');
+add_action('wp_ajax_nopriv_load_champ_skill', 'iz_load_champ_skill');
+function iz_load_champ_skill(){
+    if(isset($_POST['ch_id'])){
+        $ch_id = $_POST['ch_id'];
+        $ch_skills = get_post_meta($ch_id, 'iz-ch-skills', true);
+        $ch_skills = ($ch_skills == null) ? null : $ch_skills;
+        if($ch_skills != null){
+            foreach ($ch_skills as $key => $value){ ?>
+        <div><label><input type="radio" name="talent-skill" value="<?php echo $key ?>" /> <?php echo $value[1] ?></label></div>
+            <?php }
+        }
+    }
+    die();
+}

@@ -39,7 +39,7 @@
                         <div <?php post_class('iz-guide row post') ?> >
                             <a href="<?php the_permalink() ?>">
                                 <div class="col-sm-2 image">
-                                    <?php the_post_thumbnail('ch-guide') ?>
+                                    <?php the_post_thumbnail('sb-post-thumbnail') ?>
                                 </div>
                                 <div class="col-sm-8 post-info">
                                     <h3 class="title"><?php the_title(); ?></h3>
@@ -64,6 +64,8 @@
             <?php else: ?>
 
             <?php endif; ?>
+            
+            <a class="btn btn-primary" href="<?php echo get_page_link(1082) ?>"><?php echo __('Tạo Guide', 'iz_theme') ?></a>
             
             <div class="pagination clearfix">
             <?php bresponZive_themepacific_tpcrn_pagination(); ?>
