@@ -256,3 +256,28 @@ function iz_load_champ_skill(){
     }
     die();
 }
+
+function get_max_index(){
+    $champions = get_posts(array('post_type'=>'fl_champion'));
+    $index_max = array();
+    
+    $ch_terms = get_terms('fl_champion_index', array('hide_empty'=>false));
+    foreach ($ch_terms as $term){
+        $index_max[$term->term_id] = 0;
+    }
+    
+    foreach ($champions as $ch){
+        $ch_indexs = get_post_meta($ch->ID, 'iz-ch-indexs', true);
+        $ch_indexs = ($ch_indexs == null) ? null : $ch_indexs;
+        if($ch_indexs != null){
+            foreach ($ch_indexs as $key => $value){
+                if($value[0] > $index_max[$key]){
+                    $index_max[$key] = $value[0];
+                }
+            }
+        }
+    }
+    return $index_max;
+}
+
+?>

@@ -23,7 +23,7 @@
                     ?>
 
                     <h1 class="entry-title"><?php the_title(); ?></h1>
-                    <div class="role"><?php the_taxonomies(array('title' => '')); ?></div>
+                    <div class="role"><?php echo get_the_term_list(get_the_ID(), 'fl_champion_cat', __('Vai trò tướng: ', 'iz_theme'), ', ', '.'); ?></div>
                     <div class="row content">
                         <div class="col-sm-12 col-md-6 col-text">
 
@@ -32,7 +32,9 @@
                                 <?php
                                 $indexs = get_post_meta(get_the_ID(), 'iz-ch-indexs', true);
                                 $indexs = ($indexs == null) ? null : $indexs;
-
+                                
+                                $index_max = get_max_index();
+                                
                                 $term_indexs = get_terms('fl_champion_index', array('hide_empty' => false));
                                 foreach ($term_indexs as $index) {
                                     ?>
@@ -42,13 +44,13 @@
                                         </div>
                                         <div class="info">
                                             <div class="name">
-                                                <?php echo $index->name ?>
+                                                <?php echo $index->name; ?>
                                             </div>
                                             <div class="value">
-                                                <?php echo $indexs[$index->term_id][0] ?>
+                                                <?php echo $indexs[$index->term_id][0]; echo $index_max[$term->id] ?>
                                             </div>
                                             <div class="max">
-                                                <div class="curr" style="width: <?php echo $indexs[$index->term_id][0] / 500 * 100 ?>%"></div>
+                                                <div class="curr" style="width: <?php echo $indexs[$index->term_id][0] / $index_max[$index->term_id] * 100 ?>%"></div>
                                             </div>
                                         </div>
 
@@ -133,7 +135,7 @@
                                         </div>
                                         <div class="skill-desc">
                                             <p>
-                                                <?php echo $skill[4] ?>
+                                                <?php echo $skill[5] ?>
                                             </p>
                                         </div>
                                     </div>
