@@ -382,7 +382,7 @@ padding: 15px;
 
 
 .post-meta-blog{font-family: PT Sans,sans-serif;
-color: #707070;
+color: #CCAE9A;
 /*border-bottom: 1px solid #E4E4E4;
 border-top: 1px solid #E4E4E4;*/
 padding: 4px 0 4px;
@@ -724,7 +724,7 @@ color: #FFF;}
 
 /* #social Icons */
 .social-icons{text-align:center;}
-.social-icons img{display:inline-block;opacity:1;}
+.social-icons img{display:inline-block;opacity:1; width: 50px;}
 .social-icons img:hover {opacity: 0.8;}
 .social-icons a{position:relative;margin:12px;}
 .social-icons a:last-child{margin-right:0;}

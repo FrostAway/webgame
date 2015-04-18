@@ -54,12 +54,13 @@
                                 if($cham_id != 0){
                                 $champion = get_post($cham_id);
                                 ?>
-                                <div class="image">
-                                    <a href="<?php echo get_permalink($cham_id); ?>"><?php echo get_the_post_thumbnail($champion->ID, 'pager'); ?></a>
-                                </div>
-                                <div class="title">
+                                <div class="title" style="padding-bottom: 5px;">
                                     <a href="<?php echo get_permalink($cham_id); ?>"><span><?php echo $champion->post_title ?></span></a>
                                 </div>
+                                <div class="image">
+                                    <a href="<?php echo get_permalink($cham_id); ?>"><?php echo get_the_post_thumbnail($champion->ID, 'media'); ?></a>
+                                </div>
+                                
                                 <?php } ?>
                             </div>
                             <div class="col-sm-6">
