@@ -120,10 +120,9 @@
                                     ?>
                                     <div class="col-sm-3 skill">
                                         <div class="icon">
-                                            <video style="width: 100%">
-                                                <source src="<?php echo $skill[6] ?>" />
-                                            </video>
-                                            <div class="play fa fa-play" data-url="<?php echo $skill[6] ?>" data-toggle="modal" data-target=".video-modal"></div>
+                                            <div class="play" data-url='<?php echo $skill[4] ?>' data-toggle="modal" data-target=".video-modal-frame">
+                                                <img src="<?php echo get_template_directory_uri() ?>/images/iz_images/videoicon.png" />
+                                            </div>
                                             <!--<img src="<?php //echo $skill[0] ?>" />-->
                                         </div>
                                         <div class="name">
@@ -182,19 +181,7 @@
   </div>
 </div>
 
-<div class="modal video-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><?php echo __('Video', 'iz_theme') ?></h4>
-        </div>
-        <video id="iz-video" controls="controls" style="width: 100%">
-            <source src=""  />
-        </video>
-    </div>
-  </div>
-</div>
+
 
 <?php get_footer(); ?>
 

@@ -32,6 +32,7 @@
             $('.talent-image .talents .level a').click(function (e) {
                 e.preventDefault();
                 var thisa = $(this).parent('.level');
+                
                 thisa.find('a').removeClass('active');
                 thisa.find('a').addClass('none');
                 $(this).removeClass('none');
@@ -59,6 +60,26 @@
                     $('.list-skill #skill-' + iskill + ' .info .description').append(desc);
                     $('.list-skill #skill-' + iskill + ' .info .add-text').append(add_text);
                 }
+                
+                //url
+                var stt = ''; 
+                $('.talent-image .talents .level').each(function(i, value){
+                    var ele = $(this).find('a');
+                    var check = 0;
+                    ele.each(function(){
+                       if($(this).hasClass('active')){
+                           check = $(this).attr('data-index');
+                       }
+                    });
+                    stt = stt+check.toString();
+                });
+                var path = $('#talent-path').val();
+                $('#share-talent-url').val(params.talent_page+'?stt='+stt);
+                $('#bbcode').val('[embed='+path+'?stt='+stt+']');
+                
+                history.pushState('data', '', params.talent_page+'?stt='+stt);
+                $('.share-btn a').attr('data-href', 'https://www.facebook.com/sharer/sharer.php?u='+params.talent_page+'?stt='+stt);
+                $('.share-btn a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+params.talent_page+'?stt='+stt);
             });
             
             $('.list-skill .iz-skill .info .open-close').click(function () {
@@ -86,6 +107,13 @@
                     
                     $('.list-skill .iz-skill .info .description .desc').remove();
                     $('.list-skill .iz-skill .info .add-text span').remove();
+                    
+                $('#share-talent-url').val('');
+                $('#bbcode').val('');
+                
+                history.pushState('data', '', params.talent_page);
+                $('.share-btn a').attr('data-href', 'https://www.facebook.com/sharer/sharer.php?u='+params.talent_page);
+                $('.share-btn a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+params.talent_page);
             });
             
             
@@ -205,6 +233,7 @@
                 },
                 success: function (data) {
                     $('#iz-votes .number').html(data.num + ' Votes');
+                    $('#iz-votes .stt-text').html(data.mess);
                 }
             });
         });
@@ -238,6 +267,9 @@
                         var attachment = custom_uploader.state().get('selection').first().toJSON();
                         $('.guide-thumbnail .show-thumbnail').attr('src', attachment.url);
                         $('.guide-thumbnail .guide-thumbnail-value').val(attachment.url);
+                        $('.guide-thumbnail .attach-id').val(attachment.id);
+                        $('.guide-thumbnail .thumbnail-type').val(attachment.type);
+                        $('.guide-thumbnail .thumbnail-name').val(attachment.title);
                     })
                     .open();
         });
@@ -245,13 +277,8 @@
 
 
         //play video
-        $('.skills .skill .icon .play').click(function (e) {
-            e.preventDefault();
-            var video = $('.video-modal #iz-video')[0];
-            video.src = $(this).attr('data-url');
-//            video.play();
-        });
-        $('.list-skins .skin .icon .play').click(function (e) {
+        
+        $('.list-skins .skin .icon .play, .skills .skill .icon .play').click(function (e) {
             e.preventDefault();
             var video = $('#iz-frame');
             video.html($(this).attr('data-url'));

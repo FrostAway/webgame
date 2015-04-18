@@ -30,7 +30,7 @@
                         <div class="guide-cat">
                             <h3 class="title"><img class="icon" src="<?php echo z_taxonomy_image_url($cat->term_id) ?>" /> <a href="<?php echo get_term_link($cat) ?>"><?php echo $cat->name ?></a></h3>
                             <?php
-                            query_posts(array('post_type' => 'fl_guide', 'showposts' => 3, 'tax_query' => array(
+                            query_posts(array('post_type' => 'fl_guide', 'showposts' => 3, 'meta_key'=>'iz-vote-post', 'orderby'=>'meta_value_num', 'tax_query' => array(
                                     array(
                                         'taxonomy' => 'fl_guide_cat',
                                         'field' => 'term_id',

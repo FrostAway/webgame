@@ -97,15 +97,34 @@
                             </div>
                             <?php } ?>
                         </div>
-                        <div id="reset-talent"><button class="btn btn-sm btn-primary"><?php echo __('Reset', 'iz_theme') ?></button></div>
+                        <?php global $wp;
+                        $current_url = home_url(add_query_arg(array(), $wp->request)) ;
+                                ?>
+                        <div id="reset-talent"><button class="btn btn-sm btn-danger"><?php echo __('Reset', 'iz_theme') ?></button></div>
+                        <input id="share-talent-url" type="text" name="share-talent" value="<?php echo $current_url ?>" />
+                        <div class="share-btn">
+                            <a class="btn btn-sm btn-primary" target="_new" data-href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $current_url ?>" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $current_url ?>"><?php echo __('Chia sẻ', 'iz_theme') ?></a>
+                        </div>
+                        <input type="hidden" id="talent-path" value="<?php echo $_SERVER['PHP_SELF'] ?>" />
+                        
                         <div class="talent-image">
                             
                             <div class="talents">
                                 <?php
                                 $levels = array(1, 4, 7, 10, 13, 16, 20);
                                 $tl_terms = get_the_terms($currch->ID, 'fl_talent_cat');
+                                
+                                if(isset($_GET['stt'])){
+                                    $stt = $_GET['stt'];
+                                }else{
+                                    $stt = '';
+                                }
+                                
                                 ?>
-                                <?php foreach ($levels as $level){ ?>
+                                <?php 
+                                $j = 0;
+                                foreach ($levels as $level){
+                                    ?>
                                 <div class="level">
                                     <span class="level-num"> <?php echo $level ?> <span class="ind">(0)</span></span>
                                     <?php 
@@ -113,18 +132,22 @@
                                         foreach ($tl_terms as $term){ 
                                             
                                             $num_ch = get_option('talent-skill'.$term->term_id);
-//                                            if($num_ch == ''){
-//                                                $num_ch = 'index-'.get_option('talent-index'.$term->term_id);
-//                                            }else{
-//                                                $num_ch = 'skill-'.$num_ch;
-//                                            }
-//                                            
+//                                           
                                             $term_lv = get_option('talent-level'.$term->term_id);
                                             if($term_lv){
                                                 if(in_array($level, $term_lv)){
                                                     $i++;
                                                    ?>
-                                                    <a href="#" data-name="<?= $term->name ?>" data-num="<?= $num_ch ?>" data-term="<?php echo $term->term_id ?>" data-index="<?php echo $i  ?>" data-title="<?php echo $term->description ?>">
+                                                    <a href="#" data-name="<?= $term->name ?>" data-num="<?= $num_ch ?>" data-term="<?php echo $term->term_id ?>" data-index="<?php echo $i  ?>" data-title="<?php echo $term->description ?>"
+                                                       class="<?php if($stt!=''){
+                                                           if($stt[$j] != 0){
+                                                           if($stt[$j] == $i){
+                                                               echo 'active';
+                                                           }else{
+                                                               echo 'none';
+                                                           }
+                                                           }
+                                                       } ?>" >
                                                         <img src="<?php echo z_taxonomy_image_url($term->term_id); ?>" />
                                                         <div class="row tl-tooltip">
                                                             <div class="col-sm-2">
@@ -142,10 +165,18 @@
                                         } 
                                     ?>
                                 </div>
-                                <?php } ?>
+                                <?php
+                                   $j++; } ?>
                             </div>
                             
                             <?php echo get_the_post_thumbnail($currch->ID, '', array('class'=>'talent-img')); ?>
+                            
+                            <div class="bbcode">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">BBCODE</span>
+                                    <input type="text" id="bbcode" class="form-control" placeholder="bbcode" aria-describedby="basic-addon1" value="[embed=<?php echo $_SERVER['REQUEST_URI'] ?>]" >
+                                </div>
+                            </div>
                         </div>
                         
                     </div>

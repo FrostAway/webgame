@@ -50,17 +50,17 @@ class bresponZive_themepacific_social_widget extends WP_Widget {
   ?>
   
 			<div class="widget">
-			<div class="social-icons row">
+			<div class="social-icons">
 		<?php
 		$icons_path =  get_stylesheet_directory_uri().'/images/social-icons';
 		 $rss = get_bloginfo('rss2_url'); 
 			?>
-                            <a class="col-sm-3"  title="RSS Feed" href="<?php echo $rss ; ?>" ><img src="<?php echo $icons_path; ?>/rss.png" alt="RSS Feed"  /></a> 
+                            <a class=""  title="RSS Feed" href="<?php echo $rss ; ?>" ><img src="<?php echo $icons_path; ?>/rss.png" alt="RSS Feed"  /></a> 
 		 
-                            <a class="col-sm-3"  title="Google+" href="<?php echo $gp; ?>" ><img src="<?php echo $icons_path; ?>/gp.png" alt="Google+"  /></a> 
-                            <a class="col-sm-3"  title="Facebook" href="<?php echo $fb; ?>" ><img src="<?php echo $icons_path; ?>/fb.png" alt="Facebook"  /></a> 
+                            <a class=""  title="Google+" href="<?php echo $gp; ?>" ><img src="<?php echo $icons_path; ?>/gp.png" alt="Google+"  /></a> 
+                            <a class=""  title="Facebook" href="<?php echo $fb; ?>" ><img src="<?php echo $icons_path; ?>/fb.png" alt="Facebook"  /></a> 
 		 
-                            <a class="col-sm-3"  title="Twitter" href="<?php echo $tw ; ?>" ><img src="<?php echo $icons_path; ?>/tw.png" alt="Twitter"  /></a> 
+                            <a class=""  title="Twitter" href="<?php echo $tw ; ?>" ><img src="<?php echo $icons_path; ?>/tw.png" alt="Twitter"  /></a> 
 			</div>
 			</div>
 		 		<?php	

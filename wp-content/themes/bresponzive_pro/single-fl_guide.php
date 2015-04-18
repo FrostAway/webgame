@@ -76,6 +76,7 @@
                                 </div>
                                 <a href="#" class="btn btn-success btn-vote-up" data-ip="<?php echo $_SERVER['REMOTE_ADDR'] ?>" data-id="<?php  echo get_the_ID() ?>"><span class="fa fa-thumbs-o-up"></span></a>
                                 <a href="#" class="btn btn-danger btn-vote-down" data-ip="<?php echo $_SERVER['REMOTE_ADDR'] ?>" data-id="<?php  echo get_the_ID() ?>"><span class="fa fa-thumbs-o-down"></span></a>                                
+                                <a href="#" class="stt-text" style="padding-left: 10px; display: inline-block;"></a>
                             </div>
                             </div>
                         </div>

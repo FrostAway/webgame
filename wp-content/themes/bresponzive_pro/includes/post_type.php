@@ -70,7 +70,7 @@ function fl_add_post_type() {
         'hierarchical' => true,
         'show_admin_column' => false,
         'meta_box_cb' => false,
-        'rewirte' => array('slug' => 'champion_cat'),
+        'rewirte' => array('slug' => 'fl_talent_cat'),
         'query_var' => true
     ));
 
@@ -128,6 +128,7 @@ function fl_add_post_type() {
         'hierarchical' => true,
         'has_archive' => true,
         'show_admin_column' => true,
+        'rewirte' => array('slug' => 'fl_guide_cat'),
         'query_var' => true
     ));
 }
@@ -189,9 +190,9 @@ function fl_champion_skill($post) {
                 <th><?php echo __('Tên', 'iz_theme') ?></th>
                 <th><?php echo __('Dùng Mana', 'iz_theme') ?></th>
                 <th><?php echo __('T/G Hồi', 'iz_theme') ?></th>
-                <th><?php echo __('Level(+)', 'iz_theme') ?></th>
+                <th><?php echo __('Video Link', 'iz_theme') ?></th>
                 <th><?php echo __('Mô tả', 'iz_theme') ?></th>
-                <th><?php echo __('Animate (Video)', 'iz_theme') ?></th>
+                
             </tr>
             <?php
             if ($ch_skills != null) {
@@ -206,17 +207,9 @@ function fl_champion_skill($post) {
                         <td class="name"><input type="text" required="" size="10" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[1] ?>" /></td>
                         <td class="mana"><input type="text" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[2] ?>" /></td>
                         <td class="down"><input type="text" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[3] ?>" /></td>
-                        <td class="lv-plus"><input type="text" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[4] ?>" placeholder="1,2,3,..." /></td>
+                        <td class="lv-plus" rowspan="2"><textarea name="iz-ch-skills[<?= $key ?>][]" placeholder="<iframe width=..."><?php echo $skill[4] ?></textarea></td>
                         <td class="desc" rowspan="2"><textarea name="iz-ch-skills[<?= $key ?>][]"><?php echo $skill[5] ?></textarea></td>
-                        <td class="animate" rowspan="2">
-                            <a class="icon-video" href="#">
-                                <video style="width: 100px;">
-                                    <source src="<?php echo $skill[6] ?>" />
-                                </video>
-                            </a>
-                            <input type="hidden" class="iz-ch-skill-url-video" name="iz-ch-skills[<?= $key ?>][]" value="<?php if ($skill[6]) echo $skill[6] ?>" />
-                            <a class="skill-url-del-video dashicons dashicons-no-alt"></a> 
-                        </td>
+                        
                         <td class="skill-del"><a href="#" class=""><?php echo __('Xóa', 'iz_theme') ?></a></td>                       
                     </tr>
                     <tr></tr>

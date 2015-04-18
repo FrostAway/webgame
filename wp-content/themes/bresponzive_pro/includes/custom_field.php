@@ -232,3 +232,4 @@ function iz_save_talent_field($term_id) {
         update_option('talent-level' . $term_id, $_POST['talent-level']);
     }
 }
+

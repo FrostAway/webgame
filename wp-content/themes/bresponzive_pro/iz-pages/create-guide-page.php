@@ -13,13 +13,12 @@
     <div id="game-guide">        
         <?php ?>       
         <div class="post-content">
-            <h1 class="entry-title"><?php the_title(); ?></h1>
+            <h1 class="entry-title" style="font-size: 24px; color: #fff;"><?php the_title(); ?></h1>
             
             <div class="entry-content">
                 <div class="meta_author">
                     
                 </div>
-                
                 <div class="posted-status">
                     <p>
                     <?php
@@ -34,20 +33,23 @@
                     </p>
                 </div>
                 
+                <?php if(is_user_logged_in()){ ?>
+                
                 <div class="guide-form">
                     <form method="post" action="" class="new-guide-form">
                         <div class="title">
                             <label><?= __('Tiêu đề', 'iz_theme'); ?></label>
                             <input type="text" class="guide-title" name="guide-title" required="" />
                         </div>
-                        
-                        <div class="box-select">
+                        <?php the_content(); ?>
+                        <div class="box-select row">
                             <?php $champions = get_posts(array(
                                 'post_type' => 'fl_champion',
                                 'hide_empty' => false
                             )); ?>
                             
-                            <label><?= __('Chọn tướng', 'iz_theme'); ?></label>
+                            <label class="col-sm-2"><?= __('Chọn tướng', 'iz_theme'); ?></label>
+                            
                             <select name="guide-champion" id="guide-champion" required="">
                                 <option value="0">Chọn tướng</option>
                                 <?php foreach ($champions as $ch){ ?>
@@ -55,7 +57,7 @@
                                 <?php } ?>
                             </select>
                             
-                            <div class="list-champions">
+                            <div class="col-sm-10 list-champions">
                                 <?php foreach ($champions as $ch){ ?>
                                 <div class="iz-champion">
                                     <a href="#" data-id="<?php echo $ch->ID ?>" title="<?php echo $ch->post_title ?>">
@@ -69,36 +71,46 @@
                                 <?php 
                                 $guide_cats = get_terms('fl_guide_cat', array('hide_empty'=>false)); 
                                 ?>
-                                <label><?php echo __('Chọn thể loại', 'iz_theme') ?></label>
-                                <select id="guide-cat" name="guide-cat">
-                                    <option value="0"><?php echo __('Chọn thể loại', 'iz_theme') ?></option>
+                                <label class="col-sm-2"><?php echo __('Chọn thể loại', 'iz_theme') ?></label>
+                                
+                                <div class="col-sm-10">
+                                <div class="select-guide-cat" style="background: #fff; height: 150px; padding: 10px; overflow: auto;">
                                     <?php foreach ($guide_cats as $cat){ ?>
-                                    <option value="<?php echo $cat->term_id ?>"><?php echo $cat->name ?></option>
+                                    <div><label style="min-width: 200px; width: auto;"><input type="checkbox" name="guide-cat[]" value="<?php echo $cat->term_id ?>" /> <?php echo $cat->name ?></label></div>
                                     <?php } ?>
-                                </select>
+                                </div>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="guide-thumbnail" style="margin-top: 20px;">
-                            <label><?php echo __('Chọn Ảnh tiêu biểu', 'iz_theme') ?></label>
+                        <div class="row guide-thumbnail" style="margin-top: 20px;">
+                            <label class="col-sm-2"><?php echo __('Chọn Ảnh tiêu biểu', 'iz_theme') ?></label>
+                            <div class="col-sm-10">
                             <img class="show-thumbnail" src="<?php echo get_template_directory_uri() ?>/images/iz_images/default.jpeg" />
                             <input type="hidden" name="guide-thumbnail" class="guide-thumbnail-value" value="" />
+                            <input type="hidden" name="attach-id" value="" class="attach-id" />
+                            <input type="hidden" name="thumbnail-type" class="thumbnail-type" value="" />
+                            <input type="hidden" name="thumbnail-name" class="thumbnail-name" value="" />
                             <a class="btn btn-default" id="guide-upload"><?php echo __('Upload', 'iz_theme') ?></a>
+                            </div>
                         </div>
                         
                         <div class="guide-content">
-                            <label><?= __('Nội dung', 'iz_theme'); ?></label>
+                            <label><?= __('Nội dung', 'iz_theme'); ?> <span style="color: #c4eae1;"> </span></label>
                             <?php wp_editor('', 'guide-content', array('textarea_rows'=>13)); ?>
                         </div>
                         
                         <div class="guide-submit">
-                            <?php //wp_nonce_field('add_guide'); ?>
-                            <!--<input type="hidden" name="current-url" value="<?php //echo $_SERVER['REQUEST_URI']; ?>" />-->
                             <input type="hidden" name="current-url" value="<?php the_permalink() ?>" />
+                            <?php wp_nonce_field( 'post_nonce', 'post_nonce_field' ); ?>
+                            <input type="hidden" name="post_type" value="fl_guide" />
                             <input type="submit" name="submit-new-guide" value="<?= __('Tạo Guide', 'iz_theme') ?>" />
                         </div>
                     </form>
                 </div>
+                <?php }else{ ?>
+                <h4>Bạn phải đăng nhập để tạo hướng dẫn, Nếu chưa có tài khoản vui lòng <a href="<?php echo get_page_link(1262) ?>">Đăng ký</a></h4>
+                <?php } ?>
             </div>
         </div>
         

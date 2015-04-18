@@ -85,7 +85,7 @@ if ( is_singular() && get_option( 'thread_comments' ) )		wp_enqueue_script( 'com
                 <?php }else{ ?>
                 
                 <li class="menu-item">
-                    <a id="iz-register" href="#"><?php echo __('Đăng ký', 'iz_theme') ?></a>
+                    <a id="iz-register" href="<?php echo get_page_link(1262); ?>"><?php echo __('Đăng ký', 'iz_theme') ?></a>
                 </li>
                 
                 <li class="menu-item">

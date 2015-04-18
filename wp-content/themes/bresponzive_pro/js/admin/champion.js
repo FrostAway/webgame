@@ -177,18 +177,18 @@
                     '<td class="name"><input required type="text" size="10" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
                     '<td class="mana"><input type="text" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
                     '<td class="down"><input type="text" name="iz-ch-skills[' + num + '][]" value="" /></td>' +
-                    '<td class="lv-plus"><input type="text" name="iz-ch-skills[' + num + '][]" value="" placeholder="1,2,3,..." /></td>'+
+                    '<td class="lv-plus" rowspan="2"><textarea name="iz-ch-skills[' + num + '][]" placeholder="<iframe width=..."></textarea></td>'+
                     '<td class="desc" rowspan="2"><textarea name="iz-ch-skills[' + num + '][]"></textarea></td>' +
-                    '<td class="animate" rowspan="2">'+
-                            '<a class="icon-video" href="#">'+
-                                
-                                '<video style="width: 100px;">'+
-                                    '<source src="" />'+
-                                '</video>'+
-                            '</a>'+
-                            '<input type="hidden" class="iz-ch-skill-url-video" name="iz-ch-skills['+num+'][]" value="" />'+
-                            '<a class="skill-url-del-video dashicons dashicons-no-alt"></a> '+
-                        '</td>'+
+//                    '<td class="animate" rowspan="2">'+
+//                            '<a class="icon-video" href="#">'+
+//                                
+//                                '<video style="width: 100px;">'+
+//                                    '<source src="" />'+
+//                                '</video>'+
+//                            '</a>'+
+//                            '<input type="hidden" class="iz-ch-skill-url-video" name="iz-ch-skills['+num+'][]" value="" />'+
+//                            '<a class="skill-url-del-video dashicons dashicons-no-alt"></a> '+
+//                        '</td>'+
                     '<td class="skill-del"><a href="#" class="">Xóa</a></td>' +
                     '</tr>'+
                     '<tr></tr>'

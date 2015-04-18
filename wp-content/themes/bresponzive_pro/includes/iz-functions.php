@@ -44,7 +44,8 @@ function iz_register_scripts() {
     wp_register_script('iz_scripts', get_template_directory_uri() . '/js/iz_scripts.js', null, '1.0');
     wp_localize_script('iz_scripts', 'params', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
-        'talent_url' => get_page_link(1103)
+        'talent_url' => get_page_link(1103),
+        'talent_page' => get_page_link(1068)
     ));
     wp_enqueue_media();
     wp_enqueue_script('iz_scripts');
@@ -59,8 +60,8 @@ function iz_register_scripts() {
 //    wp_register_style('iz_mediaelement_css', get_template_directory_uri().'/js/plugin/mediaelement/mediaelementplayer.css');
 //    wp_enqueue_script('iz_mediaelement');
 //    wp_enqueue_style('iz_mediaelement_css');
-    
-    
+
+
     wp_register_script('iz_jquery_bxslider', get_template_directory_uri() . '/js/plugin/jquery.bxslider/jquery.bxslider.min.js');
     wp_enqueue_script('iz_jquery_bxslider');
     wp_register_style('iz_css_bxslider', get_template_directory_uri() . '/js/plugin/jquery.bxslider/jquery.bxslider.css');
@@ -68,10 +69,9 @@ function iz_register_scripts() {
 
     wp_register_script('iz_bootstrap_gallery', get_template_directory_uri() . '/js/plugin/bootstrap_gallery/css/bootstrap-image-gallery.min.css');
     wp_enqueue_script('iz_bootstrap_gallery');
-    
-     wp_register_style('fl_custom_theme', get_template_directory_uri().'/css/mycustom.css');
+
+    wp_register_style('fl_custom_theme', get_template_directory_uri() . '/css/mycustom.css');
     wp_enqueue_style('fl_custom_theme');
-    
 }
 
 add_action('wp_footer', 'iz_script_footer');
@@ -79,10 +79,9 @@ add_action('wp_footer', 'iz_script_footer');
 function iz_script_footer() {
 //    wp_register_script('iz_bstrap_gallery', get_template_directory_uri() . '/js/plugin/bootrap_gallery/js/bootstrap-image-gallery.min.js');
 //    wp_enqueue_script('iz_bstrap_gallery');
-    
-    wp_register_script('iz_bootstrap_js', get_template_directory_uri().'/dist/js/bootstrap.min.js');
+
+    wp_register_script('iz_bootstrap_js', get_template_directory_uri() . '/dist/js/bootstrap.min.js');
     wp_enqueue_script('iz_bootstrap_js');
-    
 }
 
 add_action('admin_enqueue_scripts', 'iz_admin_register_scripts');
@@ -93,73 +92,63 @@ function iz_admin_register_scripts() {
     wp_enqueue_script('iz_admin_scripts');
 }
 
-if (isset($_POST['submit-new-guide'])) {
-    $title = $_POST['guide-title'];
-    $guid_ch = $_POST['guide-champion'];
-    $guid_content = $_POST['guide-content'];
-    $guid_cat = $_POST['guide-cat'];
-    $thumbanil = $_POST['guide-thumbnail'];
+function iz_insert_post() {
+    if (isset($_POST['submit-new-guide']) && isset($_POST['post_nonce_field']) && wp_verify_nonce($_POST['post_nonce_field'], 'post_nonce')) {
 
-    $current_url = $_POST['current-url'];
-    
-    if (strpos($current_url, '?')) {
-        $redirect_fail = $current_url . '&posted=failed';
-        $redirect_sc = $current_url . '&posted=success';
-    } else {
-        $redirect_fail = $current_url . '/?posted=failed';
-        $redirect_sc = $current_url . '/?posted=success';
-    }
-    if ($guid_ch == 0 || $guid_cat == null) {
-        wp_redirect($redirect_fail);
-        die();
-    } else {
-        $post_id = wp_insert_post(array(
-            'post_title' => wp_strip_all_tags($title),
-            'post_content' => $guid_content,
-            'post_type' => 'fl_guide',
-            'post_status' => 'publish',
-            'post_author' => get_current_user_id()
-        ));
+        $current_url = $_POST['current-url'];
 
-        $upload_dir = wp_upload_dir();
-        $image_data = file_get_contents($thumbanil);
-        $filename = basename($thumbanil);
-
-        if (wp_mkdir_p($upload_dir['path'])) {
-            $file = $upload_dir['path'] . '/' . $filename;
+        if (strpos($current_url, '?')) {
+            $redirect_fail = $current_url . '&posted=failed';
+            $redirect_sc = $current_url . '&posted=success';
         } else {
-            $file = $upload_dir['basedir'] . '/' . $filename;
+            $redirect_fail = $current_url . '/?posted=failed';
+            $redirect_sc = $current_url . '/?posted=success';
         }
+        if (is_user_logged_in()) {
+            if ($_POST['guide-champion'] == 0 || $_POST['guide-cat'] == null) {
+                wp_redirect($redirect_fail);
+                die();
+            } else {
+                $post_id = wp_insert_post(array(
+                    'post_title' => wp_strip_all_tags($_POST['guide-title']),
+                    'post_content' => $_POST['guide-content'],
+                    'post_type' => 'fl_guide',
+                    'post_status' => 'publish',
+                    'post_author' => get_current_user_id()
+                ));
 
-        // Create the image  file on the server
-        file_put_contents($file, $image_data);
+                if ($post_id) {
+                    set_post_thumbnail($post_id, $_POST['attach-id']);
+                    add_post_meta($post_id, 'iz-guide-champion', $_POST['guide-champion']);
 
-        // Check image file type
-        $wp_filetype = wp_check_filetype($filename, null);
+                    $guide_cats = $_POST['guide-cat'];
+                    $guide_cats = array_map('intval', $guide_cats);
+                    $guide_cats = array_unique($guide_cats);
 
-        // Set attachment data
-        $attachment = array(
+                    global $wpdb;
+                    foreach ($guide_cats as $cat_id){
+                        $wpdb->insert($wpdb->term_relationships, array('object_id'=>$post_id, 'term_taxonomy_id'=>$cat_id), array('%d', '%d'));
+                    }
 
-            'post_mime_type' => $wp_filetype['type'],
-            'post_title' => sanitize_file_name($filename),
-            'post_content' => '',
-            'post_status' => 'inherit'
-        );
-
-        add_post_meta($post_id, 'iz-guide-champion', $guid_ch);
-        $attach_id = wp_insert_attachment($attachment, $file, $post_id);
-        require_once (ABSPATH . 'wp-admin/includes/image.php');
-        $attach_data = wp_generate_attachment_metadata($attach_id, $file);
-        wp_update_attachment_metadata($attach_id, $attach_data);
-        set_post_thumbnail($post_id, $attach_id);
-        
-        wp_set_object_terms($post_id, $guid_cat, 'fl_guide_cat', true);
-
-        wp_redirect($redirect_sc);
-        die();
+                    wp_redirect($redirect_sc);
+                    die();
+                }
+            }
+        }else{
+            wp_redirect($redirect_fail);
+            die();
+        }
     }
 }
 
+add_action('init', 'iz_insert_post');
+
+//add_action('save_post', 'iz_save_guide');
+//function iz_save_guide($post_id){
+//    if(isset($_POST['post_type']) && $_POST['post_type'] == 'fl_guide'){
+//        wp_set_object_terms($post_id, $_POST['guide-cat'], 'fl_guide_cat');
+//    }
+//}
 // post thumbnail
 
 function iz_thumbnail($post_id, $size) {
@@ -204,11 +193,11 @@ function iz_galleries($post_id) {
         $galleries = array_merge(array($main_url), $gallery_ids);
         ?>
         <div class="ch-galleries">
-        <?php foreach ($galleries as $image) { ?>
+            <?php foreach ($galleries as $image) { ?>
                 <a class="slide" href="<?php echo $image ?>">
                     <img src="<?php echo $image ?>" />
                 </a>
-        <?php } ?>
+            <?php } ?>
         </div>
         <?php
     }
@@ -230,48 +219,51 @@ function iz_post_query_function($query) {
     }
 }
 
-
 //custom login logo
-function iz_login_logo(){
-    echo '<style type="text/css">'.
-    '.login h1 a{background-image: url('.  get_template_directory_uri().'/images/iz_images/logo.png); background-size: 100%; width: 190px; height: 130px;}'
+function iz_login_logo() {
+    echo '<style type="text/css">' .
+    '.login h1 a{background-image: url(' . get_template_directory_uri() . '/images/iz_images/logo-1.png); background-size: 100%; width: 190px; height: 130px;}'
     . '</style>';
 }
+
 add_action('login_head', 'iz_login_logo');
 
 
 //ajax admin
 add_action('wp_ajax_load_champ_skill', 'iz_load_champ_skill');
 add_action('wp_ajax_nopriv_load_champ_skill', 'iz_load_champ_skill');
-function iz_load_champ_skill(){
-    if(isset($_POST['ch_id'])){
+
+function iz_load_champ_skill() {
+    if (isset($_POST['ch_id'])) {
         $ch_id = $_POST['ch_id'];
         $ch_skills = get_post_meta($ch_id, 'iz-ch-skills', true);
         $ch_skills = ($ch_skills == null) ? null : $ch_skills;
-        if($ch_skills != null){
-            foreach ($ch_skills as $key => $value){ ?>
-        <div><label><input type="radio" name="talent-skill" value="<?php echo $key ?>" /> <?php echo $value[1] ?></label></div>
-            <?php }
+        if ($ch_skills != null) {
+            foreach ($ch_skills as $key => $value) {
+                ?>
+                <div><label><input type="radio" name="talent-skill" value="<?php echo $key ?>" /> <?php echo $value[1] ?></label></div>
+                <?php
+            }
         }
     }
     die();
 }
 
-function get_max_index(){
-    $champions = get_posts(array('post_type'=>'fl_champion'));
+function get_max_index() {
+    $champions = get_posts(array('post_type' => 'fl_champion'));
     $index_max = array();
-    
-    $ch_terms = get_terms('fl_champion_index', array('hide_empty'=>false));
-    foreach ($ch_terms as $term){
+
+    $ch_terms = get_terms('fl_champion_index', array('hide_empty' => false));
+    foreach ($ch_terms as $term) {
         $index_max[$term->term_id] = 0;
     }
-    
-    foreach ($champions as $ch){
+
+    foreach ($champions as $ch) {
         $ch_indexs = get_post_meta($ch->ID, 'iz-ch-indexs', true);
         $ch_indexs = ($ch_indexs == null) ? null : $ch_indexs;
-        if($ch_indexs != null){
-            foreach ($ch_indexs as $key => $value){
-                if($value[0] > $index_max[$key]){
+        if ($ch_indexs != null) {
+            foreach ($ch_indexs as $key => $value) {
+                if ($value[0] > $index_max[$key]) {
                     $index_max[$key] = $value[0];
                 }
             }
@@ -279,5 +271,4 @@ function get_max_index(){
     }
     return $index_max;
 }
-
 ?>

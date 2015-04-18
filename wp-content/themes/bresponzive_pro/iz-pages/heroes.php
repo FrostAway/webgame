@@ -51,7 +51,7 @@
             </div>
             
             <h1 class="entry-title"><?php echo __('Hưỡng dẫn phổ biến', 'iz_theme') ?></h1>
-            <?php query_posts(array('post_type'=>'fl_guide', 'posts_per_page'=>5)); ?>
+            <?php query_posts(array('post_type'=>'fl_guide', 'posts_per_page'=>10, 'meta_key' => 'iz-vote-post', 'orderby'=>'meta_value_num' )); ?>
             <div class="list-guide list-posts">
                                 <?php if (have_posts()):while (have_posts()):the_post(); ?>
                                         <div <?php post_class('row iz-guide post') ?> >
