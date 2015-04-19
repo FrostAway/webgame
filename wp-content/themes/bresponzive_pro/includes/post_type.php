@@ -240,7 +240,7 @@ function fl_champion_talent($post){
             }
         }
     ?>
-    <label style="display: inline-block; width: 49%;"><input <?php echo $check; ?> type="checkbox" name="tax_input[fl_talent_cat][]" value="<?php echo $term->term_id ?>" /> <?php echo $term->name ?> <a href="<?php echo get_edit_term_link($term->term_id, 'fl_talent_cat'); ?>"> <?php echo __('Sửa', 'iz_theme') ?></a></label>
+    <label style="display: inline-block; width: 49%;"><input <?php echo $check; ?> type="checkbox" name="tax_input[fl_talent_cat][]" value="<?php echo $term->term_id ?>" /> <?php echo $term->name ?> <a target="_blank" href="<?php echo get_edit_term_link($term->term_id, 'fl_talent_cat'); ?>"> <?php echo __('Sửa', 'iz_theme') ?></a></label>
     <?php
     }
     ?>

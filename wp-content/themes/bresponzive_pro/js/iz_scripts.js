@@ -32,7 +32,7 @@
             $('.talent-image .talents .level a').click(function (e) {
                 e.preventDefault();
                 var thisa = $(this).parent('.level');
-                
+
                 thisa.find('a').removeClass('active');
                 thisa.find('a').addClass('none');
                 $(this).removeClass('none');
@@ -42,46 +42,58 @@
                 var name = $(this).attr('data-name');
                 var iskill = $(this).attr('data-num');
                 var term = $(this).attr('data-term');
+                var data_id_term = $(this).attr('data-id-term');
+                var data_ug_id = $(this).attr('data-ug-id');
 
-                thisa.find('.none').each(function (i, value) {
-                    var none_term = $(this).attr('data-term');
-                    var none_iskill = $(this).attr('data-num');
-                    $('.list-skill #skill-' + none_iskill + ' .info .add-text #tl-add-' + none_term).remove();
-                    $('.list-skill #skill-' + none_iskill + ' .info .description #tl-desc-' + none_term).remove();
-                });
+                if (parseInt(iskill) !== -1) {
+                    thisa.find('.none').each(function (i, value) {
+                        var none_term = $(this).attr('data-term');
+                        var none_iskill = $(this).attr('data-num');
+                        $('.list-skill #skill-' + none_iskill + ' .info .add-text #tl-add-' + none_term).remove();
+                        $('.list-skill #skill-' + none_iskill + ' .info .description #tl-desc-' + none_term).remove();
+                    });
 
-                thisa.find('.ind').html('(' + index + ')');
+                    thisa.find('.ind').html('(' + index + ')');
 
-                var desc = '<div class="desc" id="tl-desc-' + term + '">[<span>' + name + '</span>] ' + $(this).attr('data-title') + '</div>';
-                var add_text = '<span id="tl-add-' + term + '">[' + name + ']</span> ';
+                    var desc = '<div class="desc" id="tl-desc-' + term + '">[<span>' + name + '</span>] ' + $(this).attr('data-title') + '</div>';
+                    var add_text = '<span id="tl-add-' + term + '">[' + name + ']</span> ';
 
-                if ($('.list-skill #skill-' + iskill + ' .info .add-text #tl-add-' + term).length > 0) {
-                } else {
-                    $('.list-skill #skill-' + iskill + ' .info .description').append(desc);
-                    $('.list-skill #skill-' + iskill + ' .info .add-text').append(add_text);
+                    if ($('.list-skill #skill-' + iskill + ' .info .add-text #tl-add-' + term).length > 0) {
+                    } else {
+                        $('.list-skill #skill-' + iskill + ' .info .description').append(desc);
+                        $('.list-skill #skill-' + iskill + ' .info .add-text').append(add_text);
+                    }
+                }else{
+                    $('.col-ind').each(function(){
+                       var value = $(this).find('.value');
+                       var init_value = $(this).find('.iz-init-value').val();
+                       value.html(init_value);
+                    });
+                    var current = $('#iz-index-'+data_id_term).find('.value').html();
+                    $('#iz-index-'+data_id_term).find('.value').html(parseInt(current)+parseInt(data_ug_id));
                 }
-                
+
                 //url
-                var stt = ''; 
-                $('.talent-image .talents .level').each(function(i, value){
+                var stt = '';
+                $('.talent-image .talents .level').each(function (i, value) {
                     var ele = $(this).find('a');
                     var check = 0;
-                    ele.each(function(){
-                       if($(this).hasClass('active')){
-                           check = $(this).attr('data-index');
-                       }
+                    ele.each(function () {
+                        if ($(this).hasClass('active')) {
+                            check = $(this).attr('data-index');
+                        }
                     });
-                    stt = stt+check.toString();
+                    stt = stt + check.toString();
                 });
                 var path = $('#talent-path').val();
-                $('#share-talent-url').val(params.talent_page+'?stt='+stt);
-                $('#bbcode').val('[embed='+path+'?stt='+stt+']');
-                
-                history.pushState('data', '', params.talent_page+'?stt='+stt);
-                $('.share-btn a').attr('data-href', 'https://www.facebook.com/sharer/sharer.php?u='+params.talent_page+'?stt='+stt);
-                $('.share-btn a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+params.talent_page+'?stt='+stt);
+                $('#share-talent-url').val(params.talent_page + '?stt=' + stt);
+                $('#bbcode').val('[embed=' + path + '?stt=' + stt + ']');
+
+                history.pushState('data', '', params.talent_page + '?stt=' + stt);
+                $('.share-btn a').attr('data-href', 'https://www.facebook.com/sharer/sharer.php?u=' + params.talent_page + '?stt=' + stt);
+                $('.share-btn a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + params.talent_page + '?stt=' + stt);
             });
-            
+
             $('.list-skill .iz-skill .info .open-close').click(function () {
                 var desc = $(this).closest('.info').find('.description');
                 if (desc.css('display') === 'none') {
@@ -94,39 +106,39 @@
                     $(this).html(['[+]']);
                 }
             });
-            
+
             //talent
-            $('#reset-talent').click(function(e){
+            $('#reset-talent').click(function (e) {
                 e.preventDefault();
                 $('.list-skill .iz-skill .info .description').slideUp();
-                    $('.list-skill .iz-skill .info .open-close').html('[+]');
-                    
-                    $('.talent-image .talents .level a').removeClass('active');
-                    $('.talent-image .talents .level a').removeClass('none');
-                    $('.talent-image .talents .level .ind').html('(0)');
-                    
-                    $('.list-skill .iz-skill .info .description .desc').remove();
-                    $('.list-skill .iz-skill .info .add-text span').remove();
-                    
+                $('.list-skill .iz-skill .info .open-close').html('[+]');
+
+                $('.talent-image .talents .level a').removeClass('active');
+                $('.talent-image .talents .level a').removeClass('none');
+                $('.talent-image .talents .level .ind').html('(0)');
+
+                $('.list-skill .iz-skill .info .description .desc').remove();
+                $('.list-skill .iz-skill .info .add-text span').remove();
+
                 $('#share-talent-url').val('');
                 $('#bbcode').val('');
-                
+
                 history.pushState('data', '', params.talent_page);
-                $('.share-btn a').attr('data-href', 'https://www.facebook.com/sharer/sharer.php?u='+params.talent_page);
-                $('.share-btn a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+params.talent_page);
+                $('.share-btn a').attr('data-href', 'https://www.facebook.com/sharer/sharer.php?u=' + params.talent_page);
+                $('.share-btn a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + params.talent_page);
             });
-            
-            
-        $('.talent-image .talents .level a').hover(function () {   
-            var text_tooltip = $(this).find('.tl-tooltip').html();
-            $('<div class="ch-tooltip tl-tooltip"></div>').html(text_tooltip).appendTo('body').fadeIn(300);
-        }, function () {
-            $('.ch-tooltip').remove();
-        }).mousemove(function (e) {
-            var mouseX = e.pageX;
-            var mouseY = e.pageY;
-            $('.ch-tooltip').css({top: mouseY - 100, left: mouseX + 30});
-        });
+
+
+            $('.talent-image .talents .level a').hover(function () {
+                var text_tooltip = $(this).find('.tl-tooltip').html();
+                $('<div class="ch-tooltip tl-tooltip"></div>').html(text_tooltip).appendTo('body').fadeIn(300);
+            }, function () {
+                $('.ch-tooltip').remove();
+            }).mousemove(function (e) {
+                var mouseX = e.pageX;
+                var mouseY = e.pageY;
+                $('.ch-tooltip').css({top: mouseY - 100, left: mouseX + 30});
+            });
         }
         talent();
 
@@ -277,7 +289,7 @@
 
 
         //play video
-        
+
         $('.list-skins .skin .icon .play, .skills .skill .icon .play').click(function (e) {
             e.preventDefault();
             var video = $('#iz-frame');
@@ -285,7 +297,7 @@
         });
 
 
-        
+
 
     });
 })(jQuery);

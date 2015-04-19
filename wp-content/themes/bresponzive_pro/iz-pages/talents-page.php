@@ -88,7 +88,7 @@
                         <div class="list-index row">
                             <?php foreach ($ch_indexs as $index) { ?>
                             <div class="col-sm-2 col-ind">
-                                <div class="btn btn-success btn-block iz-index">
+                                <div class="btn btn-success btn-block iz-index" id="iz-index-<?php echo $index->term_id ?>">
                                     <span class="value"><?php echo $myindexs[$index->term_id][0] ?></span>
                                     <input type="hidden" name="addlevel" class="iz-add-level" value="<?php echo $myindexs[$index->term_id][1]; ?>" />
                                     <input type="hidden" name="initvalue" class="iz-init-value" value="<?php echo $myindexs[$index->term_id][0]; ?>" />
@@ -134,11 +134,15 @@
                                             $num_ch = get_option('talent-skill'.$term->term_id);
 //                                           
                                             $term_lv = get_option('talent-level'.$term->term_id);
+                                            
+                                            $term_index = get_option('talent-index'.$term->term_id);
+                                            $term_id_ug = get_option('ug-talent-index'.$term->term_id);
+                                            
                                             if($term_lv){
                                                 if(in_array($level, $term_lv)){
                                                     $i++;
                                                    ?>
-                                                    <a href="#" data-name="<?= $term->name ?>" data-num="<?= $num_ch ?>" data-term="<?php echo $term->term_id ?>" data-index="<?php echo $i  ?>" data-title="<?php echo $term->description ?>"
+                                                    <a href="#" data-name="<?= $term->name ?>" data-num="<?= $num_ch ?>" data-id-term="<?= $term_index; ?>" data-ug-id="<?= $term_id_ug ?>" data-term="<?php echo $term->term_id ?>" data-index="<?php echo $i  ?>" data-title="<?php echo $term->description ?>"
                                                        class="<?php if($stt!=''){
                                                            if($stt[$j] != 0){
                                                            if($stt[$j] == $i){

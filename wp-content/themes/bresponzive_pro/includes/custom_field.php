@@ -4,7 +4,7 @@ function iz_add_talent_field() {
     ?>
     <div class="form-field" id="talents">
         <table class="talents-box" style="width: 100%;">
-            <tr>
+            <tr class="form-field talent-champion">
                 <th><label for=""><?php echo __('Tướng', 'iz_theme') ?></label></th>
                 <td colspan="2">
                     <div id="list-champs">
@@ -20,7 +20,7 @@ function iz_add_talent_field() {
                     </div>
                 </td>
             </tr>
-            <tr>
+            <tr class="form-field talent-upgrade">
                 <th><label><?php echo __('Tác động', 'iz_theme') ?></label></th>
                 
                 <td>
@@ -32,15 +32,32 @@ function iz_add_talent_field() {
                         if ($skills != null) {
                             foreach ($skills as $key => $value) {
                                 ?>
-                                <div><label><input type="radio" name="talent-skill" value="<?php echo $key ?>" /> <?php echo $value[1] ?></label></div>
+                            <div><label><input class="skill" type="radio" name="talent-skill" value="<?php echo $key ?>" /> <?php echo $value[1] ?></label></div>
                                 <?php
                             }
                         }
                         ?>
                     </div>
                 </td>
+                <td>
+                    <label><?php echo __('Chỉ số', 'iz_theme') ?></label>
+                    <div id="list-indexs">
+                        <?php
+                        $index_terms = get_terms('fl_champion_index', array('hide_empty'=>false));
+                        foreach ($index_terms as $term){ ?>
+                        <div><label><input class="index" type="radio" name="talent-index" value="<?php echo $term->term_id ?>" /> <?php echo $term->name ?></label></div>
+                        <?php }
+                        ?>
+                    </div>
+                </td>
             </tr>
-            <tr>
+            <div id="index-upgrade">
+                <tr>
+                    <th><?php echo __('Tăng chỉ số', 'iz_theme') ?></th>
+                    <td colspan="2"><input class="index-upgrade" type="text" name="ug-talent-index" placeholder="Chỉ nhập khi chọn chỉ số" /></td>
+                </tr>
+            </div>
+            <tr class="form-field talent-level">
                 <th><?php echo __('Cấp độ tăng', 'iz_theme') ?></th>
                 <td colspan="2">
                     <?php
@@ -82,6 +99,15 @@ function iz_add_talent_field() {
                         } else {
                         }
                     });
+                    
+                    $('.talent-upgrade #list-skills .skill').click(function(){
+                        $('.talent-upgrade #list-indexs .index').prop('checked', false);
+                        $('#index-upgrade .index-upgrade').prop('disabled', true);
+                    });
+                    $('.talent-upgrade #list-indexs .index').click(function(){
+                        $('.talent-upgrade #list-skills .skill').prop('checked', false);
+                        $('#index-upgrade .index-upgrade').prop('disabled', false);
+                    });
                 });
             })(jQuery);
         </script>
@@ -94,8 +120,8 @@ add_action('fl_talent_cat_add_form_fields', 'iz_add_talent_field', 10, 2);
 function iz_edit_talent_field($taxonomy) {
     ?>
     <div class="form-field" id="talents">
-        <table class="talents-box" style="width: 100%;">
-            <tr>
+        <!--<table class="talents-box" style="width: 100%;">-->
+            <tr class="form-field talent-champion">
                 <th><label for=""><?php echo __('Tướng', 'iz_theme') ?></label></th>
                 <td id="list-champs" colspan="2">
                     <?php
@@ -112,17 +138,9 @@ function iz_edit_talent_field($taxonomy) {
                     ?>
                 </td>
             </tr>
-            <tr>
+            <tr class="form-field talent-upgrade">
                 <th><label><?php echo __('Tác động', 'iz_theme'); ?></label></th>
-<!--                <td  style="width: 200px;">
-                    <label><strong><?php // echo __('Chỉ số', 'iz_theme'); ?></strong></label>
-                    <div class="list-terms">
-                        <?php //$index_terms = get_terms('fl_champion_index', array('hide_empty' => false)); ?>
-                        <?php //foreach ($index_terms as $term) { ?>
-                            <div><label><input type="radio" name="talent-index" value="<?php // echo $term->term_id ?>" <?php //checked($term->term_id, get_option('talent-index' . $taxonomy->term_id), true); ?>  />  <?php //echo $term->name; ?></label></div>
-                        <?php //} ?>
-                    </div>
-                </td>-->
+                
                 <td>
                     <label><strong><?php echo __('Kỹ năng', 'iz_theme'); ?></strong></label>
                     <div id="list-skills">
@@ -133,14 +151,31 @@ function iz_edit_talent_field($taxonomy) {
                             foreach ($skills as $key => $value) {
                                 ?>
                                 <div>
-                                    <label><input type="radio" name="talent-skill" value="<?php echo $key ?>" <?php checked($key, get_option('talent-skill' . $taxonomy->term_id), true); ?> /> <?php echo $value[1]; ?></label>
+                                    <label><input class="skill" type="radio" name="talent-skill" value="<?php echo $key ?>" <?php checked($key, get_option('talent-skill' . $taxonomy->term_id), true); ?> /> <?php echo $value[1]; ?></label>
                                 </div>
                             <?php }
                         ?>
                     </div>
                 </td>
+                <td style="width: 300px;">
+                    <label><?php echo __('Chỉ số', 'iz_theme') ?></label>
+                    <div id="list-indexs">
+                        <?php
+                        $index_terms = get_terms('fl_champion_index', array('hide_empty'=>false));
+                        foreach ($index_terms as $term){ ?>
+                        <div><label><input class="index" type="radio" name="talent-index" value="<?php echo $term->term_id ?>" <?php checked($term->term_id, get_option('talent-index' . $taxonomy->term_id), true); ?> /> <?php echo $term->name ?></label></div>
+                        <?php }
+                        ?>
+                    </div>
+                </td>
             </tr>
-            <tr>
+            <div id="index-upgrade">
+                <tr>
+                    <th><?php echo __('Tăng chỉ số', 'iz_theme') ?></th>
+                    <td colspan="2"><input class="index-upgrade" type="text" name="ug-talent-index" value="<?php echo get_option('ug-talent-index'.$taxonomy->term_id) ?>" placeholder="Chỉ nhập khi chọn chỉ số" /></td>
+                </tr>
+            </div>
+            <tr class="form-field talent-level">
                 <th><?php echo __('Cấp độ tăng', 'iz_theme') ?></th>
                 <td colspan="2">
                     <?php
@@ -175,7 +210,7 @@ function iz_edit_talent_field($taxonomy) {
                     <textarea name="talent-content" cols="80" rows="4"><?php //echo get_option('talent-content'.$taxonomy->term_id)   ?></textarea>
                 </td>
             </tr>-->
-        </table>
+        <!--</table>-->
         <script>
             jQuery(document).ready(function ($) {
                 $('#list-champs .champion').click(function () {
@@ -196,6 +231,15 @@ function iz_edit_talent_field($taxonomy) {
                     } else {
                     }
                 });
+                
+                $('.talent-upgrade #list-skills .skill').click(function(){
+                        $('.talent-upgrade #list-indexs .index').prop('checked', false);
+                        $('#index-upgrade .index-upgrade').prop('disabled', true);
+                    });
+                    $('.talent-upgrade #list-indexs .index').click(function(){
+                        $('.talent-upgrade #list-skills .skill').prop('checked', false);
+                        $('#index-upgrade .index-upgrade').prop('disabled', false);
+                    });
             });
         </script>
     </div>
@@ -221,9 +265,16 @@ function iz_save_talent_field($term_id) {
     }
     if (isset($_POST['talent-index'])) {
         update_option('talent-index' . $term_id, $_POST['talent-index']);
+    }else{
+        update_option('talent-index'.$term_id, -1);
+    }
+    if (isset($_POST['ug-talent-index'])){
+        update_option('ug-talent-index'.$term_id, $_POST['ug-talent-index']);
     }
     if (isset($_POST['talent-skill'])) {
         update_option('talent-skill' . $term_id, $_POST['talent-skill']);
+    }else{
+        update_option('talent-skill'.$term_id, -1);
     }
     if (isset($_POST['talent-content'])) {
         update_option('talent-content' . $term_id, $_POST['talent-content']);
