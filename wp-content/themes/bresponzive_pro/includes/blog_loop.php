@@ -8,7 +8,7 @@
             ?>
         </div>				 
         <?php else: ?>
-        <h2 class="noposts"><?php _e('Sorry, no posts to display!', 'bresponZive'); ?></h2>
+        <h4 class="noposts"><?php _e('Không tìm thấy bài viết nào!', 'iz_theme'); ?></h4>
     </div>
 <?php endif; ?>
 <?php wp_reset_query(); ?>

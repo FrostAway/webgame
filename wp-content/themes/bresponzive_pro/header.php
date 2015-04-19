@@ -157,7 +157,7 @@ if ( is_singular() && get_option( 'thread_comments' ) )		wp_enqueue_script( 'com
 		<?php wp_nav_menu(array('theme_location' => 'mainNav','container'=> '','menu_id'=> 'catmenu','menu_class'=> 'catnav  container clearfix','fallback_cb' => 'false','depth' => 3)); ?>
             </div>
             <div id="right-menu" class="col-sm-12 col-md-4">
-                <form class="search-form">
+                <form action="<?php echo home_url() ?>" method="get" class="search-form">
                     <input type="text" name="s" class="search-text form-control" placeholder="<?php echo __('Tìm kiếm', 'iz_theme'); ?>" />
                            <button type="submit" class="btn-submit"><span class="fa fa-search"></span></button>
                 </form>

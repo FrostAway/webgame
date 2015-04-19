@@ -64,11 +64,11 @@
                         $('.list-skill #skill-' + iskill + ' .info .add-text').append(add_text);
                     }
                 }else{
-                    $('.col-ind').each(function(){
-                       var value = $(this).find('.value');
-                       var init_value = $(this).find('.iz-init-value').val();
-                       value.html(init_value);
-                    });
+//                    $('.col-ind').each(function(){
+//                       var value = $(this).find('.value');
+//                       var init_value = $(this).find('.iz-init-value').val();
+//                       value.html(init_value);
+//                    });
                     var current = $('#iz-index-'+data_id_term).find('.value').html();
                     $('#iz-index-'+data_id_term).find('.value').html(parseInt(current)+parseInt(data_ug_id));
                 }

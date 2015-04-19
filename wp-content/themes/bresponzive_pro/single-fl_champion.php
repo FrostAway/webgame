@@ -121,7 +121,7 @@
                                     <div class="col-sm-3 skill">
                                         <div class="icon">
                                             <div class="play" data-url='<?php echo $skill[4] ?>' data-toggle="modal" data-target=".video-modal-frame">
-                                                <img src="<?php echo get_template_directory_uri() ?>/images/iz_images/videoicon.png" />
+                                                <img src="<?php echo get_template_directory_uri() ?>/images/iz_images/videoicon.jpg" />
                                             </div>
                                             <!--<img src="<?php //echo $skill[0] ?>" />-->
                                         </div>
