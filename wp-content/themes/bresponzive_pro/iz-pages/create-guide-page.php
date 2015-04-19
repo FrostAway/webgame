@@ -76,7 +76,7 @@
                                 <div class="col-sm-10">
                                 <div class="select-guide-cat" style="background: #fff; height: 150px; padding: 10px; overflow: auto;">
                                     <?php foreach ($guide_cats as $cat){ ?>
-                                    <div><label style="min-width: 200px; width: auto;"><input type="checkbox" name="guide-cat[]" value="<?php echo $cat->term_id ?>" /> <?php echo $cat->name ?></label></div>
+                                    <div><label style="min-width: 200px; width: auto; color: #000;"><input type="checkbox" name="guide-cat[]" value="<?php echo $cat->term_id ?>" /> <?php echo $cat->name ?></label></div>
                                     <?php } ?>
                                 </div>
                                 </div>

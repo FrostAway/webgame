@@ -63,14 +63,14 @@
                         $('.list-skill #skill-' + iskill + ' .info .description').append(desc);
                         $('.list-skill #skill-' + iskill + ' .info .add-text').append(add_text);
                     }
-                }else{
+                } else {
 //                    $('.col-ind').each(function(){
 //                       var value = $(this).find('.value');
 //                       var init_value = $(this).find('.iz-init-value').val();
 //                       value.html(init_value);
 //                    });
-                    var current = $('#iz-index-'+data_id_term).find('.value').html();
-                    $('#iz-index-'+data_id_term).find('.value').html(parseInt(current)+parseInt(data_ug_id));
+                    var current = $('#iz-index-' + data_id_term).find('.value').html();
+                    $('#iz-index-' + data_id_term).find('.value').html(parseInt(current) + parseInt(data_ug_id));
                 }
 
                 //url
@@ -266,24 +266,57 @@
             });
         });
 
-        $('.guide-thumbnail #guide-upload').click(function (e) {
-            e.preventDefault();
-            var custom_uploader = wp.media({
+//        $('.guide-thumbnail #guide-upload').click(function (e) {
+//            e.preventDefault();
+//            var custom_uploader = wp.media({
+//                title: 'Chọn ảnh',
+//                button: {
+//                    text: 'Chọn ảnh'
+//                },
+//                multiple: false  // Set this to true to allow multiple files to be selected
+//             
+//            })
+//                    .on('select', function () {
+//                        var attachment = custom_uploader.state().get('selection').first().toJSON();
+//                        $('.guide-thumbnail .show-thumbnail').attr('src', attachment.url);
+//                        $('.guide-thumbnail .guide-thumbnail-value').val(attachment.url);
+//                        $('.guide-thumbnail .attach-id').val(attachment.id);
+//                        $('.guide-thumbnail .thumbnail-type').val(attachment.type);
+//                        $('.guide-thumbnail .thumbnail-name').val(attachment.title);
+//                    })
+//                    .open();
+//        });
+
+        $('.guide-thumbnail #guide-upload').click(function (event) {
+            var frame;
+            event.preventDefault();
+            if (frame) {
+                frame.open();
+                return;
+            }
+            frame = wp.media({
                 title: 'Chọn ảnh',
                 button: {
                     text: 'Chọn ảnh'
                 },
-                multiple: false  // Set this to true to allow multiple files to be selected
-            })
-                    .on('select', function () {
-                        var attachment = custom_uploader.state().get('selection').first().toJSON();
-                        $('.guide-thumbnail .show-thumbnail').attr('src', attachment.url);
-                        $('.guide-thumbnail .guide-thumbnail-value').val(attachment.url);
-                        $('.guide-thumbnail .attach-id').val(attachment.id);
-                        $('.guide-thumbnail .thumbnail-type').val(attachment.type);
-                        $('.guide-thumbnail .thumbnail-name').val(attachment.title);
+                multiple: false,
+                states: [
+                    new wp.media.controller.Library({
+                        filterable: 'all' // turn on filters
                     })
-                    .open();
+                ]
+            });
+            frame.on("select", function () {
+                var attachment = frame.state().get('selection').first().toJSON();
+                frame.close();
+                $('.guide-thumbnail .show-thumbnail').attr('src', attachment.url);
+                $('.guide-thumbnail .guide-thumbnail-value').val(attachment.url);
+                $('.guide-thumbnail .attach-id').val(attachment.id);
+                $('.guide-thumbnail .thumbnail-type').val(attachment.type);
+                $('.guide-thumbnail .thumbnail-name').val(attachment.title);
+            });
+            frame.open();
+
         });
 
 

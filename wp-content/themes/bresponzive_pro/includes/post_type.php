@@ -28,21 +28,21 @@ function fl_add_post_type() {
         'menu_icon' => 'dashicons-visibility',
     ));
 
-    register_taxonomy('fl_media_cat', 'attachment', array(
-        'labels' => array(
-            'name' => 'Danh mục Media',
-            'singular_name' => 'Danh mục Media',
-            'add_new' => 'Thêm Danh mục',
-            'new_item_name' => 'Danh mục Media mới',
-            'add_new_item' => 'Thêm danh mục Media'
-        ),
-        'public' => true,
-        'hierarchical' => true,
-        'has_archive' => true,
-        'show_admin_column' => true,
-        'rewirte' => array('slug' => 'media-cat'),
-        'query_var' => true
-    ));
+//    register_taxonomy('fl_media_cat', 'attachment', array(
+//        'labels' => array(
+//            'name' => 'Danh mục Media',
+//            'singular_name' => 'Danh mục Media',
+//            'add_new' => 'Thêm Danh mục',
+//            'new_item_name' => 'Danh mục Media mới',
+//            'add_new_item' => 'Thêm danh mục Media'
+//        ),
+//        'public' => true,
+//        'hierarchical' => true,
+//        'has_archive' => true,
+//        'show_admin_column' => true,
+//        'rewirte' => array('slug' => 'media-cat'),
+//        'query_var' => true
+//    ));
 
     register_taxonomy('fl_champion_cat', 'fl_champion', array(
         'labels' => array(
