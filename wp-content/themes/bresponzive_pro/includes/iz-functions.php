@@ -16,6 +16,20 @@ function iz_default_post_thumbnail($html) {
     }
     return $html;
 }
+function iz_meta_thumbnail($post_id, $size=''){
+    if(get_post_meta($post_id, 'iz-post-thumbnail', true)){
+        echo '<img class="thumbnail" src="'.  get_post_meta($post_id, 'iz-post-thumbnail', true).'"  alt="default" />';
+    }else{
+        echo get_the_post_thumbnail($post_id, $size); 
+    }
+}
+function iz_get_meta_thumbnail($post_id, $size=''){
+  if(get_post_meta($post_id, 'iz-post-thumbnail', true)){
+        echo get_post_meta($post_id, 'iz-post-thumbnail', true);
+    }else{
+        echo wp_get_attachment_image_src(get_post_thumbnail_id($post_id), $size);
+    }
+}
 
 if (isset($_POST['iz-custom-login'])) {
     $username = $_POST['username'];
@@ -56,6 +70,10 @@ function iz_register_scripts() {
     wp_register_style('jz_jquery_slider', get_template_directory_uri() . '/css/jquery-ui.min.css');
     wp_enqueue_style('jz_jquery_slider');
 
+    
+    wp_register_script('iz-ckfinder', get_template_directory_uri().'/js/plugin/ckfinder/ckfinder.js');
+    wp_enqueue_script('iz-ckfinder');
+    
 //    wp_register_script('iz_mediaelement', get_template_directory_uri().'/js/plugin/mediaelement/build/mediaelement-and-player.min.js');
 //    wp_register_style('iz_mediaelement_css', get_template_directory_uri().'/js/plugin/mediaelement/mediaelementplayer.css');
 //    wp_enqueue_script('iz_mediaelement');
@@ -87,6 +105,7 @@ function iz_script_footer() {
 add_action('admin_enqueue_scripts', 'iz_admin_register_scripts');
 
 function iz_admin_register_scripts() {
+    
     wp_register_script('iz_admin_scripts', get_template_directory_uri() . '/js/admin/iz_admin_scripts.js', null, '1.0');
     wp_localize_script('iz_admin_scripts', 'params', array('ajaxurl' => admin_url('admin-ajax.php')));
     wp_enqueue_script('iz_admin_scripts');
@@ -119,6 +138,7 @@ function iz_insert_post() {
 
                 if ($post_id) {
                     set_post_thumbnail($post_id, $_POST['attach-id']);
+                    
                     add_post_meta($post_id, 'iz-guide-champion', $_POST['guide-champion']);
 
                     $guide_cats = $_POST['guide-cat'];
@@ -139,9 +159,39 @@ function iz_insert_post() {
             die();
         }
     }
+    
+    if (isset($_POST['submit-new-post'])){
+        $title = $_POST['post_title'];
+        $cat = $_POST['post_category'];
+        $content = $_POST['post_content'];
+        $thumbnail = $_POST['post_thumbnail'];
+        
+        $current_url = $_POST['current-url'];
+        
+        if(trim($title) == '' || $cat == null){
+            wp_redirect($current_url.'?stt=failed');
+        }else{
+            $post_id = wp_insert_post(array(
+                'post_title' => wp_strip_all_tags($title),
+                'post_content' => $content,
+                'post_status' => 'publish',
+                'post_author' => get_current_user_id(),
+                'post_category' => $cat
+            ));
+            
+            if($post_id){
+                add_post_meta($post_id, 'iz-post-thumbnail', get_template_directory_uri().'/js/plugin/'.$thumbnail);
+                wp_redirect(get_permalink($post_id));
+            }else{
+                wp_redirect($current_url.'?stt=nopost');
+            }
+        }
+        die();
+    }
 }
 
 add_action('init', 'iz_insert_post');
+
 
 //add_action('save_post', 'iz_save_guide');
 //function iz_save_guide($post_id){

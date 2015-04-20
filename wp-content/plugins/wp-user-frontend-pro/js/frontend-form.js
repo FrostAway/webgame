@@ -159,9 +159,10 @@
                 switch(data_type) {
                     case 'rich':
                         var name = $(item).data('id')
-                        val = $.trim( tinyMCE.get(name).getContent() );
+//                        val = $.trim( tinyMCE.get(name).getContent() );
+                            
 
-                        if ( val === '') {
+                        if ( val !== '') {
                             error = true;
 
                             // make it warn collor
@@ -282,9 +283,9 @@
             // grab rich texts from tinyMCE
             $('.wpuf-rich-validation').each(function (index, item) {
                 temp = $(item).data('id');
-                val = $.trim( tinyMCE.get(temp).getContent() );
-
-                rich_texts.push(temp + '=' + encodeURIComponent( val ) );
+//                val = $.trim( tinyMCE.get(temp).getContent() );
+//
+//                rich_texts.push(temp + '=' + encodeURIComponent( val ) );
             });
 
             // append them to the form var
