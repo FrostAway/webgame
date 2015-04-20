@@ -115,6 +115,7 @@ function iz_insert_post() {
     if (isset($_POST['submit-new-guide']) && isset($_POST['post_nonce_field']) && wp_verify_nonce($_POST['post_nonce_field'], 'post_nonce')) {
 
         $current_url = $_POST['current-url'];
+        $action = $_POST['post_action'];
 
         if (strpos($current_url, '?')) {
             $redirect_fail = $current_url . '&posted=failed';
@@ -128,29 +129,58 @@ function iz_insert_post() {
                 wp_redirect($redirect_fail);
                 die();
             } else {
-                $post_id = wp_insert_post(array(
-                    'post_title' => wp_strip_all_tags($_POST['guide-title']),
-                    'post_content' => $_POST['guide-content'],
-                    'post_type' => 'fl_guide',
-                    'post_status' => 'publish',
-                    'post_author' => get_current_user_id()
-                ));
+                
+                if($action == 'create_post'){
+                
+                    $post_id = wp_insert_post(array(
+                        'post_title' => wp_strip_all_tags($_POST['guide-title']),
+                        'post_content' => $_POST['guide-content'],
+                        'post_type' => 'fl_guide',
+                        'post_status' => 'publish',
+                        'post_author' => get_current_user_id()
+                    ));
 
-                if ($post_id) {
-                    set_post_thumbnail($post_id, $_POST['attach-id']);
-                    
-                    add_post_meta($post_id, 'iz-guide-champion', $_POST['guide-champion']);
+                    if ($post_id) {
+                        set_post_thumbnail($post_id, $_POST['attach-id']);
 
-                    $guide_cats = $_POST['guide-cat'];
-                    $guide_cats = array_map('intval', $guide_cats);
-                    $guide_cats = array_unique($guide_cats);
+                        add_post_meta($post_id, 'iz-guide-champion', $_POST['guide-champion']);
 
-                    global $wpdb;
-                    foreach ($guide_cats as $cat_id){
-                        $wpdb->insert($wpdb->term_relationships, array('object_id'=>$post_id, 'term_taxonomy_id'=>$cat_id), array('%d', '%d'));
+                        $guide_cats = $_POST['guide-cat'];
+                        $guide_cats = array_map('intval', $guide_cats);
+                        $guide_cats = array_unique($guide_cats);
+
+                        global $wpdb;
+                        foreach ($guide_cats as $cat_id){
+                            $wpdb->insert($wpdb->term_relationships, array('object_id'=>$post_id, 'term_taxonomy_id'=>$cat_id), array('%d', '%d'));
+                        }
+
+                        wp_redirect($redirect_sc);
+                        die();
                     }
+                }else{
+                    $edit_id = $_POST['post_edit_id'];
+                    wp_update_post(array(
+                        'ID' => $edit_id,
+                        'post_title' => wp_strip_all_tags($_POST['guide-title']),
+                        'post_content' => $_POST['guide-content']
+                    ), true);
+                    if(is_wp_error($edit_id)){
+                        wp_redirect($current_url.'?posted=failed&izguide='.$edit_id.'&edit');
+                    }else{
+                        set_post_thumbnail($edit_id, $_POST['attach-id']);
+                        update_post_meta($edit_id, $_POST['iz-guide-champion'], $_POST['guide_champion']);
+                        $guide_cats = $_POST['guide-cat'];
+                        $guide_cats = array_map('intval', $guide_cats);
+                        $guide_cats = array_unique($guide_cats);
+    
+                        global $wpdb;
+                             $wpdb->delete($wpdb->term_relationships, array('object_id'=>$edit_id), array('%d'));
 
-                    wp_redirect($redirect_sc);
+                        foreach ($guide_cats as $cat_id){
+                            $wpdb->insert($wpdb->term_relationships, array('object_id'=>$edit_id, 'term_taxonomy_id'=>$cat_id), array('%d', '%d'));
+                        }
+                        wp_redirect($current_url.'?posted=success&izguide='.$edit_id.'&edit');
+                    }
                     die();
                 }
             }
@@ -160,37 +190,17 @@ function iz_insert_post() {
         }
     }
     
-    if (isset($_POST['submit-new-post'])){
-        $title = $_POST['post_title'];
-        $cat = $_POST['post_category'];
-        $content = $_POST['post_content'];
-        $thumbnail = $_POST['post_thumbnail'];
-        
-        $current_url = $_POST['current-url'];
-        
-        if(trim($title) == '' || $cat == null){
-            wp_redirect($current_url.'?stt=failed');
-        }else{
-            $post_id = wp_insert_post(array(
-                'post_title' => wp_strip_all_tags($title),
-                'post_content' => $content,
-                'post_status' => 'publish',
-                'post_author' => get_current_user_id(),
-                'post_category' => $cat
-            ));
-            
-            if($post_id){
-                add_post_meta($post_id, 'iz-post-thumbnail', get_template_directory_uri().'/js/plugin/'.$thumbnail);
-                wp_redirect(get_permalink($post_id));
-            }else{
-                wp_redirect($current_url.'?stt=nopost');
-            }
-        }
-        die();
-    }
 }
 
 add_action('init', 'iz_insert_post');
+function iz_edit_post_link( $url, $post_id ) {
+    if(get_post_type($post_id) == 'fl_guide'){
+        $url = get_page_link(1082).'?izguide='.$post_id.'&edit';
+    }
+    return $url;
+}
+
+add_filter( 'get_edit_post_link', 'iz_edit_post_link', 10, 2 );
 
 
 //add_action('save_post', 'iz_save_guide');
