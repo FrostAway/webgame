@@ -15,8 +15,7 @@
 
             <?php
             query_posts(array(
-                'post_type' => 'fl_champion',
-                'hide_empty' => false
+                'post_type' => 'fl_champion'
             ));
             ?>
             <div class="list-champions">
@@ -65,7 +64,7 @@
                                                         <strong class="author"><?php the_author() ?></strong> || <?= __('Đăng vào: ', 'iz_theme') ?><span class="time"><?php the_time('F j, Y'); ?> - <?php the_time('g:i a') ?></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2 votes">
+                                                <div class="col-sm-2 votes" style="text-align: right;">
                                                     <span class="number btn btn-primary"><?php $vote = get_post_meta(get_the_ID(), 'iz-vote-post', true);
                                                 if($vote == '') echo 0; else echo $vote; ?> Votes</span>
                                                 </div>

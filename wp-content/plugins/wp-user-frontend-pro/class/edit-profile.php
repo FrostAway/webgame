@@ -87,7 +87,7 @@ class WPUF_Edit_Profile {
                 <?php endif; ?>
                 <input type="hidden" name="from" value="profile" />
                 <input type="hidden" name="checkuser_id" value="<?php echo $user_id; ?>" />
-                <table class="wpuf-table">
+                <table class="wpuf-table table table-responsive">
                     <?php do_action( 'personal_options', $profileuser ); ?>
                 </table>
                 <?php do_action( 'profile_personal_options', $profileuser ); ?>
@@ -95,7 +95,7 @@ class WPUF_Edit_Profile {
                 <fieldset>
                     <legend><?php _e( 'Name' ) ?></legend>
 
-                    <table class="wpuf-table">
+                    <table class="wpuf-table table table-responsive">
                         <tr>
                             <th><label for="user_login1"><?php _e( 'Username' ); ?></label></th>
                             <td><input type="text" name="user_login" id="user_login1" value="<?php echo esc_attr( $profileuser->user_login ); ?>" disabled="disabled" class="regular-text" /><br /><em><span class="description"><?php _e( 'Usernames cannot be changed.' ); ?></span></em></td>
@@ -150,7 +150,7 @@ class WPUF_Edit_Profile {
                 <fieldset>
                     <legend><?php _e( 'Contact Info' ) ?></legend>
 
-                    <table class="wpuf-table">
+                    <table class="wpuf-table table table-responsive">
                         <tr>
                             <th><label for="email"><?php _e( 'E-mail' ); ?> <span class="description"><?php _e( '(required)' ); ?></span></label></th>
                             <td><input type="text" name="email" id="email" value="<?php echo esc_attr( $profileuser->user_email ) ?>" class="regular-text" /> </td>
@@ -177,7 +177,7 @@ class WPUF_Edit_Profile {
                 <fieldset>
                     <legend><?php _e( 'About Yourself' ); ?></legend>
 
-                    <table class="wpuf-table">
+                    <table class="wpuf-table table table-responsive">
                         <tr>
                             <th><label for="description"><?php _e( 'Biographical Info', 'wpuf' ); ?></label></th>
                             <td><textarea name="description" id="description" rows="5" cols="30"><?php echo esc_html( $profileuser->description ); ?></textarea><br />

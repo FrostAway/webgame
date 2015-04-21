@@ -99,7 +99,7 @@ class WPUF_Frontend_Dashboard {
             $featured_img_size = wpuf_get_option( 'ft_img_size', 'wpuf_dashboard' );
             $charging_enabled = wpuf_get_option( 'charge_posting', 'wpuf_payment' );
             ?>
-            <table class="wpuf-table <?php echo $post_type; ?>" cellpadding="0" cellspacing="0">
+            <table class="wpuf-table <?php echo $post_type; ?> table table-responsive table-hover" cellpadding="0" cellspacing="0">
                 <thead>
                     <tr>
                         <?php

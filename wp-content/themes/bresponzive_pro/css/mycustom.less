@@ -610,7 +610,10 @@ h2.blogpost-wrapper-title{
         color: #f3e6d0; font-size: 13px;
     }
 }
+#iz_recent_comment_id-3{
+    margin-bottom: 0;
 
+}
 #sidebar{
     .widget-head, ul.tabs2 li a{
         font-size: 15px;
@@ -735,6 +738,7 @@ h2.blogpost-wrapper-title{
     #heroes{
         .row-skills{
             .skill{
+                min-height: 325px;
                 .meta{
                     color: #cc9900;
                     padding-bottom: 5px; border-bottom: 1px solid #000;
@@ -783,15 +787,15 @@ h2.blogpost-wrapper-title{
 
 .guide-form{
     label{font-weight: bold; color: #fff;}
-    
+
     .box-select{
-        
-        
+
+
     }
     .guide-thumbnail{
         .show-thumbnail{width: 150px; max-height: 200px; margin: 10px 0;}
     }
-    
+
 }
 [id*='__wp-uploader-id-']{
     .wp-core-ui{
@@ -822,7 +826,7 @@ h2.blogpost-wrapper-title{
                 strong{
                     clear: both;
                     padding-left: 10px;
-                    text-transform: uppercase; font-size: 21px;
+                     font-size: 21px;
                 }
             }
         }
@@ -838,7 +842,7 @@ h2.blogpost-wrapper-title{
                 }
                 .info{
                     h3{
-                        margin: 0; font-size: 19px;
+                        margin: 0; font-size: 15px; font-weight: 600;
                         .open-close{
                             margin-right: 5px; cursor: pointer; font-size: 13px;
                         }
@@ -878,14 +882,15 @@ h2.blogpost-wrapper-title{
             width: 79%; height: 30px; vertical-align: top;
         }
         .col-ind{
-            padding-left: 0; padding-right: 0;
+            padding-left: 0; padding-right: 0; width: 12.467%;
         }
         .list-index{
+            margin-bottom: 10px;
             padding-left: 15px; padding-right: 15px;
             .iz-index{
                 padding-left: 5px; padding-right: 5px;
-                background: #161616; padding-top: 20px;
-                border: 2px solid #191919; max-width: 150px; min-height: 100px;
+                background: #161616; padding-top: 13px;
+                border: 2px solid #191919; max-width: 150px; min-height: 75px;
                 display: inline-block; text-align: center;
                 .value{
                     display: block; text-align: center; font-weight: bold; font-size: 18px;
@@ -995,9 +1000,10 @@ h2.blogpost-wrapper-title{
             padding-right: 0;
         }
         .post-info{
-            h4.title{color: #EDE5B6}
+            h4.title{color: #EDE5B6; margin-top: 0; font-size: 16px;}
             .meta{
                 color:  #99cee0;
+                font-size: 13px;
             }
             font-size: 16px;
         }
@@ -1046,6 +1052,26 @@ h2.blogpost-wrapper-title{
     }
     padding-bottom: 10px;
 }
+.iz_recent_comment_append{
+    padding: 5px; 
+    .media{
+        padding: 0 5px;
+        .media-body{
+            h5.media-heading{
+                a{
+                    color: #aeedf5;
+                    font-size: 13px;
+                    &:hover{
+                        color: #fff;
+                    }
+                }
+            }
+            .author{
+                color: #1775C5;
+            }
+        }
+    }
+}
 
 .post-content{
     min-height: 300px;
@@ -1080,7 +1106,7 @@ h2.blogpost-wrapper-title{
                     width: 100%; height: 100%;
                 }
             }
-           
+
             .info{
                 .name{font-weight: bold; color: #009999;}
                 padding-left: 72px;
@@ -1394,6 +1420,41 @@ ul.wpuf-form li .wpuf-fields{
 ul.wpuf-form li .wpuf-fields ul.wpuf-category-checklist{
     background: #fff; color: #000; .sizing-border; padding: 15px;
     max-height: 180px; overflow: auto; width: 98%;
+}
+.wpuf-author .wpuf-author-inside{
+    min-height: 120px; height: auto;
+}
+
+#post_manage{
+    h1.entry-title{
+        color: #fff;
+        max-width: 250px;
+        background: url(../images/iz_images/navigation-ngan.png) no-repeat;
+        background-size: 100%;
+        padding: 7px 10px;
+    }
+    .post_count{
+        color: #fff; font-size: 13px;
+    }
+    .wpuf-table{
+        border: none;
+        tr{
+            th{color: #fff;}
+            td{
+
+            }
+        }
+        margin-top: 10px; margin-bottom: 20px;
+    }
+    .wpuf-pagination{
+        text-align: center;
+    }
+    .wpuf-pagination .next{
+        clear: both;
+        float: none;
+        display: inline-block; width: auto;
+    }
+
 }
 
 @media screen and (max-width: 768px){
