@@ -8,5 +8,22 @@
             var ch_name = $(this).attr('title');
             $('#guide-champion').val(ch_id);
         });
+        
+//        
+//        $('#fl_champion_indexchecklist .popular-category input[type=checkbox]').prop('checked', true);
+//        var last = $('#fl_champion_indexchecklist .popular-category:last input[type=checkbox]');
+//        if(last.is(":cheked")){
+//            
+//        }else{
+//            last.prop('checked', false);
+//        }
+//        
+        
+        //talent tax
+        
+        
+        
+        
+        
     });
 })(jQuery);

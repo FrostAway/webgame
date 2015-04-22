@@ -290,25 +290,7 @@ function iz_login_logo() {
 add_action('login_head', 'iz_login_logo');
 
 
-//ajax admin
-add_action('wp_ajax_load_champ_skill', 'iz_load_champ_skill');
-add_action('wp_ajax_nopriv_load_champ_skill', 'iz_load_champ_skill');
 
-function iz_load_champ_skill() {
-    if (isset($_POST['ch_id'])) {
-        $ch_id = $_POST['ch_id'];
-        $ch_skills = get_post_meta($ch_id, 'iz-ch-skills', true);
-        $ch_skills = ($ch_skills == null) ? null : $ch_skills;
-        if ($ch_skills != null) {
-            foreach ($ch_skills as $key => $value) {
-                ?>
-                <div><label><input type="radio" name="talent-skill" value="<?php echo $key ?>" /> <?php echo $value[1] ?></label></div>
-                <?php
-            }
-        }
-    }
-    die();
-}
 
 function get_max_index() {
     $champions = get_posts(array('post_type' => 'fl_champion'));
@@ -420,7 +402,7 @@ function iz_load_comment_fb() {
         wp_reset_query();
     endif;
     $post_links = trim($post_links, ',');
-    $fql_query_result = file_get_contents("https://graph.facebook.com/fql?q=SELECT+fromid,+object_id+FROM+comment+WHERE+object_id+IN+%28SELECT+comments_fbid+FROM+link_stat+WHERE+url+in+%28%27http://hots.com.vn/fl_guide/new-guide-1/%27%29%29+ORDER+BY+time+DESC+limit+5");
+    $fql_query_result = file_get_contents("https://graph.facebook.com/fql?q=SELECT+fromid,+object_id+FROM+comment+WHERE+object_id+IN+(SELECT+comments_fbid+FROM+link_stat+WHERE+url+in+($post_links))+ORDER+BY+time+DESC+limit+5");
     $data = json_decode($fql_query_result, true);
 
     if ($data) {

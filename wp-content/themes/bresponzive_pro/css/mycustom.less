@@ -832,13 +832,21 @@ h2.blogpost-wrapper-title{
         }
         .list-skill{
             margin-top: 20px;
+            .skill-hide{display: none;}
             .iz-skill{
+                position: relative;
                 padding: 5px 0; margin: 3px 0;
                 .border-radius(5px); color: #fff;
                 background: #202020;
                 .image{
                     img{width: 40px; height: 40px; margin: 5px;}
                     float: left;
+                    .base{
+                        font-size: 17px;
+                        position: absolute; top: 43px; left: 15px;
+                        color: #CECA83;
+                        font-weight: bold;
+                    }
                 }
                 .info{
                     h3{
@@ -867,6 +875,7 @@ h2.blogpost-wrapper-title{
                         }
                     }
                 }
+                
 
                 .iz_clear;
             }
@@ -956,7 +965,7 @@ h2.blogpost-wrapper-title{
                     img{border: 3px solid #009999;}
                 }
                 .none{
-                    opacity: 0.2;
+                    opacity: 0.3;
                 }
             }
         }
@@ -967,7 +976,7 @@ h2.blogpost-wrapper-title{
 }
 
 #range{
-    width: 250px; background: #666666;
+    width: 225px; background: #666666;
     height: 10px; margin: 0 5px 0 10px; display: inline-block;
     border: 1px solid #000;
     .border-radius(3px);
@@ -1194,9 +1203,7 @@ h2.blogpost-wrapper-title{
         font-size: 18px;
     }
     .list-champions{
-        .iz-champion{
-            &:nth-child(3):after { content:"\A";}
-        }
+        
         .ch-row{
             margin-top: -13px;
             &:nth-child(2n){
@@ -1227,7 +1234,7 @@ h2.blogpost-wrapper-title{
                 &:hover{
                     &:after{
                         background-position: -196px -22px;
-                        width: 86px; height: 92px; top: -9px; left: -8px;
+                        width: 86px; height: 93px; top: -9px; left: -8px;
                     }
                 }
                 display: inline-block;
@@ -1249,6 +1256,24 @@ h2.blogpost-wrapper-title{
                 }
 
                 cursor: pointer;
+            }
+            .free{
+                &:after{
+                    background: url(../images/iz_images/hexagon-frames-2.png) no-repeat -115px -123px;                  
+                    background-size: 388px 223px;
+                }
+/*                 &:hover{
+                    &:after{
+                        background-position: -114px -28px;
+                        background-size: 388px 223px;
+                    }
+                }*/
+            }
+            .sale{
+                &:after{
+                    background: url(../images/iz_images/hexagon-frames-2.png) no-repeat -21px -123px;                  
+                    background-size: 388px 223px;
+                }
             }
             .text-tooltip{
                 display: none;

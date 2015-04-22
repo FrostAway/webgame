@@ -19,7 +19,8 @@
                     $('.detail-talent .list-index .iz-index').each(function (index) {
                         var addlevel = parseFloat($(this).find('.iz-add-level').val());
                         var value = parseInt($(this).find('.iz-init-value').val());
-                        $(this).find('.value').text((value + addlevel * parseInt(ui.value)).toFixed(1));
+                        $(this).find('.value').text((value + addlevel * parseInt(ui.value)).toFixed(2));
+                        $(this).find('.iz-curr-value').val((value + addlevel * parseInt(ui.value)).toFixed(2));
                     });
                     $('#range-value').html(ui.value);
                 }
@@ -31,6 +32,7 @@
         function talent() {
             $('.talent-image .talents .level a').click(function (e) {
                 e.preventDefault();
+
                 var thisa = $(this).parent('.level');
 
                 thisa.find('a').removeClass('active');
@@ -38,49 +40,95 @@
                 $(this).removeClass('none');
                 $(this).addClass('active');
 
-                var index = $(this).attr('data-index');
+                var tier = $(this).attr('data-tier');
+                var pos = $(this).attr('data-pos');
                 var name = $(this).attr('data-name');
-                var iskill = $(this).attr('data-num');
-                var term = $(this).attr('data-term');
-                var data_id_term = $(this).attr('data-id-term');
-                var data_ug_id = $(this).attr('data-ug-id');
+                var skills = JSON.parse($(this).attr('data-skill'));
+                var talent = $(this).attr('data-talent');
+                var data_index_term = JSON.parse($(this).attr('data-index-term'));
+                var data_ug_id = JSON.parse($(this).attr('data-ug-index'));
+                var data_bases = JSON.parse($(this).attr('data-base'));
+                var coldowns = JSON.parse($(this).attr('data-coldown'));
+                var skill_news = JSON.parse($(this).attr('data-new'));
 
-                if (parseInt(iskill) !== -1) {
-                    thisa.find('.none').each(function (i, value) {
-                        var none_term = $(this).attr('data-term');
-                        var none_iskill = $(this).attr('data-num');
-                        $('.list-skill #skill-' + none_iskill + ' .info .add-text #tl-add-' + none_term).remove();
-                        $('.list-skill #skill-' + none_iskill + ' .info .description #tl-desc-' + none_term).remove();
-                    });
 
-                    thisa.find('.ind').html('(' + index + ')');
+                thisa.find('.none').each(function () {
+                    var none_talent = $(this).attr('data-talent');
+                    var none_iskills = JSON.parse($(this).attr('data-skill'));
+                    var none_newskills = JSON.parse($(this).attr('data-new'));
 
-                    var desc = '<div class="desc" id="tl-desc-' + term + '">[<span>' + name + '</span>] ' + $(this).attr('data-title') + '</div>';
-                    var add_text = '<span id="tl-add-' + term + '">[' + name + ']</span> ';
-
-                    if ($('.list-skill #skill-' + iskill + ' .info .add-text #tl-add-' + term).length > 0) {
-                    } else {
-                        $('.list-skill #skill-' + iskill + ' .info .description').append(desc);
-                        $('.list-skill #skill-' + iskill + ' .info .add-text').append(add_text);
+                    for (var i = 0; i < none_iskills.length; i++) {
+                        $('#skill-' + none_iskills[i] + ' .info #tl-add-' + none_talent).remove();
+                        $('#skill-' + none_iskills[i] + ' .info .description #tl-desc-' + none_talent).remove();
+                        if (none_newskills[none_iskills[i]] !== "0") {
+                            $('#skill-' + none_newskills[none_iskills[i]]).addClass('skill-hide');
+                        }
+                        var basedf = $('#skill-' + none_iskills[i] + ' .base .base-default').val();
+                        if (basedf !== '') {
+                            $('#skill-' + none_iskills[i] + ' .base .base-num').html(basedf);
+                        }
+                        var chager_col_df = $('#skill-' + none_iskills[i] + ' .coldown .chager-col-default').val();
+                        if (chager_col_df !== '') {
+                            $('#skill-' + none_iskills[i] + ' .coldown .chager-col').html(chager_col_df);
+                        }
                     }
-                } else {
-//                    $('.col-ind').each(function(){
-//                       var value = $(this).find('.value');
-//                       var init_value = $(this).find('.iz-init-value').val();
-//                       value.html(init_value);
-//                    });
-                    var current = $('#iz-index-' + data_id_term).find('.value').html();
-                    $('#iz-index-' + data_id_term).find('.value').html(parseInt(current) + parseInt(data_ug_id));
+                });
+
+
+                var desc = '<div class="desc" id="tl-desc-' + talent + '">[<span>' + name + '</span>] ' + $(this).attr('data-title') + '</div>';
+                var add_text = '<span id="tl-add-' + talent + '">[' + name + ']</span> ';
+                if (skills !== null) {
+                    for (var i = 0; i < skills.length; i++) {
+                        if ($('#skill-' + skills[i] + ' .info .at-lv-' + tier + ' #tl-add-' + talent).length <= 0) {
+                            $('#skill-' + skills[i] + ' .info .desclv-' + tier).append(desc);
+                            $('#skill-' + skills[i] + ' .info .at-lv-' + tier).append(add_text);
+                        }
+
+                        if (data_bases !== null) {
+                            var base = parseInt(data_bases[skills[i]]) + parseInt($('#skill-' + skills[i] + ' .base .base-default').val());
+                            $('#skill-' + skills[i] + ' .base .base-num').html(base);
+                        }
+
+                        var changer_col = coldowns[skills[i]];
+                        $('#skill-' + skills[i] + ' .coldown .chager-col').html(changer_col);
+
+                        if (skill_news[skills[i]] !== "0") {
+                            $('#skill-' + skill_news[skills[i]]).removeClass('skill-hide').appendTo('.list-skill');
+                        }
+
+
+                    }
+                }
+
+                thisa.find('.ind').html('(' + pos + ')');
+
+                $('.col-ind').each(function () {
+                    var value = $(this).find('.value');
+                    var curr_value = $(this).find('.iz-curr-value').val();
+                    value.html(curr_value);
+                });
+
+                if (data_index_term !== null) {
+                    for (var i = 0; i < data_index_term.length; i++) {
+                        var current = $('#iz-index-' + data_index_term[i]).find('.value').html();
+                        var newval;
+                        if (current === '' || current === 'NA' || current === 'NaN') {
+                            newval = 'NA';
+                        } else {
+                            newval = parseInt(current) + parseInt(data_ug_id[data_index_term[i]]);
+                        }
+                        $('#iz-index-' + data_index_term[i]).find('.value').html(newval);
+                    }
                 }
 
                 //url
                 var stt = '';
-                $('.talent-image .talents .level').each(function (i, value) {
+                $('.talent-image .talents .level').each(function () {
                     var ele = $(this).find('a');
                     var check = 0;
                     ele.each(function () {
                         if ($(this).hasClass('active')) {
-                            check = $(this).attr('data-index');
+                            check = $(this).attr('data-pos');
                         }
                     });
                     stt = stt + check.toString();
@@ -99,10 +147,12 @@
                 if (desc.css('display') === 'none') {
                     $('.list-skill .iz-skill .info .description').slideUp();
                     $('.list-skill .iz-skill .info .open-close').html('[+]');
+                    $(this).closest('.info').find('.add-text').fadeOut(100);
                     desc.slideDown();
                     $(this).html('[-]');
                 } else {
                     desc.slideUp();
+                    $(this).closest('.info').find('.add-text').fadeIn()(100);
                     $(this).html(['[+]']);
                 }
             });

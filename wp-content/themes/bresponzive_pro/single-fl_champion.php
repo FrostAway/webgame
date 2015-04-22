@@ -35,7 +35,7 @@
                                 
                                 $index_max = get_max_index();
                                 
-                                $term_indexs = get_terms('fl_champion_index', array('hide_empty' => false));
+                                $term_indexs = get_the_terms(get_the_ID(), 'fl_champion_index');
                                 foreach ($term_indexs as $index) {
                                     ?>
                                     <div class="index">
@@ -47,10 +47,10 @@
                                                 <?php echo $index->name; ?>
                                             </div>
                                             <div class="value">
-                                                <?php echo $indexs[$index->term_id][0]; echo $index_max[$term->id] ?>
+                                                <?php echo $indexs[$index->term_id][0]; ?>
                                             </div>
                                             <div class="max">
-                                                <div class="curr" style="width: <?php echo $indexs[$index->term_id][0] / $index_max[$index->term_id] * 100 ?>%"></div>
+                                                <div class="curr" style="width: <?php if($index_max[$index->term_id] == 0) echo '0'; else echo $indexs[$index->term_id][0] / $index_max[$index->term_id] * 100 ?>%"></div>
                                             </div>
                                         </div>
 

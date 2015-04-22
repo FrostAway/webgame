@@ -5,12 +5,12 @@
 
     <?php
     query_posts(array(
-        'post_type' => 'fl_champion'
+        'post_type' => 'fl_champion', 'orderby'=>'title', 'order'=>'ASC', 'showposts'=>-1
     ));
     ?>
     <div id="heroes">
         <div class="camera_wrap camera_orange_skin  " id="camera_wrap_2" style="display: block;">
-            <div class="list-champions" style="padding-left: 10px; padding-right: 10px;">
+            <div class="list-champions" style="padding-left: 19px; padding-right: 19px;">
 
                 <div class="ch-row">
                     <?php
@@ -19,7 +19,8 @@
                             ?>
 
                             <div class="iz-champion">
-                                <div class="wrap">
+                                <?php $status = get_post_meta(get_the_ID(), 'iz-ch-status', true); ?>
+                                <div class="wrap <?php echo $status ?>">
                                     <a href="<?php the_permalink(); ?>" data-id="<?php echo get_the_ID() ?>" title="<?php the_title() ?>">
                                         <img src="<?php echo get_post_meta(get_the_ID(), 'iz-ch-face', true); ?>" />
                                     </a>

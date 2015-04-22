@@ -35,6 +35,24 @@
         clear: both;
     }
 }
+#champion-skill{
+    table{
+        tr{
+            .chager{
+                width: 35px;
+                input{width: 100%;}
+            }
+            .chager-col{
+                width: 40px;
+                input{width: 100%;}
+            }
+            .mana{
+                width: 64px;
+                input{width: 100%;}
+            }
+        }
+    }
+}
 #champion-skill, #champion-skins{
     table{
         tr{
@@ -44,14 +62,14 @@
             .name{
                 width: 115px;
             }
-            .mana, .down{
+            .down{
                 width: 45px;
                 input{
                     width: 100%;
                 }
             }
             .lv-plus{
-                width: 200px;
+                width: 160px;
                 input{width: 100%;}
             }
             .animate{width: 123px;}
@@ -113,13 +131,41 @@
 
 
 .form-field{
-    #list-champs, .list-terms, #list-skills, #list-indexs{
-    height: 150px; overflow: auto; background: #fff; padding: 20px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -o-box-sizing: border-box;
+    .list-terms, #list-skills, #list-indexs{
+        height: 220px; overflow: auto; background: #fff; padding: 20px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        table{
+            width: 100%;
+        }
+    }
+    #list-skills{
+        table{
+            .skillimp{
+                width: 50px;
+            }
+        }
+    }
+    #list-indexs{
+        table{
+            .impvalue{
+                width: 50px;
+            }
+        }
+    }
 }
+.form-table{
+    .talent-upgrade{
+        #list-skills, #list-indexs{
+            table{
+                th, td{
+                    padding: 0;
+                }
+            }
+        }
+    }
 }
 
 #fl-champion-talent{

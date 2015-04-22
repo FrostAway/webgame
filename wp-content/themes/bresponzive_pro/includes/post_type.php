@@ -1,5 +1,6 @@
 <?php
 
+
 function fl_add_post_type() {
     register_post_type('fl_champion', array(
         'labels' => array(
@@ -28,21 +29,21 @@ function fl_add_post_type() {
         'menu_icon' => 'dashicons-visibility',
     ));
 
-//    register_taxonomy('fl_media_cat', 'attachment', array(
-//        'labels' => array(
-//            'name' => 'Danh mục Media',
-//            'singular_name' => 'Danh mục Media',
-//            'add_new' => 'Thêm Danh mục',
-//            'new_item_name' => 'Danh mục Media mới',
-//            'add_new_item' => 'Thêm danh mục Media'
-//        ),
-//        'public' => true,
-//        'hierarchical' => true,
-//        'has_archive' => true,
-//        'show_admin_column' => true,
-//        'rewirte' => array('slug' => 'media-cat'),
-//        'query_var' => true
-//    ));
+    register_taxonomy('fl_media_cat', 'attachment', array(
+        'labels' => array(
+            'name' => 'Danh mục Media',
+            'singular_name' => 'Danh mục Media',
+            'add_new' => 'Thêm Danh mục',
+            'new_item_name' => 'Danh mục Media mới',
+            'add_new_item' => 'Thêm danh mục Media'
+        ),
+        'public' => true,
+        'hierarchical' => true,
+        'has_archive' => true,
+        'show_admin_column' => true,
+        'rewirte' => array('slug' => 'media-cat'),
+        'query_var' => true
+    ));
 
     register_taxonomy('fl_champion_cat', 'fl_champion', array(
         'labels' => array(
@@ -83,9 +84,8 @@ function fl_add_post_type() {
             'add_new_item' => 'Thêm chỉ số mới'
         ),
         'public' => true,
-        'hierarchical' => false,
+        'hierarchical' => true,
         'show_admin_column' => false,
-        'meta_box_cb' => false,
         'query_var' => false
     ));
 
@@ -139,8 +139,10 @@ add_action('add_meta_boxes', 'fl_add_champion_fields');
 
 function fl_add_champion_fields() {
 
+    add_meta_box('fl-champion-status', __('Champion Frames', 'iz_theme'), 'fl_champion_status', 'fl_champion', 'normal', 'high', array());
     add_meta_box('fl-champion-ind', __('Chỉ số tướng', 'iz_theme'), 'fl_champion_ind', 'fl_champion', 'normal', 'high', array());
     add_meta_box('fl-champion-skill', __('Kỹ năng', 'iz_theme'), 'fl_champion_skill', 'fl_champion', 'normal', 'high', array());
+    
     add_meta_box('fl-champion-talent', __('Talents', 'iz_theme'), 'fl_champion_talent', 'fl_champion', 'normal', 'high', array());
     add_meta_box('fl-champion-skin', __('Ngoại Trang', 'iz_theme'), 'fl_champion_skin', 'fl_champion', 'normal', 'high', array());
     add_meta_box('fl-champion-gallery', __('Hình ảnh tướng', 'iz_theme'), 'fl_champion_gallery', 'fl_champion', 'side', 'low', array());
@@ -148,6 +150,19 @@ function fl_add_champion_fields() {
     add_meta_box('fl-champion-bg', __('Ảnh Nền', 'iz_theme'), 'fl_champion_bg', 'fl_champion', 'side', 'low', array());
 }
 
+function fl_champion_status($post){
+    $ch_status = get_post_meta($post->ID, 'iz-ch-status', true);
+    $ch_status = ($ch_status == null) ? null : $ch_status;
+    ?>
+    <div id="champion-status">
+        <div class="list-status">
+            <label><input type="radio" value="none" name="iz-ch-status" <?php checked('none', $ch_status, true) ?> > None</label>
+            <label><input type="radio" value="free" name="iz-ch-status" <?php checked('free', $ch_status, true) ?> > Free</label>
+            <label><input type="radio" value="sale" name="iz-ch-status" <?php checked('sale', $ch_status, true) ?> > Sale</label>
+        </div>
+    </div>
+    <?php
+}
 function fl_champion_ind($post) {
     $ch_inds = get_post_meta($post->ID, 'iz-ch-indexs', true);
     $ch_inds = ($ch_inds == null) ? null : $ch_inds;
@@ -155,7 +170,7 @@ function fl_champion_ind($post) {
     <div id="champion-ind">
         <table class="champion-ind-table">
             <?php
-            $index_cats = get_terms('fl_champion_index', array('hide_empty' => false));
+            $index_cats = get_the_terms($post->ID, 'fl_champion_index');
             ?>
             <tr>
                 <th><?php echo __('Tên', 'iz_theme') ?></th>
@@ -163,6 +178,7 @@ function fl_champion_ind($post) {
                 <th><?php echo __('Cộng mỗi level', 'iz_theme') ?></th>
             </tr>
             <?php
+            if($index_cats){
             foreach ($index_cats as $tax) {
                 ?>
                 <tr class="index">
@@ -171,6 +187,7 @@ function fl_champion_ind($post) {
                     <td><input type="text" name="iz-ch-indexs[<?= $tax->term_id ?>][]" value="<?php if ($ch_inds != null) echo $ch_inds[$tax->term_id][1] ?>" /></td>
                 </tr>
                 <?php
+            }
             }
             ?>
 
@@ -192,6 +209,9 @@ function fl_champion_skill($post) {
                 <th><?php echo __('T/G Hồi', 'iz_theme') ?></th>
                 <th><?php echo __('Video Link', 'iz_theme') ?></th>
                 <th><?php echo __('Mô tả', 'iz_theme') ?></th>
+                <th><?php echo __('Lần nạp', 'iz_theme') ?></th>
+                <th><?php echo __('TG nạp', 'iz_theme') ?></th>
+                <th><?php echo __('Mới', 'iz_theme') ?></th>
                 
             </tr>
             <?php
@@ -207,8 +227,14 @@ function fl_champion_skill($post) {
                         <td class="name"><input type="text" required="" size="10" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[1] ?>" /></td>
                         <td class="mana"><input type="text" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[2] ?>" /></td>
                         <td class="down"><input type="text" size="5" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[3] ?>" /></td>
+                        
                         <td class="lv-plus" rowspan="2"><textarea name="iz-ch-skills[<?= $key ?>][]" placeholder="<iframe width=..."><?php echo $skill[4] ?></textarea></td>
                         <td class="desc" rowspan="2"><textarea name="iz-ch-skills[<?= $key ?>][]"><?php echo $skill[5] ?></textarea></td>
+                        
+                        <td class="chager"><input type="text" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[6] ?>" /></td>
+                        <td class="chager-col"><input type="text" name="iz-ch-skills[<?= $key ?>][]" value="<?php echo $skill[7] ?>" /></td>
+                        
+                        <td class="newskill"><input type="checkbox" name="iz-ch-skills[<?= $key ?>][]" value="1" <?php checked(1, $skill[8], true) ?> /></td>
                         
                         <td class="skill-del"><a href="#" class=""><?php echo __('Xóa', 'iz_theme') ?></a></td>                       
                     </tr>
@@ -223,6 +249,7 @@ function fl_champion_skill($post) {
     </div>
     <?php
 }
+
 
 function fl_champion_talent($post){
     $all_terms = get_terms('fl_talent_cat', array('hide_empty'=>false));
@@ -472,6 +499,9 @@ function fl_champion_save($post_id) {
         }
     }
     // Make sure that it is set.
+    if(isset($_POST['iz-ch-status'])){
+        update_post_meta($post_id, 'iz-ch-status', $_POST['iz-ch-status']);
+    }
     if (isset($_POST['iz-ch-indexs'])) {
         update_post_meta($post_id, 'iz-ch-indexs', $_POST['iz-ch-indexs']);
     }
@@ -499,8 +529,11 @@ add_action('save_post', 'fl_champion_save');
 add_filter('manage_fl_champion_posts_columns', 'iz_show_champion_image_column', 10, 2);
 
 function iz_show_champion_image_column($column) {
-    $newcol = array_merge(array('fl_champion_image' => __('Hình ảnh', 'iz_champion')), $column);
-
+    $new_columns = array();
+    $new_columns['cb'] = $column['cb'];
+    $new_columns['fl_champion_image'] = __('Hình ảnh', 'iz_champion');
+    unset($column['cb']);
+    $newcol = array_merge($new_columns, $column);
     return $newcol;
 }
 
