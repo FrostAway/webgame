@@ -82,7 +82,7 @@
                         <div class="list-index row">
                             <?php foreach ($ch_indexs as $index) {
                                 if($ch_indexs){
-                                if($index->term_id != 251){?>
+                                if($index->term_id != 412){?>
                                 <div class="col-sm-2 col-ind">
                                     <div class="btn btn-success btn-block iz-index" id="iz-index-<?php echo $index->term_id ?>">
                                         <span class="value"><?php echo $myindexs[$index->term_id][0] ?></span>

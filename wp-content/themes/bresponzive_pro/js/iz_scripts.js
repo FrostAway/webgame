@@ -193,7 +193,6 @@
         talent();
 
         // champion talent select
-        $('#list-champions .iz-champion:first').addClass('ch-select');
         $('#list-champions .iz-champion a').click(function (e) {
             e.preventDefault();
             $('#list-champions .iz-champion').removeClass('ch-select');

@@ -69,7 +69,7 @@ if ( is_singular() && get_option( 'thread_comments' ) )		wp_enqueue_script( 'com
                     <a href="<?php echo wp_logout_url(home_url()) ?>"><span class="fa fa-sign-out"> </span> <?php echo __('Đăng xuất', 'iz_theme') ?></a>
                 </li>
                 <li class="menu-item">
-                    <a href="<?php echo get_page_link(1325) ?>"><span class="fa fa-dashboard"> </span> <?php echo __('Quản lý', 'iz_theme') ?></a>
+                    <a href="<?php echo get_page_link(1299) ?>"><span class="fa fa-dashboard"> </span> <?php echo __('Quản lý', 'iz_theme') ?></a>
                 </li>
                 <li class="menu-item">
                     <?php $user = wp_get_current_user(); ?>

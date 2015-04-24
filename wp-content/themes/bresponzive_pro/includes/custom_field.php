@@ -7,7 +7,7 @@ function iz_add_talent_field() {
         <label>Chọn tướng</label>
                 <?php
                 $champion = get_option('talent-champion' . $taxonomy->term_id);
-                query_posts(array('post_type' => 'fl_champion'));
+                query_posts(array('post_type' => 'fl_champion', 'showposts'=>-1));
                 ?>
                 <select class="champion" name="talent-champion">
                     <option value="0">Select Champion</option>
@@ -163,7 +163,7 @@ function iz_edit_talent_field($taxonomy) {
             <td id="list-champs" colspan="2">
                 <?php
                 $champion = get_option('talent-champion' . $taxonomy->term_id);
-                query_posts(array('post_type' => 'fl_champion'));
+                query_posts(array('post_type' => 'fl_champion', 'showposts'=>-1));
                 ?>
                 <select class="champion" name="talent-champion">
                     <option value="0">Select Champion</option>

@@ -17,7 +17,7 @@ get_header();
             }else{ ?>
             <h1 class="entry-title"><?php echo __('Đăng bài viết', 'iz_theme'); ?></h1>
             
-            <?php echo do_shortcode('[wpuf_form id="1314"]'); ?>
+            <?php echo do_shortcode('[wpuf_form id="1293"]'); ?>
             <?php } ?>
         </div>
     </div>

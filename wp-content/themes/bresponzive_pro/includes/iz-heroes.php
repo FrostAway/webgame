@@ -5,8 +5,8 @@
 
     <?php
     query_posts(array(
-        'post_type' => 'fl_champion', 'orderby'=>'title', 'order'=>'ASC', 'showposts'=>-1
-    ));
+                'post_type' => 'fl_champion', 'orderby'=>'title', 'order'=>'ASC', 'showposts'=>-1
+            ));
     ?>
     <div id="heroes">
         <div class="camera_wrap camera_orange_skin  " id="camera_wrap_2" style="display: block;">
@@ -40,6 +40,15 @@
                             if ($i == 8) {
                                 echo '</div><div class="ch-row">';
                             } 
+							if($i==15){
+								echo '</div><div class="ch-row">';
+							}
+							if($i==23){
+								echo '</div><div class="ch-row">';
+							}
+							if($i==30){
+								echo '</div><div class="ch-row">';
+							}
                         endwhile;
 
                         wp_reset_query();

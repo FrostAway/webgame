@@ -189,6 +189,10 @@
 //                            '<input type="hidden" class="iz-ch-skill-url-video" name="iz-ch-skills['+num+'][]" value="" />'+
 //                            '<a class="skill-url-del-video dashicons dashicons-no-alt"></a> '+
 //                        '</td>'+
+                    '<td class="chager"><input type="text" name="iz-ch-skills[' + num + '][]" value="" /></td>'+
+                    '<td class="chager-col"><input type="text" name="iz-ch-skills[' + num + '][]" value="" /></td>'+
+                    '<td class="newskill"><input type="checkbox" name="iz-ch-skills[' + num + '][]" value="1" /></td>'+
+                        
                     '<td class="skill-del"><a href="#" class="">Xóa</a></td>' +
                     '</tr>'+
                     '<tr></tr>'

@@ -17,12 +17,14 @@
             $champions = get_posts(array(
                 'post_type' => 'fl_champion',
                 'hide_empty' => false,
-                'showposts' => -1
+                'showposts' => -1,
+				'orderby' => 'title',
+				'order' => 'ASC'
             ));
             ?>
             <div class="list-champions" id="list-champions">
                 <?php foreach ($champions as $ch) { ?>
-                    <div class="iz-champion">
+                    <div class="iz-champion <?php if($ch->ID == 1350) echo 'ch-select'; ?>">
                         <a href="#" data-id="<?php echo $ch->ID ?>" title="<?php echo $ch->post_title ?>">
                             <img src="<?php echo get_post_meta($ch->ID, 'iz-ch-face', true); ?>" />
                         </a>
@@ -111,7 +113,7 @@
                         <div class="list-index row">
                             <?php foreach ($ch_indexs as $index) {
                                 if($ch_indexs){
-                                if($index->term_id != 251){?>
+                                if($index->term_id != 412){?>
                                 <div class="col-sm-2 col-ind">
                                     <div class="btn btn-success btn-block iz-index" id="iz-index-<?php echo $index->term_id ?>">
                                         <span class="value"><?php echo $myindexs[$index->term_id][0] ?></span>

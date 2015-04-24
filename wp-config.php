@@ -1,4 +1,8 @@
 <?php
+/** Enable W3 Total Cache Edge Mode */
+
+
+
 /**
  * The base configurations of the WordPress.
  *

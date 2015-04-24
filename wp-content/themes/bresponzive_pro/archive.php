@@ -25,10 +25,9 @@
             
             include_once('includes/blog_loop.php'); 
             ?>
-            
-            <div class="create-post">
-                <a class="btn btn-primary" href="#"><?php echo __('Đăng bài', 'iz_theme'); ?></a>
-            </div>
+			<div class="create-post">
+				<a href="<?php echo get_page_link(1294) ?>" class="btn btn-default">Đăng bài</a>
+			</div>
         </div>
     </div>
     <!-- END MAIN -->
