@@ -77,7 +77,6 @@
                                 </div>
 
                                 <div class="col-sm-10 list-champions">
-                                    
                                     <?php foreach ($champions as $ch){ ?>
                                     <div class="iz-champion <?php if($guide_champs == $ch->ID) echo 'ch-select'; ?>">
                                         <a href="#" data-id="<?php echo $ch->ID ?>" title="<?php echo $ch->post_title ?>">

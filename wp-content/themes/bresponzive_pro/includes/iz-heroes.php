@@ -5,8 +5,8 @@
 
     <?php
     query_posts(array(
-                'post_type' => 'fl_champion', 'orderby'=>'title', 'order'=>'ASC', 'showposts'=>-1
-            ));
+        'post_type' => 'fl_champion', 'orderby'=>'title', 'order'=>'ASC', 'posts_per_page'=>45
+    ));
     ?>
     <div id="heroes">
         <div class="camera_wrap camera_orange_skin  " id="camera_wrap_2" style="display: block;">

@@ -1,0 +1,1 @@
+<div id="comments" class="clearfix  eleven columns ">    <div class="fb-comments" data-href="<?php the_permalink(); ?>" data-width="100%" data-numposts="5" data-colorscheme="light"></div> </div><!-- /comments -->

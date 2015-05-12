@@ -7,6 +7,21 @@
             var ch_id = $(this).attr('data-id');
             var ch_name = $(this).attr('title');
             $('#guide-champion').val(ch_id);
+
+            $('.new-guide-form .list-champions').load(params.talent_hero, {champion_id: ch_id}, function () {
+                $('.talent-image .talents .level a').click(function (e) {
+                    e.preventDefault();
+                    
+                    var pos = $(this).attr('data-pos');
+                    var thisa = $(this).parent('.level');
+                    thisa.find('a').removeClass('active');
+                    thisa.find('.talent_value').val('0').prop('checked', false);
+                    thisa.find('a').addClass('none');
+                    $(this).removeClass('none');
+                    $(this).addClass('active');
+                    $(this).find('.talent_value').val(pos).prop('checked', true);
+                });
+            });
         });
 
         function index_slider() {
@@ -29,6 +44,70 @@
         index_slider();
 
         //talent
+
+
+
+        $('.talents .level').each(function () {
+            var active = $(this).find('.active');
+            var tier = active.attr('data-tier');
+            var name = active.attr('data-name');
+            var pos = active.attr('data-pos');
+            try {
+                var skills = JSON.parse(active.attr('data-skill'));
+                var talent = active.attr('data-talent');
+                var data_ug_id = JSON.parse(active.attr('data-ug-index'));
+                var data_index_term = JSON.parse(active.attr('data-index-term'));
+                var data_bases = JSON.parse(active.attr('data-base'));
+                var coldowns = JSON.parse(active.attr('data-coldown'));
+                var skill_news = JSON.parse(active.attr('data-new'));
+
+                $(this).find('.ind').html('(' + pos + ')');
+
+                var desc = '<div class="desc" id="tl-desc-' + talent + '">[<span>' + name + '</span>] ' + $(this).attr('data-title') + '</div>';
+                var add_text = '<span id="tl-add-' + talent + '">[' + name + ']</span> ';
+                if (skills !== null) {
+                    for (var i = 0; i < skills.length; i++) {
+                        if ($('#skill-' + skills[i] + ' .info .at-lv-' + tier + ' #tl-add-' + talent).length <= 0) {
+                            $('#skill-' + skills[i] + ' .info .desclv-' + tier).append(desc);
+                            $('#skill-' + skills[i] + ' .info .at-lv-' + tier).append(add_text);
+                        }
+
+                        if (data_bases !== null) {
+                            var base = parseInt(data_bases[skills[i]]) + parseInt($('#skill-' + skills[i] + ' .base .base-default').val());
+                            $('#skill-' + skills[i] + ' .base .base-num').html(base);
+                        }
+
+                        var changer_col = coldowns[skills[i]];
+                        $('#skill-' + skills[i] + ' .coldown .chager-col').html(changer_col);
+
+                        if (skill_news[skills[i]] !== "0") {
+                            $('#skill-' + skill_news[skills[i]]).removeClass('skill-hide').appendTo('.list-skill');
+                        }
+
+
+                    }
+                }
+                if (data_index_term !== null) {
+                    for (var i = 0; i < data_index_term.length; i++) {
+                        var current = $('#iz-index-' + data_index_term[i]).find('.value').html();
+                        var newval;
+                        if (current === '' || current === 'NA' || current === 'NaN') {
+                            newval = 'NA';
+                        } else {
+                            newval = parseInt(current) + parseInt(data_ug_id[data_index_term[i]]);
+                        }
+                        $('#iz-index-' + data_index_term[i]).find('.value').html(newval);
+                    }
+                }
+
+            } catch (e) {
+
+            }
+
+
+
+        });
+
         function talent() {
             $('.talent-image .talents .level a').click(function (e) {
                 e.preventDefault();
@@ -378,6 +457,9 @@
             video.html($(this).attr('data-url'));
         });
 
+
+
+//ajax guide
 
 
 

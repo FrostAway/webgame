@@ -22,7 +22,7 @@ margin: 0;
 padding: 0;
 border: 0;
 font-size: 100%;
-font: inherit;
+font: Segoe UI Semilight, sans-serif;
 vertical-align: baseline; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 display: block; }
@@ -44,11 +44,11 @@ General Styles
 ========================================================================== */
 
 /* #Basic Styles */
-body { font-family: "Open sans",Helvetica,Arial,sans-serif;font-size: 12px;color: #666;-webkit-text-size-adjust: 100%;line-height: 18.5px;}
+body { font-family: "Segoe UI Semilight",Helvetica,Arial,sans-serif;font-size: 12px;color: #666;-webkit-text-size-adjust: 100%;line-height: 18.5px;}
 html{ min-height: 100%; }
 
 /* #Typography */
-h1, h2, h3, h4, h5, h6 {color: #666;line-height:1.27;font-family: "PT Sans",Helvetica,Arial,sans-serif;font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {color: #666;line-height:1.27;font-family: "Segoe UI Semilight",Helvetica,Arial,sans-serif;font-weight: normal; }
 h1{font-size:1.8em}h2{font-size:1.7em}h3{font-size:1.55em}h4{font-size:1.4em}h5{font-size:1.25em}h6{font-size:1.1em}
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
 
@@ -255,7 +255,7 @@ margin-top: 20px;
 h2.blogpost-wrapper-title,.widget-head{
 background: url(images/bg-stripe.png) no-repeat 100% 0px;
 position: relative;
-font-family: 'Segoe UI',serif;
+font-family: 'Segoe UI Semilight',serif;
 background-color: #363636;
 z-index: 100;
 margin-bottom: 15px;
@@ -281,9 +281,9 @@ padding-top: 0;
 .blog-lists li {position:relative; padding: 0;margin-bottom: 20px;overflow: hidden;}
 .blog-lists-title { position: relative;width:100%; display:inline;float: left;  }
 .blog-lists h3{ display: inline-block;}	
-.blog-lists h3 a{ font-family:PT Sans,serif; font-size: 20px;display:block;font-weight: normal; color: #363636;text-decoration: none;line-height: 1.27; }
+.blog-lists h3 a{ font-family:Segoe UI Semilight ,serif; font-size: 20px;display:block;font-weight: normal; color: #363636;text-decoration: none;line-height: 1.27; }
 .blog-list-small  h3 a{font-family:PT Sans,serif;font-size:14px;}
-.blog-lists .time ,.sb-post-list-title .time{font-family:PT Sans,sans-serif;color: #818181;font-size: 11px;margin:5px 0 2px;}
+.blog-lists .time ,.sb-post-list-title .time{font-family:Segoe UI Semilight ,sans-serif;color: #818181;font-size: 11px;margin:5px 0 2px;}
 .sb-post-list-title .time{margin-top:4px;}
 .maga-excerpt{display:block;float:left;margin-bottom:15px;}.sticky{}
 .sb-post-list-title span{ padding-left:0px;color:#7E7E7E; }
@@ -295,7 +295,7 @@ padding-top: 0;
 .full-left {display:block;position:relative; width:100%;float: left; }
 .list-block {position: relative;width:68%;float:left;border-top: none;padding-bottom: 6px;color: #777;padding:0px 0px 0 25px;min-height:100px;}
 .list-block-slide{margin:0 20px;}
-.list-block-slide h3{font-family:'Open Sans',sans-serif;}
+.list-block-slide h3{font-family:'Segoe UI Semilight',sans-serif;}
 .list-block-slide .post-meta-blog{font-size:10px;}
 #sidebar .sb-post-thumbnail {width: 70px;margin-right: 12px;display: inline-block;vertical-align: top;}
 
@@ -381,7 +381,7 @@ padding: 15px;
 .page .post-title {border-bottom: 1px solid whiteSmoke;}
 
 
-.post-meta-blog{font-family: PT Sans,sans-serif;
+.post-meta-blog{font-family: Segoe UI Semilight,sans-serif;
 color: #CCAE9A;
 /*border-bottom: 1px solid #E4E4E4;
 border-top: 1px solid #E4E4E4;*/
@@ -492,7 +492,7 @@ margin: 10px 10px 0 0;
 h3.tpcrn_r_p,.author-content h3,#comments > h2{ 
 background: url(images/bg-stripe.png) no-repeat 100% 0px;
 position: relative;
-font-family: 'Open Sans',serif;
+font-family: 'Segoe UI Semilight',serif;
 background-color: #363636;
 z-index: 100;
 margin-bottom: 15px;
@@ -620,7 +620,7 @@ width: 65%;
 display: inline-block;
 vertical-align: top;}
 .sb-post-list-title p { margin: 2px 0 0;
-font-family: PT Sans,sans-serif;
+font-family: Segoe UI Semilight,sans-serif;
 color: #999;
 font-size: 12px;
 float: left;
@@ -791,7 +791,7 @@ padding: 0 0px 0 20px;
 .footer-block1,.footer-block2,.footer-block3,.footer-block4{float: left;width: 268px;padding: 20px 19px 0 0;}
 
 h3.widget-title {font-style: normal;
-font-family: "'Open Sans'", "Helvetica", Arial, sans-serif;
+font-family: "Segoe UI Semilight", "Helvetica", Arial, sans-serif;
 font-size: 20px;
 line-height: 1.27;
 margin: 0 0 15px;
@@ -815,7 +815,7 @@ font-weight: bold;
 min-height: 35px;
 clear: both;}
 ul.tabs2 li a, ul.tabs2 li a:hover,ul.tabs li a, ul.tabs li a:hover{
-font-size:20px;font-family: 'Open Sans',serif;
+font-size:20px;font-family: 'Segoe UI Semilight',serif;
 text-decoration: none;
 display: block;
 padding: 12px;

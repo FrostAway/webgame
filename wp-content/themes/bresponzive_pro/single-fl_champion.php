@@ -129,7 +129,7 @@
                                             <h4><img width="40" height="40" src="<?php echo $skill[0] ?>" style="display: inline-block;" /> <?php echo $skill[1] ?></h4>
                                         </div>
                                         <div class="meta">
-                                            <span class="mana"><?php echo __('Năng lượng: ', 'iz_theme') . $skill[2]; ?></span> || 
+                                            <span class="mana"><?php echo __('Mana: ', 'iz_theme') . $skill[2]; ?></span> || 
                                             <span class="mana"><?php echo __('Thời gian hồi : ', 'iz_theme') . $skill[3]; ?></span>
                                         </div>
                                         <div class="skill-desc">

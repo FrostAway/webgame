@@ -41,15 +41,31 @@ class trendify_themepacific_magazine_singlethumb_Widget extends WP_Widget {
         $posts = $instance['posts'];
         $get_catego = $instance['get_catego'];
         echo $before_widget;
+        
         ?>
         <div class="head-span-lines"></div>
-        <h2 class="blogpost-wrapper-title"><a href="<?php echo get_category_link($get_catego); ?>"><?php if ($title) echo $title;
-        else echo get_cat_name($get_catego); ?></a> </h2>	
+        <h2 class="blogpost-wrapper-title">
+            <?php if(get_term($get_catego, 'fl_guide_cat') == null){ ?>
+            <a href="<?php echo get_category_link($get_catego); ?>"><?php if ($title) echo $title;
+            else echo get_cat_name($get_catego); ?></a>
+            <?php }else{ 
+                $curr_term = get_term($get_catego, 'fl_guide_cat'); 
+                ?>
+            <a href="<?php echo get_term_link($curr_term, 'fl_guide_cat') ?>"><?php if ($title) echo $title;
+            else echo $curr_term->name; ?></a>
+            <?php } ?>
+        </h2>	
 
         <div class="blog-lists full ">
 
             <?php
-            $magazine_sing_posts = new WP_Query(array(
+            if(get_term($get_catego, 'fl_guide_cat') == null){
+                $magazine_sing_posts = new WP_Query(array(
+                   'showposts' => $posts,
+                    'cat' => $get_catego
+                ));
+            }else{
+                $magazine_sing_posts = new WP_Query(array(
                 'showposts' => $posts,
                 'tax_query' => array(
                     array(
@@ -59,6 +75,7 @@ class trendify_themepacific_magazine_singlethumb_Widget extends WP_Widget {
                     )
                 )
             ));
+            }
             $count = 1;
             ?>
             <ul>

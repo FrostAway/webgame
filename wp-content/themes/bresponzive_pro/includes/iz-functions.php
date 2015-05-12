@@ -61,7 +61,8 @@ function iz_register_scripts() {
     wp_localize_script('iz_scripts', 'params', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
         'talent_url' => get_page_link(1103),
-        'talent_page' => get_page_link(1068)
+        'talent_page' => get_page_link(1068),
+        'talent_hero' => get_page_link(1509)
     ));
     wp_enqueue_media();
     wp_enqueue_script('iz_scripts');
@@ -122,7 +123,6 @@ function iz_insert_post() {
                 wp_redirect($redirect_fail);
                 die();
             } else {
-
                 if ($action == 'create_post') {
 
                     $post_id = wp_insert_post(array(
@@ -137,7 +137,7 @@ function iz_insert_post() {
                         set_post_thumbnail($post_id, $_POST['attach-id']);
 
                         add_post_meta($post_id, 'iz-guide-champion', $_POST['guide-champion']);
-
+                        add_post_meta($post_id, 'talent_stt', $_POST['talent_stt']);
                         $guide_cats = $_POST['guide-cat'];
                         $guide_cats = array_map('intval', $guide_cats);
                         $guide_cats = array_unique($guide_cats);
@@ -161,7 +161,8 @@ function iz_insert_post() {
                         wp_redirect($current_url . '?posted=failed&izguide=' . $edit_id . '&edit');
                     } else {
                         set_post_thumbnail($edit_id, $_POST['attach-id']);
-                        update_post_meta($edit_id, $_POST['iz-guide-champion'], $_POST['guide_champion']);
+                        update_post_meta($edit_id, 'iz-guide-champion', $_POST['guide_champion']);
+                        update_post_meta($edit_id, 'talent_stt', $_POST['talent_stt']);
                         $guide_cats = $_POST['guide-cat'];
                         $guide_cats = array_map('intval', $guide_cats);
                         $guide_cats = array_unique($guide_cats);

@@ -933,9 +933,9 @@ h2.blogpost-wrapper-title{
     .talent-image{
         position: relative;
         .talent-img{
-            .border-radius(3px);
+            .border-radius(0px);
             .mtrans(all 0.4s ease 0s);
-            .shadow(0 0 2px #b5b5b5);
+            .shadow(0);
             position: absolute; top: 0; left: 0;
             z-index: 1;
         }
@@ -945,13 +945,13 @@ h2.blogpost-wrapper-title{
             padding: 15px; .sizing-border; z-index: 10;
             .level{
                 .level-num{
-                    display: inline-block; width: 50px; height: 45px; margin-right: 10px;
+                    display: inline-block; width: 50px; height: 70px; margin-right: 10px;
                     font-size: 21px; color: #fff;
                     .ind{font-size: 13px; color: #0066cc; margin-top: -10px; margin-left: -5px; vertical-align: top;}
                 }
                 a{
-                    display: inline-block;
-                    img{display: inline-block; width: 45px; height: 45px;
+                    display: inline-block; margin-right: 15px;
+                    img{display: inline-block; width: 55px; height: 55px;
                         .border-radius(2px); .shadow(0 0 6px 0 rgba(0, 0, 0, 0.5));
                         border: 1px solid #009999;
                     }
@@ -1212,6 +1212,9 @@ h2.blogpost-wrapper-title{
             &:first-child{
                 margin-top: 0;
             }
+            &:last-child{
+                padding-left: 73px;
+            }
         }
         .iz-champion{
             display: inline-block;
@@ -1346,6 +1349,8 @@ h2.blogpost-wrapper-title{
         }
     }
 }
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{font-family: Segoe UI;}
 
 #main-active-media{
     .media{
@@ -1528,5 +1533,14 @@ ul.wpuf-form li .wpuf-fields ul.wpuf-category-checklist{
         display: block;
         margin: auto;
         margin-bottom: 20px;
+    }
+}
+
+#load-hero-talent{
+    .detail-talent .talent-image .talents .level .level-num{
+        height: 53px;
+    }
+    .detail-talent .talent-image .talents .talent_value{
+        display: none;
     }
 }
