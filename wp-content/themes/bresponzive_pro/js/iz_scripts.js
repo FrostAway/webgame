@@ -7,8 +7,10 @@
             var ch_id = $(this).attr('data-id');
             var ch_name = $(this).attr('title');
             $('#guide-champion').val(ch_id);
+            
+            var edit_id = $('#edit_post_id').val();
 
-            $('.new-guide-form .list-champions').load(params.talent_hero, {champion_id: ch_id}, function () {
+            $('.new-guide-form .list-champions').load(params.talent_hero, {champion_id: ch_id, eidt_id: edit_id}, function () {
                 $('.talent-image .talents .level a').click(function (e) {
                     e.preventDefault();
                     

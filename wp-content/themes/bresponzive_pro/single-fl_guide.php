@@ -86,7 +86,14 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
+                            <?php
+                            $tl_terms = get_the_terms($cham_id, 'fl_talent_cat');
+                                                    $talent_stt = get_post_meta(get_the_ID(),'talent_stt', true);
+                                                    $levels = array(1, 4, 7, 10, 13, 16, 20);
+                                                    $j = 0;
+                                                    if(is_array($tl_terms)){
+                            ?>
                             <div class="row detail-talent">
                                 <div class="index-info">
                                     <!-- Nav tabs -->
@@ -102,10 +109,6 @@
                                                 
                                                 <div class="talents">
                                                     <?php
-                                                    $tl_terms = get_the_terms(get_post_meta(get_the_ID(), 'iz-guide-champion', true), 'fl_talent_cat');
-                                                    $talent_stt = get_post_meta(get_the_ID(),'talent_stt', true);
-                                                    $levels = array(1, 4, 7, 10, 13, 16, 20);
-                                                    $j = 0;
                                                     foreach ($levels as $level) {
                                                         ?>
                                                         <div class="level" id="level-<?= $level ?>" >
@@ -157,6 +160,7 @@
                                     </div>
                                 </div>
                             </div>
+                                                    <?php } ?>
 
 
                             <!--/#post-meta --> 

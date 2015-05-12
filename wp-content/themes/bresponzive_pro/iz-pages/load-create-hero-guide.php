@@ -4,7 +4,14 @@
  */
 ?>
 <?php if (isset($_POST['champion_id'])) { ?>
-    <?php $currch = get_post($_POST['champion_id']); ?>     
+    <?php
+    $currch = get_post($_POST['champion_id']);
+    $edit_id = $_POST['eidt_id'];
+    if($edit_id != '0'){
+        $talent_stt = get_post_meta($edit_id, 'talent_stt', true);
+    }
+
+    ?>     
 
     <div id="load-hero-talent" role="tabpanel">
         <div class="row detail-talent">
@@ -44,7 +51,15 @@
                                                        data-tier="<?= $level ?>"
                                                        data-name="<?= $term->name ?>" 
                                                        data-title="<?php echo $term->description ?>"
-                                                       data-pos="<?= $i ?>">
+                                                       data-pos="<?= $i ?>"
+                                                       class="<?php if($talent_stt && is_array($talent_stt)){
+                                                           if($i == $talent_stt[$level][0]){
+                                                               echo 'active';
+                                                           }else{
+                                                               echo 'none';
+                                                           }
+                                                       } ?>"
+                                                       >
                                                         <img src="<?php echo z_taxonomy_image_url($term->term_id); ?>" />
                                                         <div class="row tl-tooltip">
                                                             <div class="col-sm-2">

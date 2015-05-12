@@ -18,7 +18,12 @@
                     if(isset($_GET['izguide']) && isset($_GET['edit'])){
                         $guide_id = $_GET['izguide'];
                         $guide = get_post($guide_id);
-                    }
+                        ?>
+            <input type="hidden" id="edit_post_id" value="<?= $guide_id ?>" />
+                        <?php
+                    }else{ ?>
+            <input type="hidden" id="edit_post_id" value="0" />
+                    <?php }
             ?>
             <h1 class="entry-title" style="font-size: 24px; color: #fff;"><?php if($guide) echo 'Sửa bài viết'; else the_title(); ?></h1>
             
