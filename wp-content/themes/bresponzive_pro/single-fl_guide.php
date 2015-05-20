@@ -105,7 +105,7 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="home">
-                                            <div class="talent-image">
+                                            <div class="talent-imagess">
                                                 
                                                 <div class="talents">
                                                     <?php
